@@ -17,3 +17,6 @@ rmfs			the production will write the rmf3 files for lowest temperature replica. 
 Python dependencies:
 biopython 		(to read fasta files)
 sklearn   		(for the gaussian mixture model decomposition of the EM map)
+
+How to install:
+(elina can you write down what you did?)
