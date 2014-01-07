@@ -1,5 +1,5 @@
 Nup84 modeling script using DSS/EDC crosslinks and 3DEM data.
-Authors: Riccardo Pellarin
+Authors: Riccardo Pellarin, Elina Tijoe
 
 The script works with the latest IMP, PMI (checkout resolution-zero branch: `git checkout resolution-zero`) and isd2 libraries.
 Compile imp using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
