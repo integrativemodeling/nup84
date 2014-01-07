@@ -1,5 +1,5 @@
 Nup84 modeling script using DSS/EDC crosslinks and 3DEM data.
-Authors: Riccardo Pellarin, Elina Tijoe
+Authors: Riccardo Pellarin, Elina Tjioe
 
 The script works with the latest IMP, PMI (checkout resolution-zero branch: `git checkout resolution-zero`) and isd2 libraries.
 Compile imp using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
@@ -22,5 +22,29 @@ Python dependencies:
 biopython 		(to read fasta files)
 sklearn   		(for the gaussian mixture model decomposition of the EM map)
 
-How to install:
-(elina can you write down what you did?)
+Getting IMP, PMI, ISD2 and compiling it on Fedora:
+-------------------------------------------------------------
+git clone https://github.com/salilab/imp.git imp-latest
+cd imp-latest/modules
+git clone https://github.com/salilab/isd2.git
+git clone https://github.com/salilab/pmi.git
+cd pmi
+git checkout resolution-zero
+cd ../../
+module load mpi/openmpi-x86_64
+./setup_git.py
+cd ..
+mkdir imp-latest-build
+cd imp-latest-build/
+cmake ../imp-latest
+make
+
+Biopython and sklearn are required to run nup84 script:
+------------------------------------------------------------
+sudo yum install python-biopython
+sudo yum install scikit-learn
+
+Running nup84 script:
+---------------------------
+imp-latest-build/setup_environment.sh python nup84.modeling.rex.py &> nup84.modeling.rex.out
+
