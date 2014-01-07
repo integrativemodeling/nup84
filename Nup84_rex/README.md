@@ -14,4 +14,6 @@ rmfs			the production will write the rmf3 files for lowest temperature replica. 
 			rmf3 file contains a single structure. rmf3 files are grouped into directories 
 			containing 100 files (group.0, group.1, group.2, etc.)
 
-
+Python dependencies:
+biopython 		(to read fasta files)
+sklearn   		(for the gaussian mixture model decomposition of the EM map)
