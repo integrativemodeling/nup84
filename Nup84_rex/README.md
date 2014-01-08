@@ -13,10 +13,13 @@ nup84.modeling.rex.py   the main modeling script (rex stands for replica exchang
 nup84.topology.py       constructs Nup84 subunits, as well as calculates the densities for the EM restraints
 
 pdbs                    the production will write the best scoring models into pdb files
+		        they are initialized and then updated as long as the calculation goes (They are the best 500                            models, so at the beginning they are empty, since you haven't start the calculation yet)
 
 rmfs			the production will write the rmf3 files for lowest temperature replica. Each
 			rmf3 file contains a single structure. rmf3 files are grouped into directories 
 			containing 100 files (group.0, group.1, group.2, etc.)
+			
+stat.n.out		log files. They contain all relevant numbers of the calculation.
 
 Python dependencies:
 biopython 		(to read fasta files)
