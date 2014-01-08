@@ -46,5 +46,5 @@ sudo yum install scikit-learn
 
 Running nup84 script:
 ---------------------------
-imp-latest-build/setup_environment.sh /lib64/mpich/bin/mpirun -np 4 python nup84.modeling.rex.py &> nup84.modeling.rex.out
+imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.modeling.rex.py &> nup84.modeling.rex.out
 
