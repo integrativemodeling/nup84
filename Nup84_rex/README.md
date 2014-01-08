@@ -31,12 +31,12 @@ git clone https://github.com/salilab/pmi.git
 cd pmi
 git checkout resolution-zero
 cd ../../
-module load mpi/openmpi-x86_64
+module load mpi
 ./setup_git.py
 cd ..
 mkdir imp-latest-build
 cd imp-latest-build/
-cmake ../imp-latest
+cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx
 make
 
 Biopython and sklearn are required to run nup84 script:
@@ -46,5 +46,5 @@ sudo yum install scikit-learn
 
 Running nup84 script:
 ---------------------------
-imp-latest-build/setup_environment.sh python nup84.modeling.rex.py &> nup84.modeling.rex.out
+imp-latest-build/setup_environment.sh /lib64/mpich/bin/mpirun -np 4 python nup84.modeling.rex.py &> nup84.modeling.rex.out
 
