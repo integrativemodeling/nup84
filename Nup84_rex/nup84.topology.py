@@ -1,3 +1,5 @@
+
+# little function that is used to get flexible beads
 def get_pdb_bead_bits(hierarchy):
     pdbbits=[]
     beadbits=[]
@@ -7,23 +9,29 @@ def get_pdb_bead_bits(hierarchy):
     return (pdbbits,beadbits)
 
 
-beadsize=20
-pdbfile='nup84_complex_ca_map_fit.pdb'
+beadsize=20                             # the maximum number of allowed aggregated 
+                                        # residues in a bead for missing regions
+pdbfile='nup84_complex_ca_map_fit.pdb'  
 
 #-----------------
 
-
-simo.add_component_name("Nup84",color=0.0)
-simo.add_component_sequence("Nup84","data/protein_fasta.Nup84.txt")
-Nup84=simo.autobuild_pdb_and_intervening_beads("Nup84",'data/'+pdbfile,"A",
+#coordinate generation
+simo.add_component_name("Nup84",color=0.0)                                    #create the subunit
+simo.add_component_sequence("Nup84","data/protein_fasta.Nup84.txt")           #add the sequence
+Nup84=simo.autobuild_pdb_and_intervening_beads("Nup84",'data/'+pdbfile,"A",   #automatic generation of coordinates
                                         resolutions=[1,10],beadsize=beadsize)
 
+#density generation for the EM restraint
 (pdbbits,beadbits)=get_pdb_bead_bits(Nup84)
-Nup84_dens=simo.add_component_density("Nup84",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup84_dens.txt')
+Nup84_dens=simo.add_component_density("Nup84",
+                               pdbbits,
+                               num_components=10, # number of gaussian into which the simulated density is approximated
+                               resolution=1,      # resolution that you want to calculate the simulated density
+                               inputfile='data/Nup84_dens.txt') # read what it was calculated before
+                               # outputfile='data/Nup84_dens.txt') # do the calculation
+                               # mrcfile='data/Nup84_dens.mrc') # do the calculation and output the mrc
 
-simo.show_component_table("Nup84")
+simo.show_component_table("Nup84") # printing out information to do debug
 
 #-----------------
 #-----------------
@@ -183,7 +191,8 @@ simo.show_component_table("Sec13")
 #-----------------
 #-----------------
 
-simo.setup_component_sequence_connectivity("Nup84")
+simo.setup_component_sequence_connectivity("Nup84")  # this creates the restraints that makes flexible parts, 
+                                                     # and different rigid bodies all connected by the sequence
 simo.setup_component_sequence_connectivity("Nup85")
 simo.setup_component_sequence_connectivity("Nup120")
 simo.setup_component_sequence_connectivity("Nup133")
@@ -191,7 +200,9 @@ simo.setup_component_sequence_connectivity("Nup145c")
 simo.setup_component_sequence_connectivity("Seh1")
 simo.setup_component_sequence_connectivity("Sec13")
 
-Nup84_all    =Nup84+Nup84_dens
+# here we are creating the list of hierarchies for all  rigid bodies
+
+Nup84_all    =Nup84+Nup84_dens        
 Nup85_1_all  =Nup85_1+Nup85_1_dens
 Nup85_2_all  =Nup85_2+Nup85_2_dens
 Nup120_1_all =Nup120_1+Nup120_1_dens
@@ -202,10 +213,15 @@ Nup145c_2_all=Nup145c_2+Nup145c_2_dens
 Nup145c_3_all=Nup145c_3+Nup145c_3_dens
 Seh1_all     =Seh1+Seh1_dens
 Sec13_all    =Sec13+Sec13_dens
+
+# list of hierarchies for the super rigid bodies
+
 Nup85_all    =Nup85_1_all+Nup85_2_all
 Nup120_all   =Nup120_1_all+Nup120_2_all
 Nup145c_all  =Nup145c_1_all+Nup145c_2_all+Nup145c_3_all
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
+
+# create the rigid bodies
 
 simo.set_rigid_body_from_hierarchies(Nup84_all)
 simo.set_rigid_body_from_hierarchies(Nup85_1_all)
@@ -219,13 +235,14 @@ simo.set_rigid_body_from_hierarchies(Nup145c_3_all)
 simo.set_rigid_body_from_hierarchies(Seh1_all)
 simo.set_rigid_body_from_hierarchies(Sec13_all)
 
+# create the super rigid bodies
+
 simo.set_super_rigid_body_from_hierarchies(Nup85_all)
 simo.set_super_rigid_body_from_hierarchies(Nup120_all)
 simo.set_super_rigid_body_from_hierarchies(Nup145c_all)
-
 simo.set_super_rigid_body_from_hierarchies(Nup84_complex)
 
-
+# used elsewhere
 
 resdensities=Nup145c_1_dens+\
              Nup145c_2_dens+\
@@ -238,5 +255,7 @@ resdensities=Nup145c_1_dens+\
              Nup133_dens+\
              Seh1_dens+\
              Sec13_dens
+
+# setup floppy bodies
 
 simo.set_floppy_bodies()
