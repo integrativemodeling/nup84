@@ -151,7 +151,6 @@ for k in range(nrmffiles):
     output.set_output_entry("rmf_file",rmfname)
     #output.set_output_entry("rmf_frame_index",i)
     
-    
-    rex.swap_temp(i,score)
     output.write_stats2() 
+    rex.swap_temp(i,score)
 
