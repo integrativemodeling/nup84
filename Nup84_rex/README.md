@@ -25,8 +25,8 @@ Python dependencies:
 biopython 		(to read fasta files)
 sklearn   		(for the gaussian mixture model decomposition of the EM map)
 
-Getting IMP, PMI, ISD2 and compiling it on Fedora:
--------------------------------------------------------------
+Getting IMP, PMI, ISD2 and compiling it with fast-build on Fedora:
+-------------------------------------------------------------------
 git clone https://github.com/salilab/imp.git imp-latest
 cd imp-latest/modules
 git clone https://github.com/salilab/isd2.git
@@ -39,7 +39,7 @@ module load mpi
 cd ..
 mkdir imp-latest-build
 cd imp-latest-build/
-cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx
+cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP_MAX_CHECKS=NONE -DIMP_MAX_LOG=SILENT
 make
 
 Biopython and sklearn are required to run nup84 script:
