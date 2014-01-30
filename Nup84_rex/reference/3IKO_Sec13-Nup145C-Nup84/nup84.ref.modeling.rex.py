@@ -29,6 +29,8 @@ simo = IMP.pmi.representation.SimplifiedModel(m,upperharmonic=True,disorderedlen
 
 execfile("nup84.ref.topology.rex.py")
 
+simo.set_current_coordinates_as_reference_for_rmsd("3IKO")
+
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
 simo.shuffle_configuration(200)  # randomize the initial coordinates within a box of 200 Angstroms
 #simo.translate_hierarchies(Nup84_complex,(100,100,100))
@@ -44,7 +46,7 @@ outputobjects.append(simo)  # because we want to have the log of the model
 sampleobjects.append(simo)  # because we want to sample the coordinates
 
 # Excluded Volume
-ev = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo,resolution=10)
+ev = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo,resolution=1)
 ev.add_to_model()
 outputobjects.append(ev) # because we want to have the log of the excluded volume
 
@@ -62,18 +64,18 @@ ids_map=IMP.pmi.tools.map()
 ids_map.set_map_element(1.0,1.0) # a dictionary to classify the cross-links
                                  # here we have only one class
 
-xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
-                                   'data/yeast_Nup84_DSS.dat',
-                                   length=21.0,                # maximum expected distance for DSS cross-links
-                                   slope=0.02,                 # slope for a linear reastraint that is added on top of 
+#xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
+#                                   'data/yeast_Nup84_DSS.dat',
+#                                   length=21.0,                # maximum expected distance for DSS cross-links
+#                                   slope=0.02,                 # slope for a linear reastraint that is added on top of 
                                                                # the cross-link restraint: I need that to create a funnel
-                                   columnmapping=columnmap,    
-                                   ids_map=ids_map,
-                                   resolution=1.0,
-                                   label="DSS")
-xl1.add_to_model()
-sampleobjects.append(xl1)
-outputobjects.append(xl1)
+#                                   columnmapping=columnmap,    
+#                                   ids_map=ids_map,
+#                                   resolution=1.0,
+#                                   label="DSS",filelabel="DSS")
+#xl1.add_to_model()
+#sampleobjects.append(xl1)
+#outputobjects.append(xl1)
 
 xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo, 
                                    'data/EDC_XL_122013.dat',
@@ -82,7 +84,7 @@ xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,
                                    resolution=1.0,
-                                   label="EDC")
+                                   label="EDC",filelabel="EDC")
 xl2.add_to_model()
 sampleobjects.append(xl2)
 outputobjects.append(xl2)
@@ -135,7 +137,8 @@ output.init_pdb_best_scoring("pdbs/models",prot,500,replica_exchange=True)  # th
                                                                             # into pdb files (for the lowest temperature)
                                                                             # the names are assigned at run time
 output.init_rmf("initial."+str(myindex)+".rmf3", [prot])                    
-output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1,xl2])
+#output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1,xl2])
+output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl2])
 output.write_rmf("initial."+str(myindex)+".rmf3",0)
 output.close_rmf("initial."+str(myindex)+".rmf3")
 
@@ -147,6 +150,7 @@ for k in range(nrmffiles):
   
   for i in range(nframes):
     mc.run(nsteps)
+    simo.translate_hierarchies_to_reference_frame([simo.prot])
     score=m.evaluate(False)
     rmfname="None"
     if rex.get_my_temp()==1.0:
@@ -155,13 +159,13 @@ for k in range(nrmffiles):
        output.write_pdb_best_scoring(score)
        rmfname=rmfdir+"/"+str(i)+".rmf3"
        output.init_rmf(rmfname, [prot])
-       output.add_restraints_to_rmf(rmfname,[xl1,xl2])
+       #output.add_restraints_to_rmf(rmfname,[xl1,xl2])
+       output.add_restraints_to_rmf(rmfname,[xl2])
        output.write_rmf(rmfname,0)
        output.close_rmf(rmfname)
-
-    output.set_output_entry("rmf_file",rmfname)
+       output.set_output_entry("rmf_file",rmfname)
+       output.write_stats2()
     #output.set_output_entry("rmf_frame_index",i)
     
-    
-    output.write_stats2() 
     rex.swap_temp(i,score)
+
