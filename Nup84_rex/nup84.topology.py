@@ -86,21 +86,21 @@ Seh1_all    =Seh1
 Sec13_all   =Sec13
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
 
-simo.set_rigid_body_from_hierarchies(Nup84_1)
+#simo.set_rigid_body_from_hierarchies(Nup84_1)
 simo.set_rigid_body_from_hierarchies(Nup84_2)
-simo.set_rigid_body_from_hierarchies(Nup84_3)
+#simo.set_rigid_body_from_hierarchies(Nup84_3)
 simo.set_rigid_body_from_hierarchies(Nup84_4)
-simo.set_rigid_body_from_hierarchies(Nup85_1)
+#simo.set_rigid_body_from_hierarchies(Nup85_1)
 simo.set_rigid_body_from_hierarchies(Nup85_2)
 simo.set_rigid_body_from_hierarchies(Nup120_1) 
 simo.set_rigid_body_from_hierarchies(Nup120_2) 
-simo.set_rigid_body_from_hierarchies(Nup133_1)
+#simo.set_rigid_body_from_hierarchies(Nup133_1)
 simo.set_rigid_body_from_hierarchies(Nup133_2)
-simo.set_rigid_body_from_hierarchies(Nup133_3)
+#simo.set_rigid_body_from_hierarchies(Nup133_3)
 simo.set_rigid_body_from_hierarchies(Nup133_4)
-simo.set_rigid_body_from_hierarchies(Nup145c_1)  
+#simo.set_rigid_body_from_hierarchies(Nup145c_1)  
 simo.set_rigid_body_from_hierarchies(Nup145c_2)
-simo.set_rigid_body_from_hierarchies(Nup145c_3)
+#simo.set_rigid_body_from_hierarchies(Nup145c_3)
 simo.set_rigid_body_from_hierarchies(Seh1)
 simo.set_rigid_body_from_hierarchies(Sec13)
 
