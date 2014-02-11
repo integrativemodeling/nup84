@@ -22,17 +22,17 @@ sec13_pdbfile  ='data/ScSec13_2-296.pdb'
 simo.create_component("Nup84",color=0.0)
 simo.add_component_sequence("Nup84", n84_fastafile)
 tmp_color=0.0
-Nup84_1=simo.add_component_beads("Nup84", [(1,6)], colors=[tmp_color])
-Nup84_2=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(7,488), resolutions=[1,10], missingbeadsize=beadsize)
-Nup84_3=simo.add_component_beads("Nup84", [(489,505)], colors=[tmp_color])
-Nup84_4=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(506,726), resolutions=[1,10], missingbeadsize=beadsize)
+#Nup84_1=simo.add_component_beads("Nup84", [(1,6)], colors=[tmp_color])
+Nup84_2=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(1,488), resolutions=[1,10], missingbeadsize=beadsize)
+#Nup84_3=simo.add_component_beads("Nup84", [(489,505)], colors=[tmp_color])
+Nup84_4=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(489,726), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup84")
 #-----------------
 simo.create_component("Nup85",color=0.1)
 simo.add_component_sequence("Nup85", n85_fastafile)
 tmp_color=0.1
-Nup85_1=simo.add_component_beads("Nup85", [(1,43)],colors=[tmp_color])
-Nup85_2=simo.autobuild_model("Nup85", n85_pdbfile,"B", resrange=(44,744), resolutions=[1,10], missingbeadsize=beadsize)
+#Nup85_1=simo.add_component_beads("Nup85", [(1,43)],colors=[tmp_color])
+Nup85_2=simo.autobuild_model("Nup85", n85_pdbfile,"B", resrange=(1,744), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup85")
 #-----------------
 simo.create_component("Nup120",color=0.2)
@@ -44,17 +44,17 @@ simo.show_component_table("Nup120")
 simo.create_component("Nup133",color=0.3)
 simo.add_component_sequence("Nup133", n133_fastafile)
 tmp_color=0.3
-Nup133_1=simo.add_component_beads("Nup133", [(1,55)],colors=[tmp_color])
-Nup133_2=simo.autobuild_model("Nup133",n133n_pdbfile,"D", resrange=(56,480),resolutions=[1,10],missingbeadsize=beadsize)
-Nup133_3=simo.add_component_beads("Nup133", [(481,489)],colors=[tmp_color])
-Nup133_4=simo.autobuild_model("Nup133",n133c_pdbfile,"D", resrange=(490,1157),resolutions=[1,10],missingbeadsize=beadsize)
+#Nup133_1=simo.add_component_beads("Nup133", [(1,55)],colors=[tmp_color])
+Nup133_2=simo.autobuild_model("Nup133",n133n_pdbfile,"D", resrange=(1,480),resolutions=[1,10],missingbeadsize=beadsize)
+#Nup133_3=simo.add_component_beads("Nup133", [(481,489)],colors=[tmp_color])
+Nup133_4=simo.autobuild_model("Nup133",n133c_pdbfile,"D", resrange=(481,1157),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Nup133")
 #-----------------
 simo.create_component("Nup145c",color=0.4)
 simo.add_component_sequence("Nup145c", n145c_fastafile)
 tmp_color=0.4
-Nup145c_1=simo.add_component_beads("Nup145c", [(1,125)],colors=[tmp_color])
-Nup145c_2=simo.autobuild_model("Nup145c",n145c_pdbfile,"E", resrange=(126,553),resolutions=[1,10],missingbeadsize=beadsize)
+#Nup145c_1=simo.add_component_beads("Nup145c", [(1,125)],colors=[tmp_color])
+Nup145c_2=simo.autobuild_model("Nup145c",n145c_pdbfile,"E", resrange=(1,553),resolutions=[1,10],missingbeadsize=beadsize)
 Nup145c_3=simo.add_component_beads("Nup145c", [(554,712)],colors=[tmp_color])
 simo.show_component_table("Nup145c")
 #-----------------
@@ -77,11 +77,11 @@ simo.setup_component_sequence_connectivity("Nup145c")
 simo.setup_component_sequence_connectivity("Seh1")
 simo.setup_component_sequence_connectivity("Sec13")
 
-Nup84_all   =Nup84_1+Nup84_2+Nup84_3+Nup84_4
-Nup85_all   =Nup85_1+Nup85_2
+Nup84_all   =Nup84_2+Nup84_4
+Nup85_all   =Nup85_2
 Nup120_all  =Nup120_1+Nup120_2
-Nup133_all  =Nup133_1+Nup133_2+Nup133_3+Nup133_4
-Nup145c_all =Nup145c_1+Nup145c_2+Nup145c_3
+Nup133_all  =Nup133_2+Nup133_4
+Nup145c_all =Nup145c_2+Nup145c_3
 Seh1_all    =Seh1
 Sec13_all   =Sec13
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
