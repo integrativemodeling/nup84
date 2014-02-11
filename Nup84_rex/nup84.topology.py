@@ -1,198 +1,75 @@
+beadsize=20
 
-# little function that is used to get flexible beads
-def get_pdb_bead_bits(hierarchy):
-    pdbbits=[]
-    beadbits=[]
-    for h in hierarchy: 
-       if "_pdb" in h.get_name():pdbbits.append(h)
-       if "_bead" in h.get_name():beadbits.append(h)
-    return (pdbbits,beadbits)
+n84_fastafile  ='data/protein_fasta.Nup84.txt'
+n85_fastafile  ='data/protein_fasta.Nup85.txt'
+n120_fastafile ='data/protein_fasta.Nup120.txt'
+n133_fastafile ='data/protein_fasta.Nup133.txt'
+n145c_fastafile='data/protein_fasta.Nup145c.txt'
+seh1_fastafile ='data/protein_fasta.Seh1.txt'
+sec13_fastafile='data/protein_fasta.Sec13.txt'
 
-
-beadsize=20                             # the maximum number of allowed aggregated 
-                                        # residues in a bead for missing regions
-pdbfile='nup84_complex_ca_map_fit.pdb'  
-
-#-----------------
-
-#coordinate generation
-simo.add_component_name("Nup84",color=0.0)                                    #create the subunit
-simo.add_component_sequence("Nup84","data/protein_fasta.Nup84.txt")           #add the sequence
-Nup84=simo.autobuild_pdb_and_intervening_beads("Nup84",'data/'+pdbfile,"A",   #automatic generation of coordinates
-                                        resolutions=[1,10],beadsize=beadsize)
-
-#density generation for the EM restraint
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup84)
-Nup84_dens=simo.add_component_density("Nup84",
-                               pdbbits,
-                               num_components=10, # number of gaussian into which the simulated density is approximated
-                               resolution=1,      # resolution that you want to calculate the simulated density
-                               inputfile='data/Nup84_dens.txt') # read what it was calculated before
-                               # outputfile='data/Nup84_dens.txt') # do the calculation
-                               # mrcfile='data/Nup84_dens.mrc') # do the calculation and output the mrc
-
-simo.show_component_table("Nup84") # printing out information to do debug
+n84n_pdbfile   ='data/ScNup84N_7-488.pdb'  
+n84c_pdbfile   ='data/ScNup84C_506-726.pdb'   
+n85_pdbfile    ='data/ScNup85_44-744.pdb'  
+n120_pdbfile   ='data/ScNup120_1-1037.pdb'        
+n133n_pdbfile  ='data/ScNup133N_56-480.pdb'    
+n133c_pdbfile  ='data/ScNup133C_490_1157.pdb'
+n145c_pdbfile  ='data/ScNup145C_126-553.pdb'  
+seh1_pdbfile   ='data/ScSeh1_1-346.pdb'
+sec13_pdbfile  ='data/ScSec13_2-296.pdb'
 
 #-----------------
+simo.create_component("Nup84",color=0.0)
+simo.add_component_sequence("Nup84", n84_fastafile)
+tmp_color=0.0
+Nup84_1=simo.add_component_beads("Nup84", [(1,6)], colors=[tmp_color])
+Nup84_2=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(7,488), resolutions=[1,10], missingbeadsize=beadsize)
+Nup84_3=simo.add_component_beads("Nup84", [(489,505)], colors=[tmp_color])
+Nup84_4=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(506,726), resolutions=[1,10], missingbeadsize=beadsize)
+simo.show_component_table("Nup84")
 #-----------------
-
-
-simo.add_component_name("Nup85",color=0.1)
-simo.add_component_sequence("Nup85","data/protein_fasta.Nup85.txt")
-Nup85_1=simo.autobuild_pdb_and_intervening_beads("Nup85",'data/'+pdbfile,"B",resrange=(1,555),
-                                        resolutions=[1,10],beadsize=beadsize)
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup85_1)
-                       
-Nup85_1_dens=simo.add_component_density("Nup85",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup85_1_dens.txt')
-
-#-----------------
-
-
-Nup85_2=simo.autobuild_pdb_and_intervening_beads("Nup85",'data/'+pdbfile,"B",
-                                        resrange=(556,745),
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup85_2)
-
-Nup85_2_dens=simo.add_component_density("Nup85",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup85_2_dens.txt')
-                               
+simo.create_component("Nup85",color=0.1)
+simo.add_component_sequence("Nup85", n85_fastafile)
+tmp_color=0.1
+Nup85_1=simo.add_component_beads("Nup85", [(1,43)],colors=[tmp_color])
+Nup85_2=simo.autobuild_model("Nup85", n85_pdbfile,"B", resrange=(44,744), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup85")
-
 #-----------------
-#-----------------
-
-simo.add_component_name("Nup120",color=0.2)
+simo.create_component("Nup120",color=0.2)
 simo.add_component_sequence("Nup120","data/protein_fasta.Nup120.txt")
-
-Nup120_1=simo.autobuild_pdb_and_intervening_beads("Nup120",'data/'+pdbfile,"C",
-                                        resrange=(1,730),
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup120_1)
-
-Nup120_1_dens=simo.add_component_density("Nup120",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup120_1_dens.txt')
-
-#-----------------
-
-                       
-Nup120_2=simo.autobuild_pdb_and_intervening_beads("Nup120",'data/'+pdbfile,"C",
-                                        resrange=(731,1040),
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup120_2)
-
-                    
-Nup120_2_dens=simo.add_component_density("Nup120",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup120_2_dens.txt')  
-
+Nup120_1=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(1,710), resolutions=[1,10], missingbeadsize=beadsize)
+Nup120_2=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(711,1037), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup120")
-
 #-----------------
-#-----------------
-
-simo.add_component_name("Nup133",color=0.3)
+simo.create_component("Nup133",color=0.3)
 simo.add_component_sequence("Nup133","data/protein_fasta.Nup133.txt")
-                       
-Nup133=simo.autobuild_pdb_and_intervening_beads("Nup133",'data/'+pdbfile,"D",
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup133)
-                    
-Nup133_dens=simo.add_component_density("Nup133",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup133_dens.txt')  
-                               
+tmp_color=0.3
+Nup133_1=simo.add_component_beads("Nup133", [(1,55)],colors=[tmp_color])
+Nup133_2=simo.autobuild_model("Nup133",n133n_pdbfile,"D", resrange=(56,480),resolutions=[1,10],missingbeadsize=beadsize)
+Nup133_3=simo.add_component_beads("Nup133", [(481,489)],colors=[tmp_color])
+Nup133_4=simo.autobuild_model("Nup133",n133c_pdbfile,"D", resrange=(490,1157),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Nup133")
-
 #-----------------
-#-----------------
-
-simo.add_component_name("Nup145c",color=0.4)
-simo.add_component_sequence("Nup145c","data/protein_fasta.Nup145C.txt")
-
-Nup145c_1=simo.autobuild_pdb_and_intervening_beads("Nup145c",'data/'+pdbfile,"E",
-                                        resrange=(1,130),
-                                        resolutions=[1,10],beadsize=beadsize)
-                       
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup145c_1)
-  
-                       
-Nup145c_1_dens=simo.add_component_density("Nup145c",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup145c_1_dens.txt')
-
-
-#-----------------
-
-Nup145c_2=simo.autobuild_pdb_and_intervening_beads("Nup145c",'data/'+pdbfile,"E",
-                                        resrange=(131,553),
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup145c_2)
-
-Nup145c_2_dens=simo.add_component_density("Nup145c",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup145c_2_dens.txt')
-
-#-----------------
-
-Nup145c_3=simo.autobuild_pdb_and_intervening_beads("Nup145c",'data/'+pdbfile,"E",
-                                        resrange=(554,712),
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Nup145c_3)
-                           
-Nup145c_3_dens=simo.add_component_density("Nup145c",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Nup145c_3_dens.txt')
-                                 
+simo.create_component("Nup145c",color=0.4)
+simo.add_component_sequence("Nup145c","data/protein_fasta.Nup145c.txt")
+tmp_color=0.4
+Nup145c_1=simo.add_component_beads("Nup145c", [(1,125)],colors=[tmp_color])
+Nup145c_2=simo.autobuild_model("Nup145c",n145c_pdbfile,"E", resrange=(126,553),resolutions=[1,10],missingbeadsize=beadsize)
+Nup145c_3=simo.add_component_beads("Nup145c", [(554,712)],colors=[tmp_color])
 simo.show_component_table("Nup145c")
-
 #-----------------
-#-----------------
-
-simo.add_component_name("Seh1",color=0.5)
+simo.create_component("Seh1",color=0.5)
 simo.add_component_sequence("Seh1","data/protein_fasta.Seh1.txt")
-Seh1=simo.autobuild_pdb_and_intervening_beads("Seh1",'data/'+pdbfile,"F",
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Seh1)
-
-Seh1_dens=simo.add_component_density("Seh1",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Seh1_dens.txt')
-                                 
+Seh1=simo.autobuild_model("Seh1",seh1_pdbfile,"F", resrange=(1,349),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Seh1")
-
 #-----------------
-#-----------------
-
-simo.add_component_name("Sec13",color=0.6)
+simo.create_component("Sec13",color=0.6)
 simo.add_component_sequence("Sec13","data/protein_fasta.Sec13.txt")
-
-Sec13=simo.autobuild_pdb_and_intervening_beads("Sec13",'data/'+pdbfile,"G",
-                                        resolutions=[1,10],beadsize=beadsize)
-
-(pdbbits,beadbits)=get_pdb_bead_bits(Sec13)
-
-Sec13_dens=simo.add_component_density("Sec13",pdbbits,
-                               num_components=10,resolution=1,
-                               inputfile='data/Sec13_dens.txt')
-                                 
+Sec13=simo.autobuild_model("Sec13",sec13_pdbfile,"G", resrange=(1,297),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Sec13")
-
-#-----------------
 #-----------------
 
-simo.setup_component_sequence_connectivity("Nup84")  # this creates the restraints that makes flexible parts, 
-                                                     # and different rigid bodies all connected by the sequence
+simo.setup_component_sequence_connectivity("Nup84")
 simo.setup_component_sequence_connectivity("Nup85")
 simo.setup_component_sequence_connectivity("Nup120")
 simo.setup_component_sequence_connectivity("Nup133")
@@ -200,62 +77,39 @@ simo.setup_component_sequence_connectivity("Nup145c")
 simo.setup_component_sequence_connectivity("Seh1")
 simo.setup_component_sequence_connectivity("Sec13")
 
-# here we are creating the list of hierarchies for all  rigid bodies
-
-Nup84_all    =Nup84+Nup84_dens        
-Nup85_1_all  =Nup85_1+Nup85_1_dens
-Nup85_2_all  =Nup85_2+Nup85_2_dens
-Nup120_1_all =Nup120_1+Nup120_1_dens
-Nup120_2_all =Nup120_2+Nup120_2_dens
-Nup133_all   =Nup133+Nup133_dens
-Nup145c_1_all=Nup145c_1+Nup145c_1_dens
-Nup145c_2_all=Nup145c_2+Nup145c_2_dens
-Nup145c_3_all=Nup145c_3+Nup145c_3_dens
-Seh1_all     =Seh1+Seh1_dens
-Sec13_all    =Sec13+Sec13_dens
-
-# list of hierarchies for the super rigid bodies
-
-Nup85_all    =Nup85_1_all+Nup85_2_all
-Nup120_all   =Nup120_1_all+Nup120_2_all
-Nup145c_all  =Nup145c_1_all+Nup145c_2_all+Nup145c_3_all
+Nup84_all   =Nup84_1+Nup84_2+Nup84_3+Nup84_4
+Nup85_all   =Nup85_1+Nup85_2
+Nup120_all  =Nup120_1+Nup120_2
+Nup133_all  =Nup133_1+Nup133_2+Nup133_3+Nup133_4
+Nup145c_all =Nup145c_1+Nup145c_2+Nup145c_3
+Seh1_all    =Seh1
+Sec13_all   =Sec13
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
 
-# create the rigid bodies
+simo.set_rigid_body_from_hierarchies(Nup84_1)
+simo.set_rigid_body_from_hierarchies(Nup84_2)
+simo.set_rigid_body_from_hierarchies(Nup84_3)
+simo.set_rigid_body_from_hierarchies(Nup84_4)
+simo.set_rigid_body_from_hierarchies(Nup85_1)
+simo.set_rigid_body_from_hierarchies(Nup85_2)
+simo.set_rigid_body_from_hierarchies(Nup120_1) 
+simo.set_rigid_body_from_hierarchies(Nup120_2) 
+simo.set_rigid_body_from_hierarchies(Nup133_1)
+simo.set_rigid_body_from_hierarchies(Nup133_2)
+simo.set_rigid_body_from_hierarchies(Nup133_3)
+simo.set_rigid_body_from_hierarchies(Nup133_4)
+simo.set_rigid_body_from_hierarchies(Nup145c_1)  
+simo.set_rigid_body_from_hierarchies(Nup145c_2)
+simo.set_rigid_body_from_hierarchies(Nup145c_3)
+simo.set_rigid_body_from_hierarchies(Seh1)
+simo.set_rigid_body_from_hierarchies(Sec13)
 
-simo.set_rigid_body_from_hierarchies(Nup84_all)
-simo.set_rigid_body_from_hierarchies(Nup85_1_all)
-simo.set_rigid_body_from_hierarchies(Nup85_2_all)
-simo.set_rigid_body_from_hierarchies(Nup120_1_all) 
-simo.set_rigid_body_from_hierarchies(Nup120_2_all) 
-simo.set_rigid_body_from_hierarchies(Nup133_all)
-simo.set_rigid_body_from_hierarchies(Nup145c_1_all)  
-simo.set_rigid_body_from_hierarchies(Nup145c_2_all)
-simo.set_rigid_body_from_hierarchies(Nup145c_3_all)
-simo.set_rigid_body_from_hierarchies(Seh1_all)
-simo.set_rigid_body_from_hierarchies(Sec13_all)
-
-# create the super rigid bodies
-
+simo.set_super_rigid_body_from_hierarchies(Nup84_all)
 simo.set_super_rigid_body_from_hierarchies(Nup85_all)
 simo.set_super_rigid_body_from_hierarchies(Nup120_all)
+simo.set_super_rigid_body_from_hierarchies(Nup133_all)
 simo.set_super_rigid_body_from_hierarchies(Nup145c_all)
+
 simo.set_super_rigid_body_from_hierarchies(Nup84_complex)
-
-# used elsewhere
-
-resdensities=Nup145c_1_dens+\
-             Nup145c_2_dens+\
-             Nup145c_3_dens+\
-             Nup120_1_dens+\
-             Nup120_2_dens+\
-             Nup85_1_dens+\
-             Nup85_2_dens+\
-             Nup84_dens+\
-             Nup133_dens+\
-             Seh1_dens+\
-             Sec13_dens
-
-# setup floppy bodies
 
 simo.set_floppy_bodies()
