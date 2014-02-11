@@ -25,7 +25,7 @@ outputobjects = []
 sampleobjects = []
 
 m = IMP.Model()
-simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
+simo = IMP.pmi.representation.SimplifiedModel(m,upperharmonic=True,disorderedlength=True)
 
 execfile("nup84.topology.py")
 
@@ -70,16 +70,16 @@ xl1.add_to_model()
 sampleobjects.append(xl1)
 outputobjects.append(xl1)
 
-#xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo, 
-#                                   'data/EDC_XL_122013.dat',
-#                                   length=12.0,
-#                                   slope=0.02,
-#                                   columnmapping=columnmap,
-#                                   ids_map=ids_map,resolution=1.0,
-#                                   label="EDC")
-#xl2.add_to_model()
-#sampleobjects.append(xl2)
-#outputobjects.append(xl2)
+xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo, 
+                                   'data/EDC_XL_122013.dat',
+                                   length=12.0,
+                                   slope=0.02,
+                                   columnmapping=columnmap,
+                                   ids_map=ids_map,resolution=1.0,
+                                   label="EDC")
+xl2.add_to_model()
+sampleobjects.append(xl2)
+outputobjects.append(xl2)
 
 simo.optimize_floppy_bodies(1000)
 
@@ -117,8 +117,7 @@ except:
 
 output.init_pdb_best_scoring("pdbs/models",prot,500,replica_exchange=True)
 output.init_rmf("initial."+str(myindex)+".rmf3", [prot])
-#output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1,xl2])
-output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1])
+output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1,xl2])
 output.write_rmf("initial."+str(myindex)+".rmf3")
 output.close_rmf("initial."+str(myindex)+".rmf3")
 
@@ -126,7 +125,7 @@ for k in range(nrmffiles):
   rmfdir="rmfs/group."+str(k)
   
   for i in range(nframes):
-    mc.run(nsteps)
+    mc.optimize(nsteps)
     score=m.evaluate(False)
     rmfname="None"
     if rex.get_my_temp()==1.0:
@@ -135,8 +134,7 @@ for k in range(nrmffiles):
        output.write_pdb_best_scoring(score)
        rmfname=rmfdir+"/"+str(i)+".rmf3"
        output.init_rmf(rmfname, [prot])
-       #output.add_restraints_to_rmf(rmfname,[xl1,xl2])
-       output.add_restraints_to_rmf(rmfname,[xl1])
+       output.add_restraints_to_rmf(rmfname,[xl1,xl2])
        output.write_rmf(rmfname)
        output.close_rmf(rmfname)
        output.set_output_entry("rmf_file",rmfname)
