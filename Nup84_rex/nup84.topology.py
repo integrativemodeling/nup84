@@ -36,13 +36,13 @@ Nup85_2=simo.autobuild_model("Nup85", n85_pdbfile,"B", resrange=(44,744), resolu
 simo.show_component_table("Nup85")
 #-----------------
 simo.create_component("Nup120",color=0.2)
-simo.add_component_sequence("Nup120","data/protein_fasta.Nup120.txt")
+simo.add_component_sequence("Nup120", n120_fastafile)
 Nup120_1=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(1,710), resolutions=[1,10], missingbeadsize=beadsize)
 Nup120_2=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(711,1037), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup120")
 #-----------------
 simo.create_component("Nup133",color=0.3)
-simo.add_component_sequence("Nup133","data/protein_fasta.Nup133.txt")
+simo.add_component_sequence("Nup133", n133_fastafile)
 tmp_color=0.3
 Nup133_1=simo.add_component_beads("Nup133", [(1,55)],colors=[tmp_color])
 Nup133_2=simo.autobuild_model("Nup133",n133n_pdbfile,"D", resrange=(56,480),resolutions=[1,10],missingbeadsize=beadsize)
@@ -51,7 +51,7 @@ Nup133_4=simo.autobuild_model("Nup133",n133c_pdbfile,"D", resrange=(490,1157),re
 simo.show_component_table("Nup133")
 #-----------------
 simo.create_component("Nup145c",color=0.4)
-simo.add_component_sequence("Nup145c","data/protein_fasta.Nup145c.txt")
+simo.add_component_sequence("Nup145c", n145c_fastafile)
 tmp_color=0.4
 Nup145c_1=simo.add_component_beads("Nup145c", [(1,125)],colors=[tmp_color])
 Nup145c_2=simo.autobuild_model("Nup145c",n145c_pdbfile,"E", resrange=(126,553),resolutions=[1,10],missingbeadsize=beadsize)
@@ -59,12 +59,12 @@ Nup145c_3=simo.add_component_beads("Nup145c", [(554,712)],colors=[tmp_color])
 simo.show_component_table("Nup145c")
 #-----------------
 simo.create_component("Seh1",color=0.5)
-simo.add_component_sequence("Seh1","data/protein_fasta.Seh1.txt")
+simo.add_component_sequence("Seh1", seh1_fastafile)
 Seh1=simo.autobuild_model("Seh1",seh1_pdbfile,"F", resrange=(1,349),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Seh1")
 #-----------------
 simo.create_component("Sec13",color=0.6)
-simo.add_component_sequence("Sec13","data/protein_fasta.Sec13.txt")
+simo.add_component_sequence("Sec13", sec13_fastafile)
 Sec13=simo.autobuild_model("Sec13",sec13_pdbfile,"G", resrange=(1,297),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Sec13")
 #-----------------
