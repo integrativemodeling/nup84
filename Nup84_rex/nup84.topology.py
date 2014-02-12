@@ -1,3 +1,12 @@
+def get_pdb_bead_bits(hierarchy):
+    pdbbits=[]
+    beadbits=[]
+    for h in hierarchy: 
+       if "_pdb" in h.get_name():pdbbits.append(h)
+       if "_bead" in h.get_name():beadbits.append(h)
+    return (pdbbits,beadbits)
+
+
 beadsize=20
 
 n84_fastafile  ='data/protein_fasta.Nup84.txt'
@@ -22,24 +31,50 @@ sec13_pdbfile  ='data/ScSec13_2-296.pdb'
 simo.create_component("Nup84",color=0.0)
 simo.add_component_sequence("Nup84", n84_fastafile)
 tmp_color=0.0
-#Nup84_1=simo.add_component_beads("Nup84", [(1,6)], colors=[tmp_color])
-Nup84_2=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(1,488), resolutions=[1,10], missingbeadsize=beadsize)
-#Nup84_3=simo.add_component_beads("Nup84", [(489,505)], colors=[tmp_color])
-Nup84_4=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(489,726), resolutions=[1,10], missingbeadsize=beadsize)
+
+Nup84_1=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(1,488), resolutions=[0,1,10], missingbeadsize=beadsize)
+Nup84_2=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(489,726), resolutions=[0,1,10], missingbeadsize=beadsize)
+
+#density generation for the EM restraint
+(pdbbits,beadbits)=get_pdb_bead_bits(Nup84_1)
+Nup84_1_dens=simo.add_component_density("Nup84",
+                               pdbbits,
+                               num_components=5, # number of gaussian into which the simulated density is approximated
+                               resolution=0,      # resolution that you want to calculate the simulated density
+                               # inputfile='data/Nup84_dens.txt') # read what it was calculated before
+                               outputfile='data/Nup84_1_dens.txt', # do the calculation
+                               outputmap='data/Nup84_1_dens.mrc') # do the calculation and output the mrc
+
+#density generation for the EM restraint
+(pdbbits,beadbits)=get_pdb_bead_bits(Nup84_2)
+Nup84_2_dens=simo.add_component_density("Nup84",
+                               pdbbits,
+                               num_components=3, # number of gaussian into which the simulated density is approximated
+                               resolution=0,      # resolution that you want to calculate the simulated density
+                               # inputfile='data/Nup84_dens.txt') # read what it was calculated before
+                               outputfile='data/Nup84_2_dens.txt', # do the calculation
+                               outputmap='data/Nup84_2_dens.mrc') # do the calculation and output the mrc
+
+exit()
+
 simo.show_component_table("Nup84")
+simo.setup_component_geometry("Nup84")
 #-----------------
 simo.create_component("Nup85",color=0.1)
 simo.add_component_sequence("Nup85", n85_fastafile)
 tmp_color=0.1
-#Nup85_1=simo.add_component_beads("Nup85", [(1,43)],colors=[tmp_color])
+
 Nup85_2=simo.autobuild_model("Nup85", n85_pdbfile,"B", resrange=(1,744), resolutions=[1,10], missingbeadsize=beadsize)
+
 simo.show_component_table("Nup85")
+simo.setup_component_geometry("Nup85")
 #-----------------
 simo.create_component("Nup120",color=0.2)
 simo.add_component_sequence("Nup120", n120_fastafile)
 Nup120_1=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(1,710), resolutions=[1,10], missingbeadsize=beadsize)
 Nup120_2=simo.autobuild_model("Nup120", n120_pdbfile,"C", resrange=(711,1037), resolutions=[1,10], missingbeadsize=beadsize)
 simo.show_component_table("Nup120")
+simo.setup_component_geometry("Nup120")
 #-----------------
 simo.create_component("Nup133",color=0.3)
 simo.add_component_sequence("Nup133", n133_fastafile)
@@ -49,6 +84,7 @@ Nup133_2=simo.autobuild_model("Nup133",n133n_pdbfile,"D", resrange=(1,480),resol
 #Nup133_3=simo.add_component_beads("Nup133", [(481,489)],colors=[tmp_color])
 Nup133_4=simo.autobuild_model("Nup133",n133c_pdbfile,"D", resrange=(481,1157),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Nup133")
+simo.setup_component_geometry("Nup133")
 #-----------------
 simo.create_component("Nup145c",color=0.4)
 simo.add_component_sequence("Nup145c", n145c_fastafile)
@@ -57,16 +93,19 @@ tmp_color=0.4
 Nup145c_2=simo.autobuild_model("Nup145c",n145c_pdbfile,"E", resrange=(1,553),resolutions=[1,10],missingbeadsize=beadsize)
 Nup145c_3=simo.add_component_beads("Nup145c", [(554,712)],colors=[tmp_color])
 simo.show_component_table("Nup145c")
+simo.setup_component_geometry("Nup145c")
 #-----------------
 simo.create_component("Seh1",color=0.5)
 simo.add_component_sequence("Seh1", seh1_fastafile)
 Seh1=simo.autobuild_model("Seh1",seh1_pdbfile,"F", resrange=(1,349),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Seh1")
+simo.setup_component_geometry("Seh1")
 #-----------------
 simo.create_component("Sec13",color=0.6)
 simo.add_component_sequence("Sec13", sec13_fastafile)
 Sec13=simo.autobuild_model("Sec13",sec13_pdbfile,"G", resrange=(1,297),resolutions=[1,10],missingbeadsize=beadsize)
 simo.show_component_table("Sec13")
+simo.setup_component_geometry("Sec13")
 #-----------------
 
 simo.setup_component_sequence_connectivity("Nup84")
@@ -77,7 +116,7 @@ simo.setup_component_sequence_connectivity("Nup145c")
 simo.setup_component_sequence_connectivity("Seh1")
 simo.setup_component_sequence_connectivity("Sec13")
 
-Nup84_all   =Nup84_2+Nup84_4
+Nup84_all   =Nup84_1+Nup84_2+Nup84_1_dens+Nup84_2_dens
 Nup85_all   =Nup85_2
 Nup120_all  =Nup120_1+Nup120_2
 Nup133_all  =Nup133_2+Nup133_4
@@ -86,11 +125,9 @@ Seh1_all    =Seh1
 Sec13_all   =Sec13
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
 
-#simo.set_rigid_body_from_hierarchies(Nup84_1)
-simo.set_rigid_body_from_hierarchies(Nup84_2)
-#simo.set_rigid_body_from_hierarchies(Nup84_3)
-simo.set_rigid_body_from_hierarchies(Nup84_4)
-#simo.set_rigid_body_from_hierarchies(Nup85_1)
+simo.set_rigid_body_from_hierarchies(Nup84_1+Nup84_1_dens)
+simo.set_rigid_body_from_hierarchies(Nup84_2+Nup84_2_dens)
+
 simo.set_rigid_body_from_hierarchies(Nup85_2)
 simo.set_rigid_body_from_hierarchies(Nup120_1) 
 simo.set_rigid_body_from_hierarchies(Nup120_2) 
