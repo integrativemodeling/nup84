@@ -30,7 +30,7 @@ simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedleng
 execfile("nup84.topology.py")
 
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
-simo.shuffle_configuration(200)
+simo.shuffle_configuration(100)
 #simo.translate_hierarchies(Nup84_complex,(100,100,100))
 
 simo.set_rigid_bodies_max_rot(rbmaxrot)
@@ -81,7 +81,7 @@ xl2.add_to_model()
 sampleobjects.append(xl2)
 outputobjects.append(xl2)
 
-simo.optimize_floppy_bodies(1000)
+simo.optimize_floppy_bodies(100)
 
 gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.gmm.txt')
 gem.add_to_model()
