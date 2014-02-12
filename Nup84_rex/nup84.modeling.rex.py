@@ -83,12 +83,10 @@ outputobjects.append(xl2)
 
 simo.optimize_floppy_bodies(1000)
 
-'''
 gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.gmm.txt')
 gem.add_to_model()
 outputobjects.append(gem)
 sampleobjects.append(gem)
-'''
 
 mc = IMP.pmi.samplers.MonteCarlo(m,sampleobjects, 1.0)
 mc.set_label("mc")
