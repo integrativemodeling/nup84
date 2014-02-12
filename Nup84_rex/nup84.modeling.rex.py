@@ -25,7 +25,7 @@ outputobjects = []
 sampleobjects = []
 
 m = IMP.Model()
-simo = IMP.pmi.representation.SimplifiedModel(m,upperharmonic=True,disorderedlength=True)
+simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 
 execfile("nup84.topology.py")
 
