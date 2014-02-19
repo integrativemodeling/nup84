@@ -12,6 +12,7 @@ import IMP.pmi.representation
 import IMP.pmi.tools
 import IMP.pmi.samplers
 import IMP.pmi.output
+import IMP.pmi.macros
 
 import os
 
@@ -28,6 +29,8 @@ m = IMP.Model()
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 
 execfile("nup84.topology.py")
+total_mass=sum((IMP.atom.Mass(p).get_mass() for h in resdensities for p in IMP.atom.get_leaves(h)))
+print 'total mass',total_mass
 
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
 simo.shuffle_configuration(100)
@@ -62,7 +65,7 @@ ids_map.set_map_element(1.0,1.0)
 xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/yeast_Nup84_DSS.dat',
                                    length=21.0,
-                                   slope=0.02,
+                                   slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="DSS")
@@ -70,10 +73,10 @@ xl1.add_to_model()
 sampleobjects.append(xl1)
 outputobjects.append(xl1)
 
-xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo, 
+xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/EDC_XL_122013.dat',
                                    length=12.0,
-                                   slope=0.02,
+                                   slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="EDC")
@@ -81,62 +84,69 @@ xl2.add_to_model()
 sampleobjects.append(xl2)
 outputobjects.append(xl2)
 
+print 'EVAL 1'
+print m.evaluate(False)
 simo.optimize_floppy_bodies(100)
+print 'EVAL 2'
+print m.evaluate(False)
+mc1=IMP.pmi.macros.ReplicaExchange0(m,
+                                    simo,
+                                    sampleobjects,
+                                    outputobjects,
+                                    crosslink_restraints=[xl1,xl2],
+                                    monte_carlo_temperature=1.0,
+                                    replica_exchange_minimum_temperature=1.0,
+                                    replica_exchange_maximum_temperature=2.5,
+                                    number_of_best_scoring_models=500,
+                                    monte_carlo_steps=10,
+                                    number_of_frames=10,
+                                    write_initial_rmf=True,
+                                    initial_rmf_name_suffix="initial",
+                                    stat_file_name_suffix="stat",
+                                    best_pdb_name_suffix="model",
+                                    do_clean_first=True,
+                                    do_create_directories=True,
+                                    global_output_directory="pre-EM",
+                                    rmf_dir="rmfs/",
+                                    best_pdb_dir="pdbs/",
+                                    replica_stat_file_suffix="stat_replica")
+mc1.execute_macro()
+rex1=mc1.get_replica_exchange_object()
+print 'EVAL 3'
+print m.evaluate(False)
 
-gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.gmm.txt')
+gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.gmm.txt',
+                                               cutoff_dist_for_container=0.0,
+                                                target_mass_scale=total_mass,
+                                                target_radii_scale=3.0,
+                                                model_radii_scale=3.0)
 gem.add_to_model()
+gem.center_model_on_target_density()
 outputobjects.append(gem)
-sampleobjects.append(gem)
 
-mc = IMP.pmi.samplers.MonteCarlo(m,sampleobjects, 1.0)
-mc.set_label("mc")
-outputobjects.append(mc)
+print 'EVAL 4'
+print m.evaluate(False)
 
-rex= IMP.pmi.samplers.ReplicaExchange(m,1,2.5,mc)
-myindex=rex.get_my_index()
-outputobjects.append(rex)
-
-sw = IMP.pmi.tools.Stopwatch()
-outputobjects.append(sw)
-
-output = IMP.pmi.output.Output()
-output.init_stat2("stat."+str(myindex)+".out", outputobjects, 
-                  extralabels=["rmf_file"])
-
-try:
-   os.mkdir("pdbs")
-except:
-   pass
-
-try:
-   os.mkdir("rmfs")
-except:
-   pass
-
-output.init_pdb_best_scoring("pdbs/models",prot,500,replica_exchange=True)
-output.init_rmf("initial."+str(myindex)+".rmf3", [prot])
-output.add_restraints_to_rmf("initial."+str(myindex)+".rmf3",[xl1,xl2])
-output.write_rmf("initial."+str(myindex)+".rmf3")
-output.close_rmf("initial."+str(myindex)+".rmf3")
-
-for k in range(nrmffiles):
-  rmfdir="rmfs/group."+str(k)
-  
-  for i in range(nframes):
-    mc.optimize(nsteps)
-    score=m.evaluate(False)
-    rmfname="None"
-    if rex.get_my_temp()==1.0:
-       if not os.path.exists(rmfdir):
-          os.makedirs(rmfdir)
-       output.write_pdb_best_scoring(score)
-       rmfname=rmfdir+"/"+str(i)+".rmf3"
-       output.init_rmf(rmfname, [prot])
-       output.add_restraints_to_rmf(rmfname,[xl1,xl2])
-       output.write_rmf(rmfname)
-       output.close_rmf(rmfname)
-       output.set_output_entry("rmf_file",rmfname)
-       output.write_stats2() 
-    #output.set_output_entry("rmf_frame_index",i)
-    
-    rex.swap_temp(i,score)
+mc2=IMP.pmi.macros.ReplicaExchange0(m,
+                                    simo,
+                                    sampleobjects,
+                                    outputobjects,
+                                    crosslink_restraints=[xl1,xl2],
+                                    monte_carlo_temperature=1.0,
+                                    replica_exchange_minimum_temperature=1.0,
+                                    replica_exchange_maximum_temperature=5.0,
+                                    number_of_best_scoring_models=500,
+                                    monte_carlo_steps=10,
+                                    number_of_frames=100000,
+                                    write_initial_rmf=True,
+                                    initial_rmf_name_suffix="initial",
+                                    stat_file_name_suffix="stat",
+                                    best_pdb_name_suffix="model",
+                                    do_clean_first=True,
+                                    do_create_directories=True,
+                                    global_output_directory="post-EM",
+                                    rmf_dir="rmfs/",
+                                    best_pdb_dir="pdbs/",
+                                    replica_stat_file_suffix="stat_replica",
+                                    replica_exchange_object=rex1)
+mc2.execute_macro()
