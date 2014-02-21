@@ -65,7 +65,7 @@ ids_map.set_map_element(1.0,1.0)
 xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/yeast_Nup84_DSS.dat',
                                    length=21.0,
-                                   slope=0.01,
+                                   slope=0.02,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="DSS")
@@ -76,7 +76,7 @@ outputobjects.append(xl1)
 xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/EDC_XL_122013.dat',
                                    length=12.0,
-                                   slope=0.01,
+                                   slope=0.02,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="EDC")
@@ -99,7 +99,7 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     replica_exchange_maximum_temperature=2.5,
                                     number_of_best_scoring_models=500,
                                     monte_carlo_steps=10,
-                                    number_of_frames=100,
+                                    number_of_frames=1000,
                                     write_initial_rmf=True,
                                     initial_rmf_name_suffix="initial",
                                     stat_file_name_suffix="stat",
@@ -115,12 +115,13 @@ rex1=mc1.get_replica_exchange_object()
 print 'EVAL 3'
 print m.evaluate(False)
 
-gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.gmm.txt',
+gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.mrc.gmm.2.txt',
                                                cutoff_dist_for_container=0.0,
                                                 target_mass_scale=total_mass,
                                                 target_radii_scale=3.0,
                                                 model_radii_scale=3.0)
 gem.add_to_model()
+gem.set_weight(100.0)
 gem.center_model_on_target_density()
 outputobjects.append(gem)
 
@@ -148,5 +149,6 @@ mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica",
-                                    replica_exchange_object=rex1)
+                                    replica_exchange_object=rex1,
+                                    em_object_for_rmf=gem)
 mc2.execute_macro()
