@@ -8,6 +8,7 @@ import IMP.container
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.em
+import IMP.pmi.restraints.basic
 import IMP.pmi.representation
 import IMP.pmi.tools
 import IMP.pmi.samplers
@@ -52,6 +53,30 @@ ev = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo,resolution=10)
 ev.add_to_model()
 outputobjects.append(ev)
 
+eb = IMP.pmi.restraints.basic.ExternalBarrier(simo,radius=300)
+eb.add_to_model()
+outputobjects.append(eb)
+
+# we apply a distance restraint between the 
+# k = 1/(2*sigma*sigma) we use sigma=70 Angstroms
+# kappa=0.00010204081632653061
+
+dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,"Nup85"), (211,211,"Nup133"), distance=405,resolution=1, kappa=0.00010204081632653061)
+dr1.add_to_model()
+dr1.set_label("Nup85_Nup133")
+outputobjects.append(dr1)
+
+dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distance=440,resolution=1, kappa=0.00010204081632653061)
+dr2.add_to_model()
+dr2.set_label("Nup120_Nup133")
+outputobjects.append(dr2)
+
+dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (510,510,"Nup85"), distance=250,resolution=1, kappa=0.00010204081632653061)
+dr3.add_to_model()
+dr3.set_label("Nup120_Nup85")
+outputobjects.append(dr3)
+
+
 
 columnmap={}
 columnmap["Protein1"]=0
@@ -74,6 +99,10 @@ xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
 xl1.add_to_model()
 sampleobjects.append(xl1)
 outputobjects.append(xl1)
+xl1.set_psi_is_sampled(False)
+psi=xl1.get_psi(1.0)[0]
+psi.set_scale(0.05)
+
 
 xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/EDC_XL_122013.new.dat',
@@ -85,6 +114,9 @@ xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
 xl2.add_to_model()
 sampleobjects.append(xl2)
 outputobjects.append(xl2)
+xl2.set_psi_is_sampled(False)
+psi=xl2.get_psi(1.0)[0]
+psi.set_scale(0.05)
 
 print 'EVAL 1'
 print m.evaluate(False)
@@ -102,14 +134,14 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     replica_exchange_maximum_temperature=2.5,
                                     number_of_best_scoring_models=500,
                                     monte_carlo_steps=10,
-                                    number_of_frames=100,
+                                    number_of_frames=30000,
                                     write_initial_rmf=True,
                                     initial_rmf_name_suffix="initial",
                                     stat_file_name_suffix="stat",
                                     best_pdb_name_suffix="model",
                                     do_clean_first=True,
                                     do_create_directories=True,
-                                    global_output_directory="pre-EM",
+                                    global_output_directory="output",
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica")
@@ -118,41 +150,3 @@ rex1=mc1.get_replica_exchange_object()
 print 'EVAL 3'
 print m.evaluate(False)
 
-#gem = IMP.pmi.restraints.em.GaussianEMRestraint(resdensities,'data/emd_5151.map.mrc.gmm.2.txt',
-#                                               cutoff_dist_for_container=0.0,
-#                                                target_mass_scale=total_mass,
-#                                                target_radii_scale=3.0,
-#                                                model_radii_scale=3.0)
-#gem.add_to_model()
-#gem.set_weight(100.0)
-#gem.center_model_on_target_density(simo)
-#outputobjects.append(gem)
-
-print 'EVAL 4'
-print m.evaluate(False)
-
-mc2=IMP.pmi.macros.ReplicaExchange0(m,
-                                    simo,
-                                    sampleobjects,
-                                    outputobjects,
-                                    crosslink_restraints=[xl1,xl2],
-                                    #crosslink_restraints=[xl1],
-                                    monte_carlo_temperature=1.0,
-                                    replica_exchange_minimum_temperature=1.0,
-                                    replica_exchange_maximum_temperature=5.0,
-                                    number_of_best_scoring_models=500,
-                                    monte_carlo_steps=10,
-                                    number_of_frames=30000,
-                                    write_initial_rmf=True,
-                                    initial_rmf_name_suffix="initial",
-                                    stat_file_name_suffix="stat",
-                                    best_pdb_name_suffix="model",
-                                    do_clean_first=True,
-                                    do_create_directories=True,
-                                    global_output_directory="post-EM",
-                                    rmf_dir="rmfs/",
-                                    best_pdb_dir="pdbs/",
-                                    replica_stat_file_suffix="stat_replica",
-                                    replica_exchange_object=rex1)
-                                    #em_object_for_rmf=gem)
-mc2.execute_macro()
