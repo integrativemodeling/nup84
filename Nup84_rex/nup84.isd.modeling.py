@@ -60,18 +60,19 @@ outputobjects.append(eb)
 # we apply a distance restraint between the 
 # k = 1/(2*sigma*sigma) we use sigma=70 Angstroms
 # kappa=0.00010204081632653061
+# we got the distances from the Jeremy
 
-dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,"Nup85"), (211,211,"Nup133"), distance=405,resolution=1, kappa=0.00010204081632653061)
+dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,"Nup85"), (211,211,"Nup133"), distance=372,resolution=1, kappa=0.00010204081632653061)
 dr1.add_to_model()
 dr1.set_label("Nup85_Nup133")
 outputobjects.append(dr1)
 
-dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distance=440,resolution=1, kappa=0.00010204081632653061)
+dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distance=423,resolution=1, kappa=0.00010204081632653061)
 dr2.add_to_model()
 dr2.set_label("Nup120_Nup133")
 outputobjects.append(dr2)
 
-dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (510,510,"Nup85"), distance=250,resolution=1, kappa=0.00010204081632653061)
+dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (510,510,"Nup85"), distance=210,resolution=1, kappa=0.00010204081632653061)
 dr3.add_to_model()
 dr3.set_label("Nup120_Nup85")
 outputobjects.append(dr3)
