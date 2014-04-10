@@ -17,9 +17,9 @@ import IMP.pmi.macros
 
 import os
 
-rbmaxtrans = 1.00
-fbmaxtrans = 1.00
-rbmaxrot=0.025
+rbmaxtrans = 2.00
+fbmaxtrans = 2.00
+rbmaxrot=0.04
 nrmffiles=1000
 nframes=100
 nsteps=100
@@ -62,17 +62,21 @@ outputobjects.append(eb)
 # kappa=0.00010204081632653061
 # we got the distances from the Jeremy
 
-dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,"Nup85"), (211,211,"Nup133"), distance=372,resolution=1, kappa=0.00010204081632653061)
+print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,Nup85), (211,211,Nup133), distancemin=329,distancemax=426,resolution=1)"
+print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,Nup120), (211,211,Nup133), distancemin=326,distancemax=435,resolution=1)"
+print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,Nup120), (510,510,Nup85), distancemin=213,distancemax=258,resolution=1)"
+
+dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(181,181,"Nup85"), (211,211,"Nup133"), distancemin=298.5,distancemax=426,resolution=1)
 dr1.add_to_model()
 dr1.set_label("Nup85_Nup133")
 outputobjects.append(dr1)
 
-dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distance=423,resolution=1, kappa=0.00010204081632653061)
+dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distancemin=294.5,distancemax=445,resolution=1)
 dr2.add_to_model()
 dr2.set_label("Nup120_Nup133")
 outputobjects.append(dr2)
 
-dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (510,510,"Nup85"), distance=210,resolution=1, kappa=0.00010204081632653061)
+dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (181,181,"Nup85"), distancemin=145,distancemax=268,resolution=1)
 dr3.add_to_model()
 dr3.set_label("Nup120_Nup85")
 outputobjects.append(dr3)
@@ -93,7 +97,7 @@ ids_map.set_map_element(1.0,1.0)
 xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/yeast_Nup84_DSS.new.dat',
                                    length=21.0,
-                                   slope=0.02,
+                                   slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="DSS")
@@ -108,7 +112,7 @@ psi.set_scale(0.05)
 xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    'data/EDC_XL_122013.new.dat',
                                    length=16.0,
-                                   slope=0.02,
+                                   slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
                                    label="EDC")
@@ -142,7 +146,7 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     best_pdb_name_suffix="model",
                                     do_clean_first=True,
                                     do_create_directories=True,
-                                    global_output_directory="output",
+                                    global_output_directory="output.3",
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica")

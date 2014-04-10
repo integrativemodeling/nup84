@@ -257,6 +257,7 @@ simo.set_rigid_body_from_hierarchies(Nup133_2+Nup133_2_dens)
 simo.set_rigid_body_from_hierarchies(Nup145c+Nup145c_dens)
 simo.set_rigid_body_from_hierarchies(Seh1+Seh1_dens)
 simo.set_rigid_body_from_hierarchies(Sec13+Sec13_dens)
+simo.set_super_rigid_body_from_hierarchies(Sec13+Nup85_all+Seh1+Nup145c)
 
 simo.set_super_rigid_body_from_hierarchies(Nup84_all)
 simo.set_super_rigid_body_from_hierarchies(Nup85_all)
