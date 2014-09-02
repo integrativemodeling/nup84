@@ -33,12 +33,10 @@ biopython 		(to read fasta files)
 sklearn   		(for the gaussian mixture model decomposition of the EM map)
 
 ## Biopython and sklearn are required to run nup84 script:
-------------------------------------------------------------
 sudo yum install python-biopython
 sudo yum install scikit-learn
 
 ## Getting IMP, PMI, ISD_EMXL and compiling it with fast-build on Fedora:
------------------------------------------------------------------------
 git clone https://github.com/salilab/imp.git imp-latest
 cd imp-latest/modules
 git clone https://github.com/salilab/isd_emxl.git
@@ -53,7 +51,6 @@ cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP
 make
 
 ## Running nup84 script:
----------------------------
 with 3 crytal interfaces:
 imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.withXrayInterface.py &> nup84.isd.modeling.withXrayInterface.out
 
