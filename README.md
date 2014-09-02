@@ -1,3 +1,4 @@
+#Nup84 complex
 Nup84 modeling script using DSS/EDC crosslinks and 2D EM data.
 Authors: Riccardo Pellarin, Elina Tjioe, and Seung Joong Kim
 
