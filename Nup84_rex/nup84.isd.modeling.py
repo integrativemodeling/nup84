@@ -8,7 +8,9 @@ import IMP.container
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.em
+import IMP.pmi.restraints.em2d
 import IMP.pmi.restraints.basic
+import IMP.pmi.restraints.proteomics
 import IMP.pmi.representation
 import IMP.pmi.tools
 import IMP.pmi.samplers
@@ -30,7 +32,7 @@ m = IMP.Model()
 #simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
-execfile("nup84.isd.topology.py")
+execfile("nup84.topology.py")
 total_mass=sum((IMP.atom.Mass(p).get_mass() for h in resdensities for p in IMP.atom.get_leaves(h)))
 print 'total mass',total_mass
 
@@ -57,32 +59,6 @@ eb = IMP.pmi.restraints.basic.ExternalBarrier(simo,radius=300)
 eb.add_to_model()
 outputobjects.append(eb)
 
-# we apply a distance restraint between the 
-# k = 1/(2*sigma*sigma) we use sigma=70 Angstroms
-# kappa=0.00010204081632653061
-# we got the distances from the Jeremy
-
-print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(510,510,Nup85), (211,211,Nup133), distancemin=329,distancemax=426,resolution=1)"
-print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,Nup120), (211,211,Nup133), distancemin=326,distancemax=435,resolution=1)"
-print "IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,Nup120), (510,510,Nup85), distancemin=213,distancemax=258,resolution=1)"
-
-dr1= IMP.pmi.restraints.basic.DistanceRestraint(simo,(181,181,"Nup85"), (211,211,"Nup133"), distancemin=298.5,distancemax=426,resolution=1)
-dr1.add_to_model()
-dr1.set_label("Nup85_Nup133")
-outputobjects.append(dr1)
-
-dr2= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (211,211,"Nup133"), distancemin=294.5,distancemax=445,resolution=1)
-dr2.add_to_model()
-dr2.set_label("Nup120_Nup133")
-outputobjects.append(dr2)
-
-dr3= IMP.pmi.restraints.basic.DistanceRestraint(simo,(8,8,"Nup120"), (181,181,"Nup85"), distancemin=145,distancemax=268,resolution=1)
-dr3.add_to_model()
-dr3.set_label("Nup120_Nup85")
-outputobjects.append(dr3)
-
-
-
 columnmap={}
 columnmap["Protein1"]=0
 columnmap["Protein2"]=2
@@ -95,11 +71,12 @@ ids_map=IMP.pmi.tools.map()
 ids_map.set_map_element(1.0,1.0)
 
 xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
-                                   'data/yeast_Nup84_DSS.new.dat',
+                                   '../data/yeast_Nup84_DSS.new.dat',
                                    length=21.0,
                                    slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
+                                   filelabel="DSS",
                                    label="DSS")
 xl1.add_to_model()
 sampleobjects.append(xl1)
@@ -110,11 +87,12 @@ psi.set_scale(0.05)
 
 
 xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
-                                   'data/EDC_XL_122013.new.dat',
+                                   '../data/EDC_XL_122013.new.dat',
                                    length=16.0,
                                    slope=0.01,
                                    columnmapping=columnmap,
                                    ids_map=ids_map,resolution=1.0,
+                                   filelabel="EDC",
                                    label="EDC")
 xl2.add_to_model()
 sampleobjects.append(xl2)
@@ -137,16 +115,16 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     monte_carlo_temperature=1.0,
                                     replica_exchange_minimum_temperature=1.0,
                                     replica_exchange_maximum_temperature=2.5,
-                                    number_of_best_scoring_models=500,
+                                    number_of_best_scoring_models=50,
                                     monte_carlo_steps=10,
-                                    number_of_frames=30000,
+                                    number_of_frames=500,
                                     write_initial_rmf=True,
                                     initial_rmf_name_suffix="initial",
                                     stat_file_name_suffix="stat",
                                     best_pdb_name_suffix="model",
                                     do_clean_first=True,
                                     do_create_directories=True,
-                                    global_output_directory="output.3",
+                                    global_output_directory="pre-2DEM_output.1",
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica")
@@ -155,3 +133,44 @@ rex1=mc1.get_replica_exchange_object()
 print 'EVAL 3'
 print m.evaluate(False)
 
+
+# 2DEM restraints
+images = ['../data/nup84_kinked_from_class2.pgm']
+
+em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
+                                                    images,
+                                                    resolution=1.0,
+                                                    pixel_size = 5.91,
+                                                    image_resolution = 30.0,
+                                                    projection_number = 400)
+em2d.add_to_model()
+em2d.set_weight(500)
+outputobjects.append(em2d)
+
+print 'EVAL 4'
+print m.evaluate(False)
+
+mc2=IMP.pmi.macros.ReplicaExchange0(m,
+                                    simo,
+                                    sampleobjects,
+                                    outputobjects,
+                                    crosslink_restraints=[xl1,xl2],
+                                    #crosslink_restraints=[xl1],
+                                    monte_carlo_temperature=1.0,
+                                    replica_exchange_minimum_temperature=1.0,
+                                    replica_exchange_maximum_temperature=2.5,
+                                    number_of_best_scoring_models=500,
+                                    monte_carlo_steps=10,
+                                    number_of_frames=5000,
+                                    write_initial_rmf=True,
+                                    initial_rmf_name_suffix="initial",
+                                    stat_file_name_suffix="stat",
+                                    best_pdb_name_suffix="model",
+                                    do_clean_first=True,
+                                    do_create_directories=True,
+                                    global_output_directory="output.1",
+                                    rmf_dir="rmfs/",
+                                    best_pdb_dir="pdbs/",
+                                    replica_stat_file_suffix="stat_replica",
+                                    replica_exchange_object=rex1) 
+mc2.execute_macro()
