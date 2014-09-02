@@ -1,8 +1,14 @@
 # Nup84 complex
-Nup84 modeling script using DSS/EDC crosslinks and 2D EM data.
-Authors: Riccardo Pellarin, Elina Tjioe, and Seung Joong Kim
 
-The script works with the latest IMP, PMI and isd_emxl libraries.
+These scripts demonstrate the use of [IMP](http://salilab.org/imp), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using DSS/EDC crosslinks and 2D EM data.
+
+First, MODELLER is used to generate
+structures for the individual components in the Nup84 complex. Then, IMP
+is used to fit these components together into the electron microscopy density
+map of Nup84 complex.
+
+The script works with the latest IMP, PMI and isd_emx¡l libraries.
+
 Compile IMP using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
 
 ## List of files and directories:
@@ -56,7 +62,7 @@ imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.mod
 
 ## Information
 
-_Author(s)_: Seung Joong Kim, Riccardo Pellarin, Peter Cimermancic
+_Author(s)_: Riccardo Pellarin, Elina Tjioe, and Seung Joong Kim
 
 _Date_: September 2nd, 2014
 
@@ -76,5 +82,3 @@ _Publications_:
  - Yi Shi*, Javier Fernandez-Martinez*, Elina Tjioe*, Riccardo Pellarin*, Seung Joong Kim*, Rosemary Williams, Dina Schneidman-Duhovny, Andrej Sali, Michael P. Rout, and Brian T. Chait1, [Structural characterization by cross-linking reveals the detailed architecture of a coatomer-related heptameric module from the nuclear pore complex](http://mcponline.org/content/early/2014/08/26/mcp.M114.041673), Molecular & Cellular Proteomics, 2014, mcp.M114.041673.
 
  *These authors contributed equally to this work as co-first authors.
- 
-
