@@ -38,6 +38,7 @@ sudo yum install scikit-learn
 
 ## Getting IMP, PMI, ISD_EMXL and compiling it with fast-build on Fedora:
 git clone https://github.com/salilab/imp.git imp-latest
+
 cd imp-latest/modules
 git clone https://github.com/salilab/isd_emxl.git
 git clone https://github.com/salilab/pmi.git
