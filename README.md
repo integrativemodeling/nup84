@@ -7,7 +7,7 @@ structures for the individual components in the Nup84 complex. Then, IMP
 is used to fit these components together into the electron microscopy density
 map of Nup84 complex.
 
-The script works with the latest IMP, PMI and isd_emx¡l libraries.
+The script works with the latest [IMP](http://salilab.org/imp), [PMI](https://github.com/salilab/pmi), and [isd_emxl](https://github.com/salilab/isd_emxl.git) libraries.
 
 Compile IMP using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
 
