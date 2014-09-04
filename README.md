@@ -16,9 +16,11 @@ Compile IMP using mpi (needed for the replica exchange, use "module load mpi/ope
 data		                         contains all relevant data, input structure, etc.
 
 nup84.isd.modeling.withXrayInterface.py  the main modeling script with 3 crystal interfaces
+
 nup84.isd.modeling.py                    the main modeling script with no crystal interfaces
 
 nup84.topology.withXrayInterface.py      constructs Nup84 subunits with 3 crystal interfaces, as well as calculates the densities for the EM restraints
+
 nup84.topology.py                        constructs Nup84 subunits with no crystal interfaces, as well as calculates the densities for the EM restraints
 
 output.1/pdbs    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
