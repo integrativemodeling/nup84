@@ -35,22 +35,31 @@ Python dependencies:
 - sklearn   		(for the gaussian mixture model decomposition of the EM map)
 
 ## Biopython and sklearn are required to run nup84 script:
-sudo yum install python-biopython
-sudo yum install scikit-learn
+- sudo yum install python-biopython
+- sudo yum install scikit-learn
 
 ## Getting IMP, PMI, ISD_EMXL and compiling it with fast-build on Fedora:
 git clone https://github.com/salilab/imp.git imp-latest
 
 cd imp-latest/modules
+
 git clone https://github.com/salilab/isd_emxl.git
+
 git clone https://github.com/salilab/pmi.git
+
 cd ../
+
 module load mpi
+
 ./setup_git.py
+
 cd ..
+
 mkdir imp-latest-build
-cd imp-latest-build/
+
+cd imp-latest-build/\n
 cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP_MAX_CHECKS=NONE -DIMP_MAX_LOG=SILENT
+
 make
 
 ## Running nup84 script:
