@@ -13,26 +13,26 @@ Compile IMP using mpi (needed for the replica exchange, use "module load mpi/ope
 
 ## List of files and directories:
 
-data		                         contains all relevant data, input structure, etc.
+- data		                         contains all relevant data, input structure, etc.
 
-nup84.isd.modeling.withXrayInterface.py  the main modeling script with 3 crystal interfaces
+- nup84.isd.modeling.withXrayInterface.py  the main modeling script with 3 crystal interfaces
 
-nup84.isd.modeling.py                    the main modeling script with no crystal interfaces
+- nup84.isd.modeling.py                    the main modeling script with no crystal interfaces
 
-nup84.topology.withXrayInterface.py      constructs Nup84 subunits with 3 crystal interfaces, as well as calculates the densities for the EM restraints
+- nup84.topology.withXrayInterface.py      constructs Nup84 subunits with 3 crystal interfaces, as well as calculates the densities for the EM restraints
 
-nup84.topology.py                        constructs Nup84 subunits with no crystal interfaces, as well as calculates the densities for the EM restraints
+- nup84.topology.py                        constructs Nup84 subunits with no crystal interfaces, as well as calculates the densities for the EM restraints
 
-output.1/pdbs    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
+- output.1/pdbs    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
                  (They are the best 500 models, so at the beginning they are empty, since you haven't start the calculation yet)
 
-output.1/rmfs    the production will write the rmf3 files for lowest temperature replica.
+- output.1/rmfs    the production will write the rmf3 files for lowest temperature replica.
 			
-stat.n.out	 log files. They contain all relevant numbers of the calculation.
+- stat.n.out	 log files. They contain all relevant numbers of the calculation.
 
 Python dependencies:
-biopython 		(to read fasta files)
-sklearn   		(for the gaussian mixture model decomposition of the EM map)
+- biopython 		(to read fasta files)
+- sklearn   		(for the gaussian mixture model decomposition of the EM map)
 
 ## Biopython and sklearn are required to run nup84 script:
 sudo yum install python-biopython
