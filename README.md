@@ -2,14 +2,13 @@
 
 These scripts demonstrate the use of [IMP](http://salilab.org/imp), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using DSS/EDC crosslinks and 2D EM data.
 
-First, MODELLER is used to generate
-structures for the individual components in the Nup84 complex. Then, IMP
-is used to fit these components together into the electron microscopy density
-map of Nup84 complex.
+First, [MODELLER](http://salilab.org/modeller) is used to generate
+initial structures for the individual components in the Nup84 complex. Then, IMP
+is used to model these components using DSS/EDC crosslinks and the electron microscopy 2D class average for the entire Nup84 complex.
 
 The script works with the latest [IMP](http://salilab.org/imp), [PMI](https://github.com/salilab/pmi), and [isd_emxl](https://github.com/salilab/isd_emxl.git) libraries.
 
-Compile IMP using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
+Compile [IMP](http://salilab.org/imp) using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
 
 ## List of files and directories:
 
