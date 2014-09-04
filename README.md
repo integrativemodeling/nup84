@@ -39,35 +39,25 @@ Python dependencies:
 - sudo yum install scikit-learn
 
 ## Getting IMP, PMI, ISD_EMXL and compiling it with fast-build on Fedora:
-git clone https://github.com/salilab/imp.git imp-latest
-
-cd imp-latest/modules
-
-git clone https://github.com/salilab/isd_emxl.git
-
-git clone https://github.com/salilab/pmi.git
-
-cd ../
-
-module load mpi
-
-./setup_git.py
-
-cd ..
-
-mkdir imp-latest-build
-
+git clone https://github.com/salilab/imp.git imp-latest \n
+cd imp-latest/modules \n
+git clone https://github.com/salilab/isd_emxl.git \n
+git clone https://github.com/salilab/pmi.git \n
+cd ../ \n
+module load mpi \n
+./setup_git.py \n
+cd .. \n
+mkdir imp-latest-build \n
 cd imp-latest-build/\n
-cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP_MAX_CHECKS=NONE -DIMP_MAX_LOG=SILENT
-
-make
+cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP_MAX_CHECKS=NONE -DIMP_MAX_LOG=SILENT \n
+make \n
 
 ## Running nup84 script:
 with 3 crytal interfaces:
-imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.withXrayInterface.py &> nup84.isd.modeling.withXrayInterface.out
+- imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out
 
 with no crytal interfaces:
-imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.py &> nup84.isd.modeling.out
+- imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.py &> nup84.isd.modeling.out
 
 ## Information
 
