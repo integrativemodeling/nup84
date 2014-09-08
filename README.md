@@ -87,6 +87,6 @@ _Testable_: Yes.
 _Parallelizeable_: No
 
 _Publications_:
- - Yi Shi*, Javier Fernandez-Martinez*, Elina Tjioe*, Riccardo Pellarin*, Seung Joong Kim*, Rosemary Williams, Dina Schneidman-Duhovny, Andrej Sali, Michael P. Rout, and Brian T. Chait1, [Structural characterization by cross-linking reveals the detailed architecture of a coatomer-related heptameric module from the nuclear pore complex](http://mcponline.org/content/early/2014/08/26/mcp.M114.041673), Molecular & Cellular Proteomics, 2014, mcp.M114.041673.
+ - Yi Shi*, Javier Fernandez-Martinez*, Elina Tjioe*, Riccardo Pellarin*, Seung Joong Kim*, Rosemary Williams, Dina Schneidman-Duhovny, Andrej Sali, Michael P. Rout, and Brian T. Chait, [Structural characterization by cross-linking reveals the detailed architecture of a coatomer-related heptameric module from the nuclear pore complex](http://mcponline.org/content/early/2014/08/26/mcp.M114.041673), Molecular & Cellular Proteomics, 2014, mcp.M114.041673.
 
  *These authors contributed equally to this work as co-first authors.
