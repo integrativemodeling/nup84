@@ -106,8 +106,8 @@ print 'EVAL 2'
 print m.evaluate(False)
 mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
-                                    sampleobjects,
-                                    outputobjects,
+                                    monte_carlo_sample_objects=sampleobjects,
+                                    output_objects=outputobjects,
                                     crosslink_restraints=[xl1,xl2],
                                     #crosslink_restraints=[xl1],
                                     monte_carlo_temperature=1.0,
@@ -150,8 +150,8 @@ print m.evaluate(False)
 
 mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
-                                    sampleobjects,
-                                    outputobjects,
+                                    monte_carlo_sample_objects=sampleobjects,
+                                    output_objects=outputobjects,
                                     crosslink_restraints=[xl1,xl2],
                                     #crosslink_restraints=[xl1],
                                     monte_carlo_temperature=1.0,
