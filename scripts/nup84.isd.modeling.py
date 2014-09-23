@@ -33,8 +33,6 @@ m = IMP.Model()
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
 execfile("nup84.topology.py")
-total_mass=sum((IMP.atom.Mass(p).get_mass() for h in resdensities for p in IMP.atom.get_leaves(h)))
-print 'total mass',total_mass
 
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
 simo.shuffle_configuration(100)
