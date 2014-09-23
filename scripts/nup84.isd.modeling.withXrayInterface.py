@@ -33,8 +33,6 @@ m = IMP.Model()
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
 execfile("nup84.topology.withXrayInterface.py")
-total_mass=sum((IMP.atom.Mass(p).get_mass() for h in resdensities for p in IMP.atom.get_leaves(h)))
-print 'total mass',total_mass
 
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
 simo.shuffle_configuration(100)
@@ -109,8 +107,8 @@ print m.evaluate(False)
 
 mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
-                                    sampleobjects,
-                                    outputobjects,
+                                    monte_carlo_sample_objects=sampleobjects,
+                                    output_objects=outputobjects,
                                     crosslink_restraints=[xl1,xl2],
                                     #crosslink_restraints=[xl1],
                                     monte_carlo_temperature=1.0,
@@ -152,8 +150,8 @@ print m.evaluate(False)
 
 mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
-                                    sampleobjects,
-                                    outputobjects,
+                                    monte_carlo_sample_objects=sampleobjects,
+                                    output_objects=outputobjects,
                                     crosslink_restraints=[xl1,xl2],
                                     #crosslink_restraints=[xl1],
                                     monte_carlo_temperature=1.0,
