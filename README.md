@@ -23,6 +23,19 @@ Compile [IMP](http://salilab.org/imp) using mpi (needed for the replica exchange
 
   - nup84.topology.py                        constructs Nup84 subunits with no crystal interfaces, as well as calculates the densities for the EM restraints
 
+  - nup84.merge.py                           script to merge output files from all runs ; filter threshold on total score can be set here
+ 
+  - vmd_scripts/rmdstt.tcl                   VMD script to launch RMSD Trajectory Tool window 
+
+  - vmd_scripts/nup84_3-xray_density.tcl     VMD script to calculate localization density for Nup84 with 3 crystal interfaces
+
+  - vmd_scripts/nup84_no-xray_density.tcl    VMD script to calculate localization density for Nup84 with no crystal interfaces
+
+  - vmd_scripts/ALPS_motif_density.tcl       VMD script to calculate localization density for Nup84 at ALPS motif regions 
+
+  - chimera_scripts/nup84_density.cmd        Chimera script to view all localization density files 
+
+
 - output.1/pdbs    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
                  (They are the best 500 models, so at the beginning they are empty, since you haven't start the calculation yet)
 
@@ -63,6 +76,14 @@ with 3 crytal interfaces:
 
 with no crytal interfaces:
 - imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.py &> nup84.isd.modeling.out
+
+## Running VMD script:
+- vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl 
+- In RMSD Trajectory Tool top window, type 'all', then click the button 'ALIGN' to align all pdb models
+- In vmd command line, type 'source vmd_scripts/nup84_3-xray_density.tcl' to create localization density dx files
+
+## Running Chimera script:
+- chimera [ALL].dx chimera_scripts/nup84_density.cmd 
 
 ## Information
 
