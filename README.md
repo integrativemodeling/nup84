@@ -7,8 +7,8 @@ initial structures for the individual components in the Nup84 complex. Then, IMP
 is used to model these components using DSS/EDC crosslinks and the electron microscopy 2D class average for the entire Nup84 complex.
 
 The scripts work with the latest [IMP](http://salilab.org/imp) (develop branch).
-
-Compile [IMP](http://salilab.org/imp) using mpi (needed for the replica exchange, use "module load mpi/openmpi-x86_64-nodlopen" on the cluster)
+A default build of IMP should work, but for most effective sampling, it should
+be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
 
 ## List of files and directories:
 
@@ -51,31 +51,12 @@ Python dependencies:
 - sudo yum install python-biopython
 - sudo yum install scikit-learn
 
-## Getting IMP and compiling it with fast-build on Fedora:
-git clone https://github.com/salilab/imp.git imp-latest
-
-cd imp-latest
-
-module load mpi
-
-./setup_git.py
-
-cd ..
-
-mkdir imp-latest-build
-
-cd imp-latest-build/
-
-cmake ../imp-latest -DCMAKE_CXX_COMPILER=mpicxx -DCMAKE_BUILD_TYPE=Release -DIMP_MAX_CHECKS=NONE -DIMP_MAX_LOG=SILENT
-
-make
-
 ## Running nup84 script:
 with 3 crytal interfaces:
-- imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out
+- `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
 
 with no crytal interfaces:
-- imp-latest-build/setup_environment.sh /path_to/mpirun -np 4 python nup84.isd.modeling.py &> nup84.isd.modeling.out
+- `python nup84.isd.modeling.py &> nup84.isd.modeling.out`
 
 ## Running VMD script:
 - vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl 
@@ -101,7 +82,7 @@ _Last known good IMP version_: None
 
 _Testable_: Yes.
 
-_Parallelizeable_: No
+_Parallelizeable_: Yes
 
 _Publications_:
  - Yi Shi\*, Javier Fernandez-Martinez\*, Elina Tjioe\*, Riccardo Pellarin\*, Seung Joong Kim\*, Rosemary Williams, Dina Schneidman-Duhovny, Andrej Sali, Michael P. Rout, and Brian T. Chait, [Structural characterization by cross-linking reveals the detailed architecture of a coatomer-related heptameric module from the nuclear pore complex](http://mcponline.org/content/early/2014/08/26/mcp.M114.041673), Molecular & Cellular Proteomics, 2014, mcp.M114.041673.
