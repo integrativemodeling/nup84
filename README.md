@@ -56,11 +56,13 @@ with 3 crytal interfaces:
 - `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
 - `python nup84.merge.py`
 - `clustering_master_script_3-xray.sh`
+- `python nup84.analysis.py`
 
 with no crytal interfaces:
 - `python nup84.isd.modeling.py &> nup84.isd.modeling.out`
 - `python nup84.merge.py`
 - `clustering_master_script_no-xray.sh`
+- `python nup84.analysis.py`
 
 ## Running VMD script:
 - vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl 
