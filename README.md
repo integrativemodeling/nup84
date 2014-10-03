@@ -59,6 +59,8 @@ with 3 crytal interfaces:
 
 with no crytal interfaces:
 - `python nup84.isd.modeling.py &> nup84.isd.modeling.out`
+- `python nup84.merge.py`
+- `clustering_master_script_no-xray.sh`
 
 ## Running VMD script:
 - vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl 
