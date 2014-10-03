@@ -45,11 +45,6 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
 Python dependencies:
 - biopython 		(to read fasta files)
-- sklearn   		(for the gaussian mixture model decomposition of the EM map)
-
-## Biopython and sklearn are required to run nup84 script:
-- sudo yum install python-biopython
-- sudo yum install scikit-learn
 
 ## Running nup84 script:
 with 3 crystal interfaces:
