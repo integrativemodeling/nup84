@@ -49,7 +49,13 @@ Python dependencies:
 - biopython 		(to read fasta files)
 
 ## Running MODELLER scripts:
-- e.g. `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py` 
+- `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py` : ScNup84N 7-488
+- `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final2.py` : ScNup84C 506-726
+- `mod9.13 scripts/MODELLER_scripts/Nup85/all_sjkim_final.py` : ScNup85 44-744
+- `mod9.13 scripts/MODELLER_scripts/Nup120/all_sjkim_final1.py` : ScNup120 1-1037
+- `mod9.13 scripts/MODELLER_scripts/Nup133/all_sjkim_final1.py` : ScNup133N 56-480
+- `mod9.13 scripts/MODELLER_scripts/Nup133/all_sjkim_final2.py` : ScNup133C 490-1157
+- `mod9.13 scripts/MODELLER_scripts/Nup145C/all_sjkim_final.py` : ScNup145C 126-553
 
 ## Running nup84 script:
 with 3 crystal interfaces:
