@@ -30,7 +30,8 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
   - `chimera_scripts/nup84_density.cmd`        Chimera script to view all localization density files 
 
-  - `MODELLER_scripts/Nup84` MODELLER scripts to generate comparative models of Nup84- `MODELLER_scripts/Nup85` MODELLER scripts to generate comparative models of Nup85
+  - `MODELLER_scripts/Nup84` MODELLER scripts to generate comparative models of Nup84
+  - `MODELLER_scripts/Nup85` MODELLER scripts to generate comparative models of Nup85
   - `MODELLER_scripts/Nup120` MODELLER scripts to generate comparative models of Nup120
   - `MODELLER_scripts/Nup133` MODELLER scripts to generate comparative models of Nup133
   - `MODELLER_scripts/Nup145c` MODELLER scripts to generate comparative models of Nup145c
