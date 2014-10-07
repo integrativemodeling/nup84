@@ -82,7 +82,7 @@ with no crystal interfaces:
 
 _Author(s)_: Riccardo Pellarin, Elina Tjioe, and Seung Joong Kim
 
-_Date_: September 2nd, 2014
+_Date_: October 6th, 2014
 
 _License_: [LGPL](http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html).
 This library is free software; you can redistribute it and/or
