@@ -16,21 +16,16 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
 - `scripts`
   - `nup84.isd.modeling.withXrayInterface.py`  the main modeling script with 3 crystal interfaces
-
   - `nup84.isd.modeling.py`                    the main modeling script with no crystal interfaces
 
   - `nup84.topology.withXrayInterface.py`      constructs Nup84 subunits with 3 crystal interfaces
-
   - `nup84.topology.py`                        constructs Nup84 subunits with no crystal interfaces
 
   - `nup84.merge.py`                           script to merge output files from all runs ; filter threshold on total score can be set here
  
   - `vmd_scripts/rmdstt.tcl`                   VMD script to launch RMSD Trajectory Tool window 
-
   - `vmd_scripts/nup84_3-xray_density.tcl`     VMD script to calculate localization density for Nup84 with 3 crystal interfaces
-
   - `vmd_scripts/nup84_no-xray_density.tcl`    VMD script to calculate localization density for Nup84 with no crystal interfaces
-
   - `vmd_scripts/ALPS_motif_density.tcl`       VMD script to calculate localization density for Nup84 at ALPS motif regions 
 
   - `chimera_scripts/nup84_density.cmd`        Chimera script to view all localization density files 
@@ -43,9 +38,7 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
 - `output.1/pdbs`    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
                  (They are the best 500 models, so at the beginning they are empty, since you haven't start the calculation yet)
-
 - `output.1/rmfs`    the production will write the rmf3 files for lowest temperature replica.
-			
 - `stat.n.out`	 log files. They contain all relevant numbers of the calculation.
 
 Python dependencies:
