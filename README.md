@@ -48,6 +48,9 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 Python dependencies:
 - biopython 		(to read fasta files)
 
+## Running MODELLER scripts:
+- e.g. `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py` 
+
 ## Running nup84 script:
 with 3 crystal interfaces:
 - `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
