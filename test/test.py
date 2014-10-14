@@ -56,5 +56,24 @@ class Tests(unittest.TestCase):
         self.run_modeller_script('Nup145C', 'all_sjkim_final.py',
                                  'ScNup145C', (126, 553))
 
+    def test_no_xray(self):
+        """Test model building with no X ray interfaces"""
+        os.chdir(os.path.join(TOPDIR, 'scripts'))
+        self.run_imp_script('nup84.isd.modeling.py',
+                            'clustering_master_script_no-xray.sh')
+
+    def test_xray(self):
+        """Test model building with X ray interfaces"""
+        os.chdir(os.path.join(TOPDIR, 'scripts'))
+        self.run_imp_script('nup84.isd.modeling.withXrayInterface.py',
+                            'clustering_master_script_3-xray.sh')
+
+    def run_imp_script(self, script_name, cluster_script):
+        """Run IMP modeling"""
+        p = subprocess.check_call(["python", script_name, "--test"])
+        p = subprocess.check_call(["python", "nup84.merge.py"])
+        p = subprocess.check_call([cluster_script])
+        p = subprocess.check_call(["python", "nup84.analysis.py"])
+
 if __name__ == '__main__':
     unittest.main()
