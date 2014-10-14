@@ -21,7 +21,7 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
   - `nup84.topology.withXrayInterface.py`      constructs Nup84 subunits with 3 crystal interfaces
   - `nup84.topology.py`                        constructs Nup84 subunits with no crystal interfaces
 
-  - `nup84.merge.py`                           script to merge output files from all runs ; filter threshold on total score can be set here
+  - `nup84.merge.py`                           script to merge output files from all runs; filter threshold on total score can be set here
  
   - `vmd_scripts/rmdstt.tcl`                   a VMD script to launch RMSD Trajectory Tool window 
   - `vmd_scripts/nup84_3-xray_density.tcl`     a VMD script to calculate localization density for Nup84 with 3 crystal interfaces
@@ -40,42 +40,43 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
   - `MODELLER_scripts/Nup145c` MODELLER scripts to generate comparative models of Nup145c
 
-- `output.1/pdbs`    the production will write the best scoring models into pdb files they are initialized and then updated as long as the calculation goes
-                 (They are the best 500 models, so at the beginning they are empty, since you haven't start the calculation yet)
-- `output.1/rmfs`    the production will write the rmf3 files for lowest temperature replica.
-- `stat.n.out`	 log files. They contain all relevant numbers of the calculation.
-
-Python dependencies:
-- biopython 		(to read fasta files)
+- `scripts/output.1/pdbs`    The best 500 models from the modeling are accumulated in this directory, and updated as the calculation proceeds.
+- `scripts/output.1/rmfs`    The structures of the lowest temperature replica will be written here as [RMF files](http://integrativemodeling.org/rmf/).
+- `scripts/output.1/stat.n.out`	 Log files. They contain all relevant numbers of the calculation.
 
 ## Running the MODELLER scripts:
-- `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final1.py` : ScNup84N 7-488
-- `mod9.13 scripts/MODELLER_scripts/Nup84/all_sjkim_final2.py` : ScNup84C 506-726
-- `mod9.13 scripts/MODELLER_scripts/Nup85/all_sjkim_final.py` : ScNup85 44-744
-- `mod9.13 scripts/MODELLER_scripts/Nup120/all_sjkim_final1.py` : ScNup120 1-1037
-- `mod9.13 scripts/MODELLER_scripts/Nup133/all_sjkim_final1.py` : ScNup133N 56-480
-- `mod9.13 scripts/MODELLER_scripts/Nup133/all_sjkim_final2.py` : ScNup133C 490-1157
-- `mod9.13 scripts/MODELLER_scripts/Nup145C/all_sjkim_final.py` : ScNup145C 126-553
+- `cd scripts/MODELLER_scripts`
+- `(cd Nup84 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup84N 7-488
+- `(cd Nup84 && python all_sjkim_final2.py > all_sjkim_final2.log)` : ScNup84C 506-726
+- `(cd Nup85 && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup85 44-744
+- `(cd Nup120 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup120 1-1037
+- `(cd Nup133 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup133N 56-480
+- `(cd Nup133 && python all_sjkim_final2.py > all_sjkim_final2.log)` : ScNup133C 490-1157
+- `(cd Nup145C && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup145C 126-553
 
 ## Running the IMP/PMI scripts for the Nup84 complex:
 with 3 crystal interfaces:
+- `cd scripts`
 - `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
 - `python nup84.merge.py`
 - `clustering_master_script_3-xray.sh`
 - `python nup84.analysis.py`
 
 with no crystal interfaces:
+- `cd scripts`
 - `python nup84.isd.modeling.py &> nup84.isd.modeling.out`
 - `python nup84.merge.py`
 - `clustering_master_script_no-xray.sh`
 - `python nup84.analysis.py`
 
 ## Running the VMD scripts:
+- `cd scripts`
 - `vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl` 
 - In RMSD Trajectory Tool top window, type 'all', then click the button 'ALIGN' to align all pdb models
 - In vmd command line, type `source vmd_scripts/nup84_3-xray_density.tcl` to create localization density dx files
 
 ## Running the UCSF Chimera script:
+- `cd scripts`
 - `chimera [ALL].dx chimera_scripts/nup84_density.cmd` 
 
 ## Information
