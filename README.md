@@ -38,7 +38,7 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
   - `MODELLER_scripts/Nup133` MODELLER scripts to generate comparative models of Nup133
 
-  - `MODELLER_scripts/Nup145c` MODELLER scripts to generate comparative models of Nup145c
+  - `MODELLER_scripts/Nup145C` MODELLER scripts to generate comparative models of Nup145C
 
 - `scripts/output.1/pdbs`    The best 500 models from the modeling are accumulated in this directory, and updated as the calculation proceeds.
 - `scripts/output.1/rmfs`    The structures of the lowest temperature replica will be written here as [RMF files](http://integrativemodeling.org/rmf/).
