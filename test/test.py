@@ -71,7 +71,7 @@ class Tests(unittest.TestCase):
     def run_imp_script(self, script_name, cluster_script):
         """Run IMP modeling"""
         p = subprocess.check_call(["python", script_name, "--test"])
-        p = subprocess.check_call(["python", "nup84.merge.py"])
+        p = subprocess.check_call(["python", "nup84.merge.py", "--test"])
         p = subprocess.check_call([cluster_script])
         p = subprocess.check_call(["python", "nup84.analysis.py"])
 
