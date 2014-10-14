@@ -2,7 +2,7 @@ import IMP
 import IMP.pmi
 import IMP.pmi.macros
 
-is_mpi=True  #run in parallel and requires mpi4py
+is_mpi=False # set to True to run in parallel (requires mpi4py)
 
 model=IMP.Model()
 
