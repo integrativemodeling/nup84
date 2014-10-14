@@ -1,14 +1,15 @@
 import IMP
 import IMP.pmi
 import IMP.pmi.macros
+import sys
 
-is_mpi=True  #run in parallel and requires mpi4py
+is_mpi=False # set to True to run in parallel (requires mpi4py)
 
 model=IMP.Model()
 
 mc=IMP.pmi.macros.AnalysisReplicaExchange0(model,
                   stat_file_name_suffix="stat",
-                  merge_directories=["path/to/run1", "path/to/run2"],
+                  #merge_directories=["path/to/run1", "path/to/run2"],
                   global_output_directory="./output.1",
                   rmf_dir="rmfs/")
 
@@ -22,6 +23,8 @@ feature_list=["ISDCrossLinkMS_Distance_intrarb",
               "ExcludedVolumeSphere_",
               "SimplifiedModel_Link_"]
 
+prefiltervalue=300,
+if '--test' in sys.argv: prefiltervalue=1e9
 mc.clustering("SimplifiedModel_Total_Score_None",
               "rmf_file",
               "rmf_frame_index",
@@ -30,7 +33,7 @@ mc.clustering("SimplifiedModel_Total_Score_None",
               distance_matrix_file="distance.rawmatrix.pkl",
               load_distance_matrix_file=False,
               number_of_best_scoring_models=15000,
-              prefiltervalue=300,
+              prefiltervalue=prefiltervalue,
               #first_and_last_frames=[0.0,0.5],
               outputdir="./",
               feature_keys=feature_list,

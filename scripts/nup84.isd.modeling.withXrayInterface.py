@@ -18,6 +18,7 @@ import IMP.pmi.output
 import IMP.pmi.macros
 
 import os
+import sys
 
 rbmaxtrans = 2.00
 fbmaxtrans = 2.00
@@ -105,6 +106,8 @@ simo.optimize_floppy_bodies(100)
 print 'EVAL 2'
 print m.evaluate(False)
 
+nframes=500
+if '--test' in sys.argv: nframes=10
 mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
                                     monte_carlo_sample_objects=sampleobjects,
@@ -116,7 +119,7 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     replica_exchange_maximum_temperature=2.5,
                                     number_of_best_scoring_models=50,
                                     monte_carlo_steps=10,
-                                    number_of_frames=500,
+                                    number_of_frames=nframes,
                                     write_initial_rmf=True,
                                     initial_rmf_name_suffix="initial",
                                     stat_file_name_suffix="stat",
@@ -148,6 +151,8 @@ outputobjects.append(em2d)
 print 'EVAL 4'
 print m.evaluate(False)
 
+nframes=5000
+if '--test' in sys.argv: nframes=10
 mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
                                     monte_carlo_sample_objects=sampleobjects,
@@ -159,7 +164,7 @@ mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     replica_exchange_maximum_temperature=2.5,
                                     number_of_best_scoring_models=500,
                                     monte_carlo_steps=10,
-                                    number_of_frames=5000,
+                                    number_of_frames=nframes,
                                     write_initial_rmf=True,
                                     initial_rmf_name_suffix="initial",
                                     stat_file_name_suffix="stat",

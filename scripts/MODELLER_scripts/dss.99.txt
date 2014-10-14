@@ -1,0 +1,169 @@
+1st_Nup  Res1   -       2nd_Nup  Res2	Orig_D	Model_D	Or_viol	Mod_viol
+ Nup120   17	-	 Nup120  412	11.83	11.83	False	False
+ Nup120   17	-	 Nup120  735	57.56	24.97	True	False
+ Nup120  206	-	 Nup120  217	-	-	False	False
+ Nup120  384	-	 Nup120  362	9.29	9.29	False	False
+ Nup120  400	-	 Nup120  530	12.13	12.13	False	False
+ Nup120  400	-	 Nup120  531	15.68	15.68	False	False
+ Nup120  400	-	 Nup120  735	35.83	12.12	False	False
+ Nup120  735	-	 Nup120  412	47.52	17.53	True	False
+ Nup120  943	-	Nup145c  672	39.28	19.49	False	False
+ Nup120  943	-	Nup145c  681	51.41	21.60	True	False
+ Nup120  972	-	 Nup120  963	10.61	10.61	False	False
+ Nup120  972	-	Nup145c  681	50.69	21.94	True	False
+ Nup120  972	-	Nup145c  694	52.70	19.68	True	False
+ Nup120  972	-	  Nup85  729	24.82	16.76	False	False
+ Nup120  972	-	  Nup85  733	25.70	18.34	False	False
+ Nup120  972	-	  Nup85  734	25.17	21.69	False	False
+ Nup133  1034	-	 Nup133  946	18.65	18.65	False	False
+ Nup133  1072	-	 Nup133  1034	18.86	18.86	False	False
+ Nup133  1072	-	 Nup133  1035	19.66	19.66	False	False
+ Nup133  1072	-	 Nup133  936	-	-	False	False
+ Nup133  115	-	 Nup133   59	-	-	False	False
+ Nup133  168	-	 Nup133  191	-	-	False	False
+ Nup133  171	-	 Nup133  191	-	-	False	False
+ Nup133  191	-	 Nup133  239	-	-	False	False
+ Nup133  278	-	 Nup133  239	21.83	21.83	False	False
+ Nup133  488	-	 Nup133  442	-	-	False	False
+ Nup133  506	-	 Nup133   59	-	-	False	False
+ Nup133  532	-	 Nup133  488	-	-	False	False
+ Nup133  544	-	 Nup133  488	-	-	False	False
+ Nup133   59	-	 Nup133    5	-	-	False	False
+ Nup133  913	-	 Nup133  946	-	-	False	False
+ Nup133  936	-	  Nup84  712	-	-	False	False
+ Nup133  946	-	 Nup133  912	-	-	False	False
+ Nup133  966	-	 Nup133  963	5.06	5.06	False	False
+ Nup133  966	-	  Nup84  625	56.61	53.91	True	True
+ Nup133  973	-	 Nup133  976	5.39	5.39	False	False
+Nup145c    1	-	Nup145c   39	-	-	False	False
+Nup145c    1	-	Nup145c   43	-	-	False	False
+Nup145c    1	-	  Nup85  163	-	-	False	False
+Nup145c    1	-	  Nup85  564	-	-	False	False
+Nup145c  163	-	Nup145c  174	9.99	9.99	False	False
+Nup145c  183	-	Nup145c  174	22.85	22.85	False	False
+Nup145c  183	-	Nup145c  197	20.36	20.36	False	False
+Nup145c  183	-	  Sec13  282	17.44	26.89	False	False
+Nup145c  204	-	Nup145c  532	14.12	14.12	False	False
+Nup145c  227	-	Nup145c  183	14.47	14.47	False	False
+Nup145c  236	-	Nup145c  219	6.68	6.68	False	False
+Nup145c  284	-	Nup145c  357	16.66	16.66	False	False
+Nup145c  353	-	  Nup84  154	29.83	23.73	False	False
+Nup145c  360	-	Nup145c  353	10.37	10.37	False	False
+Nup145c   39	-	  Nup85  163	73.61	27.67	True	False
+Nup145c   39	-	  Nup85    2	-	-	False	False
+Nup145c   39	-	  Nup85  680	8.59	22.90	False	False
+Nup145c   43	-	  Nup85  163	68.48	18.12	True	False
+Nup145c   48	-	Nup145c   39	12.29	12.29	False	False
+Nup145c   59	-	Nup145c   39	14.58	14.58	False	False
+Nup145c   59	-	Nup145c   43	15.02	15.02	False	False
+Nup145c   59	-	  Nup85  564	-	-	False	False
+Nup145c   59	-	  Nup85  680	21.93	35.07	False	False
+Nup145c  593	-	Nup145c  694	31.01	31.01	False	False
+Nup145c  642	-	Nup145c  681	19.72	19.72	False	False
+Nup145c  642	-	Nup145c  683	19.42	19.42	False	False
+Nup145c  642	-	Nup145c  694	13.81	13.81	False	False
+Nup145c  668	-	Nup145c  593	42.54	42.54	True	True
+Nup145c   67	-	Nup145c   43	31.99	31.99	False	False
+Nup145c  681	-	Nup145c  711	20.27	20.27	False	False
+Nup145c  683	-	Nup145c  672	18.56	18.56	False	False
+Nup145c  694	-	Nup145c  649	7.40	7.40	False	False
+Nup145c  694	-	Nup145c  672	32.57	32.57	False	False
+Nup145c  694	-	Nup145c  681	19.37	19.37	False	False
+Nup145c  694	-	  Nup85  729	30.74	17.93	False	False
+Nup145c  707	-	Nup145c  681	15.90	15.90	False	False
+  Nup84  114	-	  Nup84  107	12.18	12.18	False	False
+  Nup84   20	-	  Nup84  459	-	-	False	False
+  Nup84   23	-	  Nup84   14	15.00	15.00	False	False
+  Nup84   23	-	  Nup84  460	-	-	False	False
+  Nup84  460	-	  Nup84   20	-	-	False	False
+  Nup84  544	-	  Nup84  670	22.36	22.36	False	False
+  Nup84  573	-	  Nup84  544	31.25	31.25	False	False
+  Nup84  573	-	  Nup84  560	12.58	12.58	False	False
+  Nup84  592	-	  Nup84  560	22.63	22.63	False	False
+  Nup84  592	-	  Nup84  625	11.57	11.57	False	False
+  Nup84  602	-	  Nup84  544	17.83	17.83	False	False
+  Nup84   66	-	  Nup84  382	13.52	13.52	False	False
+  Nup84  669	-	  Nup84  676	9.73	9.73	False	False
+  Nup84  669	-	  Nup84  712	15.75	15.75	False	False
+  Nup85  102	-	  Nup85  163	12.83	12.83	False	False
+  Nup85  231	-	  Nup85    2	-	-	False	False
+  Nup85  231	-	  Nup85  238	-	-	False	False
+  Nup85  247	-	  Nup85  237	-	-	False	False
+  Nup85  247	-	  Nup85  345	11.12	11.12	False	False
+  Nup85  293	-	  Nup85    2	-	-	False	False
+  Nup85   30	-	  Nup85    1	-	-	False	False
+  Nup85   30	-	  Nup85  163	-	-	False	False
+  Nup85   30	-	  Nup85    2	-	-	False	False
+  Nup85   39	-	  Nup85    2	-	-	False	False
+  Nup85   39	-	  Nup85   60	-	-	False	False
+  Nup85  438	-	   Seh1  244	-	-	False	False
+  Nup85  536	-	  Nup85  564	-	-	False	False
+  Nup85   60	-	Nup145c   43	-	-	False	False
+  Nup85   60	-	  Nup85    2	-	-	False	False
+  Nup85   60	-	  Nup85   39	-	-	False	False
+  Nup85  680	-	Nup145c   43	15.29	31.90	False	False
+  Nup85  680	-	  Nup85  734	26.90	26.90	False	False
+  Nup85  718	-	  Nup85  733	-	21.81	False	False
+  Nup85  718	-	  Nup85  734	-	22.03	False	False
+  Nup85  718	-	   Seh1  198	-	-	False	False
+  Nup85  729	-	  Nup85  733	6.37	6.37	False	False
+  Nup85  729	-	  Nup85  734	8.89	8.89	False	False
+  Nup85   85	-	  Nup85    2	-	-	False	False
+  Nup85   85	-	  Nup85   64	-	-	False	False
+  Nup85   89	-	  Nup85    2	-	-	False	False
+  Sec13  183	-	   Seh1  198	-	-	False	False
+  Sec13  186	-	  Sec13  172	-	-	False	False
+  Sec13    2	-	Nup145c  141	-	-	False	False
+  Sec13    2	-	Nup145c  163	-	-	False	False
+  Sec13    2	-	Nup145c  168	-	-	False	False
+  Sec13    2	-	Nup145c  174	-	-	False	False
+  Sec13    2	-	Nup145c   39	-	-	False	False
+  Sec13    2	-	Nup145c   43	-	-	False	False
+  Sec13    2	-	Nup145c   59	-	-	False	False
+  Sec13    2	-	  Sec13   31	-	-	False	False
+  Sec13    2	-	  Sec13   34	-	-	False	False
+  Sec13    2	-	   Seh1  198	-	-	False	False
+  Sec13  244	-	Nup145c  437	40.49	18.77	True	False
+  Sec13  244	-	  Sec13  288	19.35	19.35	False	False
+  Sec13  245	-	  Nup85    2	-	-	False	False
+  Sec13  252	-	  Nup85  734	68.72	76.46	True	True
+  Sec13  252	-	  Sec13  245	5.37	5.37	False	False
+  Sec13  277	-	Nup145c  174	13.68	23.66	False	False
+  Sec13  277	-	  Sec13  249	24.98	24.98	False	False
+  Sec13  282	-	Nup145c  174	12.34	20.37	False	False
+  Sec13  282	-	Nup145c  437	23.40	27.67	False	False
+  Sec13  288	-	Nup145c  437	29.45	22.11	False	False
+  Sec13  288	-	  Sec13  245	22.64	22.64	False	False
+  Sec13  288	-	  Sec13  249	30.21	30.21	False	False
+  Sec13   31	-	Nup145c  141	38.09	25.15	False	False
+  Sec13   34	-	Nup145c  168	20.25	37.01	False	False
+  Sec13   44	-	Nup145c  168	10.11	27.26	False	False
+  Sec13   44	-	  Sec13    2	-	-	False	False
+  Sec13   65	-	Nup145c  509	42.17	51.66	True	True
+  Sec13   83	-	Nup145c  649	54.48	90.95	True	True
+   Seh1    1	-	  Nup85  163	-	-	False	False
+   Seh1    1	-	  Nup85    2	-	-	False	False
+   Seh1    1	-	  Nup85   30	-	-	False	False
+   Seh1    1	-	  Nup85   39	-	-	False	False
+   Seh1    1	-	  Nup85   89	-	-	False	False
+   Seh1    1	-	   Seh1   40	-	-	False	False
+   Seh1  100	-	  Nup85    2	-	-	False	False
+   Seh1  108	-	   Seh1   79	6.30	6.30	False	False
+   Seh1  182	-	   Seh1  198	-	-	False	False
+   Seh1    2	-	  Nup85    1	-	-	False	False
+   Seh1  207	-	  Nup85    2	-	-	False	False
+   Seh1  207	-	   Seh1  198	-	-	False	False
+   Seh1  212	-	  Nup85    2	-	-	False	False
+   Seh1  236	-	  Nup85    2	-	-	False	False
+   Seh1  236	-	  Nup85   64	-	-	False	False
+   Seh1  236	-	   Seh1  212	8.02	8.02	False	False
+   Seh1  248	-	   Seh1  207	-	-	False	False
+   Seh1   34	-	  Nup85    2	-	-	False	False
+   Seh1   40	-	  Nup85    2	-	-	False	False
+   Seh1   40	-	  Nup85  564	-	-	False	False
+   Seh1   40	-	   Seh1   34	19.75	19.75	False	False
+   Seh1   82	-	   Seh1  100	7.19	7.19	False	False
+-------
+yeast_Nup84_DSS.dat 	 threshold =  40.0
+nup84_complex_ca_map_fit.pdb :	calculated/total =  89 / 164 	skipped =  75 	violated = 13
+../on_cluster/Nup84_rex/pdbs/models.99.pdb :	calculated/total =  91 / 164 	skipped =  73 	violated = 5
