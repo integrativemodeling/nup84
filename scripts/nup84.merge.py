@@ -8,7 +8,7 @@ model=IMP.Model()
 
 mc=IMP.pmi.macros.AnalysisReplicaExchange0(model,
                   stat_file_name_suffix="stat",
-                  merge_directories=["path/to/run1", "path/to/run2"],
+                  #merge_directories=["path/to/run1", "path/to/run2"],
                   global_output_directory="./output.1",
                   rmf_dir="rmfs/")
 
