@@ -21,15 +21,8 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
   - `nup84.topology.withXrayInterface.py`      constructs Nup84 subunits with 3 crystal interfaces
   - `nup84.topology.py`                        constructs Nup84 subunits with no crystal interfaces
 
-  - `nup84.merge.py`                           script to merge output files from all runs; filter threshold on total score can be set here
+  - `nup84.merge.py`                           script to merge output files from all runs and cluster; filter threshold on total score can be set here
  
-  - `vmd_scripts/rmdstt.tcl`                   a VMD script to launch RMSD Trajectory Tool window 
-  - `vmd_scripts/nup84_3-xray_density.tcl`     a VMD script to calculate localization density for Nup84 with 3 crystal interfaces
-  - `vmd_scripts/nup84_no-xray_density.tcl`    a VMD script to calculate localization density for Nup84 with no crystal interfaces
-  - `vmd_scripts/ALPS_motif_density.tcl`       a VMD script to calculate localization density for Nup84 at ALPS motif regions 
-
-  - `chimera_scripts/nup84_density.cmd`        a Chimera script to view all localization density files 
-
   - `MODELLER_scripts/Nup84` MODELLER scripts to generate comparative models of Nup84
 
   - `MODELLER_scripts/Nup85` MODELLER scripts to generate comparative models of Nup85
