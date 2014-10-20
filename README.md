@@ -58,26 +58,19 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 with 3 crystal interfaces:
 - `cd scripts`
 - `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
-- `python nup84.merge.py`
-- `clustering_master_script_3-xray.sh`
-- `python nup84.analysis.py`
 
 with no crystal interfaces:
 - `cd scripts`
 - `python nup84.isd.modeling.py &> nup84.isd.modeling.out`
+
+Next, merge and cluster the resulting models (this script can also be used to
+combine results from multiple independent runs):
 - `python nup84.merge.py`
-- `clustering_master_script_no-xray.sh`
-- `python nup84.analysis.py`
 
-## Running the VMD scripts:
-- `cd scripts`
-- `vmd after_merging/all_models/[ALL].pdb -e vmd_scripts/rmsdtt.tcl` 
-- In RMSD Trajectory Tool top window, type 'all', then click the button 'ALIGN' to align all pdb models
-- In vmd command line, type `source vmd_scripts/nup84_3-xray_density.tcl` to create localization density dx files
-
-## Running the UCSF Chimera script:
-- `cd scripts`
-- `chimera [ALL].dx chimera_scripts/nup84_density.cmd` 
+Finally, analyze the resulting clusters:
+- `python precision.py`
+- `python accuracy_xray_interface.py`
+- `python contactmap.py`
 
 ## Information
 

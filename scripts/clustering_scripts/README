@@ -1,7 +1,0 @@
-1) compile the clustering program
-gfortran cluster.f u3best.f -o cluster.x
-
-2) edit the file clustering_master_script.sh
-by changing the name of the directories containing the structures
-
-3) run clustering_master_script.sh 
