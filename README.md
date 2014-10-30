@@ -63,7 +63,7 @@ combine results from multiple independent runs):
 Finally, analyze the resulting clusters:
 - `python precision.py`
 - `python accuracy_xray_interface.py`
-- `python contactmap.py`
+- `python contact_map/make_contact_map.py`
 
 ## Information
 
