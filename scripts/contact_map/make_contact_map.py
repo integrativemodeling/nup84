@@ -1,15 +1,16 @@
+import matplotlib
+matplotlib.use('Agg')
 import xltable
 import glob
 
 cluster_directory="all_models.9"
 
 field_map={}
-field_map["prot1"]='pep1.accession'
-field_map["prot2"]='pep2.accession'
-field_map["res1"]='pep1.xlinked_aa'
-field_map["res2"]='pep2.xlinked_aa'
-field_map["score"]='dvals'
-
+field_map["prot1"]=0
+field_map["prot2"]=2
+field_map["res1"]=1
+field_map["res2"]=3
+field_map["score"]=4
 
 prot_list=["Nup84", "Nup85", "Nup120", "Nup133", "Nup145c", "Seh1", "Sec13"]
 
