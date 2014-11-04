@@ -59,7 +59,7 @@ class Tests(unittest.TestCase):
     def run_imp_script(self, script_name):
         """Run IMP modeling"""
         p = subprocess.check_call(["python", script_name, "--test"])
-        p = subprocess.check_call(["python", "nup84.merge.py"])
+        p = subprocess.check_call(["python", "nup84.merge.py", "--test"])
         p = subprocess.check_call(["python", "precision.py"])
         os.unlink("precision.all.dat")
         os.unlink("precision.hub.dat")

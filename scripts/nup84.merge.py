@@ -23,6 +23,8 @@ feature_list=["ISDCrossLinkMS_Distance_intrarb",
               "ExcludedVolumeSphere_",
               "SimplifiedModel_Link_"]
 
+prefiltervalue=300,
+if '--test' in sys.argv: prefiltervalue=800
 mc.clustering("SimplifiedModel_Total_Score_None",
               "rmf_file",
               "rmf_frame_index",
@@ -31,7 +33,7 @@ mc.clustering("SimplifiedModel_Total_Score_None",
               distance_matrix_file="distance.rawmatrix.pkl",
               load_distance_matrix_file=False,
               number_of_best_scoring_models=15000,
-              prefiltervalue=300,
+              prefiltervalue=prefiltervalue,
               #first_and_last_frames=[0.0,0.5],
               outputdir="./",
               feature_keys=feature_list,
