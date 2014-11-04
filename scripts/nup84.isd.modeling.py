@@ -106,7 +106,7 @@ simo.optimize_floppy_bodies(100)
 print 'EVAL 2'
 print m.evaluate(False)
 nframes=500
-if '--test' in sys.argv: nframes=10
+if '--test' in sys.argv: nframes=50
 mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     simo,
                                     monte_carlo_sample_objects=sampleobjects,
