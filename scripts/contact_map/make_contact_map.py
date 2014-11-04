@@ -1,3 +1,4 @@
+import os
 import matplotlib
 matplotlib.use('Agg')
 import xltable
@@ -28,7 +29,7 @@ for prot in prot_list:
                        protein_name=prot)  
 
 
-for rmf in glob.glob(cluster_directory+"*.rmf3")[0::10]:
+for rmf in glob.glob(os.path.join(cluster_directory, "*.rmf"))[0::10]:
    xlt.load_rmf_coordinates(rmf,0,prot_list)
 
 ### creating contact map
@@ -41,7 +42,7 @@ xlt.plot_table(prot_listx=prot_list,
            alphablend=0.4,
            scale_symbol_size=1.5,
            gap_between_components=50,
-           filename=cluster_directory+"/XL_table_middle.pdf",
+           filename=os.path.join(cluster_directory, "XL_table.pdf"),
            contactmap=True,
            crosslink_threshold=35.0,
            display_residue_pairs=False,
