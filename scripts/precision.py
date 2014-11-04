@@ -15,14 +15,15 @@ for eoe in ('hub', 'all'):
     model=IMP.Model()
     
     if eoe=='all':
-       pr=IMP.pmi.analysis.Precision(model,'ten')
+       pr=IMP.pmi.analysis.Precision(model,'ten',
+                                     selection_dictionary={})
     else:
        pr=IMP.pmi.analysis.Precision(model,'ten',
                                      selection_dictionary=selection_dictionary)
     pr.set_threshold(60.0)
     pr.set_precision_style('pairwise_drmsd_Q')
 
-    pr.add_structures(zip(rmfs,frames),is_mpi=False)
+    pr.add_structures(zip(rmfs,frames), 'all', is_mpi=False)
         
     outfile="precision."+eoe+".dat"
-    pr.get_precision(outfile,is_mpi=False,skip=10)
+    pr.get_precision(outfile, 'all', 'all', is_mpi=False, skip=10)
