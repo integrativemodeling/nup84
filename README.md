@@ -29,8 +29,6 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 
   - `MODELLER_scripts/Nup120` MODELLER scripts to generate comparative models of Nup120
 
-  - `MODELLER_scripts/Nup133` MODELLER scripts to generate comparative models of Nup133
-
   - `MODELLER_scripts/Nup145C` MODELLER scripts to generate comparative models of Nup145C
 
 - `scripts/output.1/pdbs`    The best 500 models from the modeling are accumulated in this directory, and updated as the calculation proceeds.
@@ -43,9 +41,8 @@ be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP
 - `(cd Nup84 && python all_sjkim_final2.py > all_sjkim_final2.log)` : ScNup84C 506-726
 - `(cd Nup85 && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup85 44-744
 - `(cd Nup120 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup120 1-1037
-- `(cd Nup133 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup133N 56-480
-- `(cd Nup133 && python all_sjkim_final2.py > all_sjkim_final2.log)` : ScNup133C 490-1157
 - `(cd Nup145C && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup145C 126-553
+- Note that the Nup133 component is built as part of a [separate study](http://salilab.org/nup133/).
 
 ## Running the IMP/PMI scripts for the Nup84 complex:
 with 3 crystal interfaces:
