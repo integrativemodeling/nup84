@@ -49,21 +49,23 @@ class Tests(unittest.TestCase):
     def test_no_xray(self):
         """Test model building with no X ray interfaces"""
         os.chdir(os.path.join(TOPDIR, 'scripts'))
-        self.run_imp_script('nup84.isd.modeling.py',
-                            'clustering_master_script_no-xray.sh')
+        self.run_imp_script('nup84.isd.modeling.py')
 
     def test_xray(self):
         """Test model building with X ray interfaces"""
         os.chdir(os.path.join(TOPDIR, 'scripts'))
-        self.run_imp_script('nup84.isd.modeling.withXrayInterface.py',
-                            'clustering_master_script_3-xray.sh')
+        self.run_imp_script('nup84.isd.modeling.withXrayInterface.py')
 
-    def run_imp_script(self, script_name, cluster_script):
+    def run_imp_script(self, script_name):
         """Run IMP modeling"""
         p = subprocess.check_call(["python", script_name, "--test"])
         p = subprocess.check_call(["python", "nup84.merge.py", "--test"])
-        p = subprocess.check_call([cluster_script])
-        p = subprocess.check_call(["python", "nup84.analysis.py"])
+        p = subprocess.check_call(["python", "precision.py"])
+        os.unlink("precision.all.dat")
+        os.unlink("precision.hub.dat")
+        p = subprocess.check_call(["python", "accuracy_xray_inferface.py"])
+        p = subprocess.check_call(["python", "contact_map/make_contact_map.py"])
+        os.unlink("all_models.9/XL_table.pdf")
 
 if __name__ == '__main__':
     unittest.main()
