@@ -9,7 +9,7 @@ selection_dictionary={"Hub":["Nup145c","Sec13","Seh1","Nup85"]}
 
 
 for eoe in ('hub', 'all'):
-    rmfs = glob.glob("output.1/rmfs/*.rmf3")
+    rmfs = glob.glob("kmeans_50_1/cluster.0/*.rmf3")
     frames=[0]*len(rmfs)
     
     model=IMP.Model()
@@ -26,4 +26,4 @@ for eoe in ('hub', 'all'):
     pr.add_structures(zip(rmfs,frames), 'all', is_mpi=False)
         
     outfile="precision."+eoe+".dat"
-    pr.get_precision(outfile, 'all', 'all', is_mpi=False, skip=10)
+    pr.get_precision(outfile, 'all', 'all', is_mpi=False, skip=1)

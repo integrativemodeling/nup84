@@ -4,7 +4,7 @@ matplotlib.use('Agg')
 import xltable
 import glob
 
-cluster_directory="all_models.9"
+cluster_directory="kmeans_50_1/cluster.0"
 
 field_map={}
 field_map["prot1"]=0
@@ -29,7 +29,7 @@ for prot in prot_list:
                        protein_name=prot)  
 
 
-for rmf in glob.glob(os.path.join(cluster_directory, "*.rmf"))[0::10]:
+for rmf in glob.glob(os.path.join(cluster_directory, "*.rmf3"))[0::10]:
    xlt.load_rmf_coordinates(rmf,0,prot_list)
 
 ### creating contact map

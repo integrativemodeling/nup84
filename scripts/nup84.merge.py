@@ -25,21 +25,22 @@ feature_list=["ISDCrossLinkMS_Distance_intrarb",
 
 prefiltervalue=300,
 if '--test' in sys.argv: prefiltervalue=800
+nclusters=1
 mc.clustering("SimplifiedModel_Total_Score_None",
               "rmf_file",
               "rmf_frame_index",
-              alignment_components=["Nup85","Nup145c","Sec13","Seh1"],
-              rmsd_calculation_components=["Nup85","Nup145c","Sec13","Seh1","Nup120","Nup84"],
+              alignment_components=None,
+              rmsd_calculation_components=None,
               distance_matrix_file="distance.rawmatrix.pkl",
               load_distance_matrix_file=False,
               number_of_best_scoring_models=15000,
               prefiltervalue=prefiltervalue,
               #first_and_last_frames=[0.0,0.5],
-              outputdir="./",
+              outputdir="kmeans_50_%d" % nclusters,
               feature_keys=feature_list,
               #display_plot=True,
               is_mpi=is_mpi,
               get_every=1,
-              skip_clustering=True,
-              #number_of_clusters=1,
-              density_custom_ranges={"Nup84_density":["Nup84"],"Nup145c_density":["Nup145c"],"Nup85_density":["Nup85"],"Seh1_density":["Seh1"],"Nup133_density":["Nup133"],"Nup120_density":["Nup120"],"Sec13_density":["Sec13"]})
+              skip_clustering=False,
+              number_of_clusters=nclusters
+              )
