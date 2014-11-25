@@ -12,12 +12,12 @@ frames=[0]*len(rmfs)
 
 model=IMP.Model()
 
-pr=IMP.pmi.analysis.Precision(model,'ten',
+pr=IMP.pmi.analysis.Precision(model,resolution=10,
                              selection_dictionary=selection_dictionary)
 pr.set_threshold(60.0)
 pr.set_precision_style('pairwise_drmsd_Q')
 
-pr.add_structures(zip(rmfs,frames), 'all', is_mpi=False)
+pr.add_structures(zip(rmfs,frames), 'all')
 
 outfile="precision.dat"
-pr.get_precision(outfile, 'all', 'all', is_mpi=False, skip=1)
+pr.get_precision('all', 'all', outfile)

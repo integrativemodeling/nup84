@@ -3,15 +3,12 @@ import IMP.pmi
 import IMP.pmi.macros
 import sys
 
-is_mpi=False # set to True to run in parallel (requires mpi4py)
-
 model=IMP.Model()
 
 mc=IMP.pmi.macros.AnalysisReplicaExchange0(model,
                   stat_file_name_suffix="stat",
                   #merge_directories=["path/to/run1", "path/to/run2"],
-                  global_output_directory="./output.1",
-                  rmf_dir="rmfs/")
+                  global_output_directory="./output.1")
 
 feature_list=["ISDCrossLinkMS_Distance_intrarb",
               "ISDCrossLinkMS_Distance_interrb",
@@ -39,7 +36,6 @@ mc.clustering("SimplifiedModel_Total_Score_None",
               outputdir="kmeans_50_%d" % nclusters,
               feature_keys=feature_list,
               #display_plot=True,
-              is_mpi=is_mpi,
               get_every=1,
               skip_clustering=False,
               number_of_clusters=nclusters

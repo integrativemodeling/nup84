@@ -17,11 +17,11 @@ model=IMP.Model()
 frames=[0]*len(rmfs)
 
 model=IMP.Model()
-pr=IMP.pmi.analysis.Precision(model,'one',
+pr=IMP.pmi.analysis.Precision(model,1,
                               selection_dictionary=selection_dictionary)
 pr.set_precision_style('pairwise_drmsd_k')
 
-pr.add_structures(zip(rmfs,frames), 'all', is_mpi=False)
+pr.add_structures(zip(rmfs,frames), 'all')
 
 
 
