@@ -61,11 +61,10 @@ class Tests(unittest.TestCase):
         p = subprocess.check_call(["python", script_name, "--test"])
         p = subprocess.check_call(["python", "nup84.merge.py", "--test"])
         p = subprocess.check_call(["python", "precision.py"])
-        os.unlink("precision.all.dat")
-        os.unlink("precision.hub.dat")
+        os.unlink("precision.dat")
         p = subprocess.check_call(["python", "accuracy_xray_inferface.py"])
         p = subprocess.check_call(["python", "contact_map/make_contact_map.py"])
-        os.unlink("all_models.9/XL_table.pdf")
+        os.unlink("kmeans_50_1/cluster.0/XL_table.pdf")
 
 if __name__ == '__main__':
     unittest.main()
