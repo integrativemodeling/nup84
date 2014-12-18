@@ -1,3 +1,4 @@
+from __future__ import print_function
 import IMP
 import IMP.pmi
 import IMP.pmi.analysis
@@ -28,4 +29,4 @@ pr.add_structures(zip(rmfs,frames), 'all')
 refrmf='reference/xray-hub.rmf3'
 pr.set_reference_structure(refrmf,0)
 
-print pr.get_average_distance_wrt_reference_structure('all')
+print(pr.get_average_distance_wrt_reference_structure('all'))

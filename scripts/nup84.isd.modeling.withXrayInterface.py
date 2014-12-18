@@ -1,3 +1,4 @@
+from __future__ import print_function
 import IMP
 import IMP.core
 import IMP.base
@@ -33,7 +34,7 @@ m = IMP.Model()
 #simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
-execfile("nup84.topology.withXrayInterface.py")
+exec(open("nup84.topology.withXrayInterface.py").read())
 
 #simo.translate_hierarchies_to_reference_frame(Nup84_complex)
 simo.shuffle_configuration(100)
@@ -100,11 +101,11 @@ xl2.set_psi_is_sampled(False)
 psi=xl2.get_psi(1.0)[0]
 psi.set_scale(0.05)
 
-print 'EVAL 1'
-print m.evaluate(False)
+print('EVAL 1')
+print(m.evaluate(False))
 simo.optimize_floppy_bodies(100)
-print 'EVAL 2'
-print m.evaluate(False)
+print('EVAL 2')
+print(m.evaluate(False))
 
 nframes=500
 if '--test' in sys.argv: nframes=50
@@ -132,8 +133,8 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     replica_stat_file_suffix="stat_replica")
 mc1.execute_macro()
 rex1=mc1.get_replica_exchange_object()
-print 'EVAL 3'
-print m.evaluate(False)
+print('EVAL 3')
+print(m.evaluate(False))
 
 # 2DEM restraints
 images = ['../data/nup84_kinked_from_class2.pgm']
@@ -148,8 +149,8 @@ em2d.add_to_model()
 em2d.set_weight(500)
 outputobjects.append(em2d)
 
-print 'EVAL 4'
-print m.evaluate(False)
+print('EVAL 4')
+print(m.evaluate(False))
 
 nframes=5000
 if '--test' in sys.argv: nframes=10
