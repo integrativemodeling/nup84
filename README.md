@@ -1,5 +1,3 @@
-# Nup84 complex
-
 These scripts demonstrate the use of [IMP](http://salilab.org/imp), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
 
 First, [MODELLER](http://salilab.org/modeller) is used to generate
