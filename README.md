@@ -1,12 +1,10 @@
-These scripts demonstrate the use of [IMP](http://salilab.org/imp), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
+These scripts demonstrate the use of [IMP](http://integrativemodeling.org), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
 
 First, [MODELLER](http://salilab.org/modeller) is used to generate
 initial structures for the individual components in the Nup84 complex. Then, IMP
 is used to model these components using DSS/EDC crosslinks and the electron microscopy 2D class average for the entire Nup84 complex.
 
-The scripts work with the latest [IMP](http://salilab.org/imp) (develop branch).
-A default build of IMP should work, but for most effective sampling, it should
-be built with [MPI](http://integrativemodeling.org/nightly/doc/html/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
+The modeling protocol will work with a default build of IMP, but for most effective sampling, IMP should be built with [MPI](http://integrativemodeling.org/2.4.0/doc/html/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
 
 ## List of files and directories:
 
