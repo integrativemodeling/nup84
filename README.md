@@ -43,7 +43,7 @@ The modeling protocol will work with a default build of IMP, but for most effect
 ## Running the IMP/PMI scripts for the Nup84 complex:
 with 3 crystal interfaces:
 - `cd scripts`
-- `python nup84.isd.modeling.withXrayInterface.py & > nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
+- `python nup84.isd.modeling.withXrayInterface.py &> nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
 
 with no crystal interfaces:
 - `cd scripts`
