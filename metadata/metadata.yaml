@@ -1,3 +1,7 @@
 title: Nup84 Complex
 tags: [chemical crosslinks, EM class average, MODELLER, PMI]
 pmid: 25161197
+prereqs: [modeller, python/scikit, python/matplotlib]
+test:
+    runtime: 24h
+    build: release
