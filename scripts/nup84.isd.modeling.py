@@ -101,10 +101,10 @@ psi=xl2.get_psi(1.0)[0]
 psi.set_scale(0.05)
 
 print('EVAL 1')
-print(m.evaluate(False))
+print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
 simo.optimize_floppy_bodies(100)
 print('EVAL 2')
-print(m.evaluate(False))
+print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
 nframes=500
 if '--test' in sys.argv: nframes=50
 mc1=IMP.pmi.macros.ReplicaExchange0(m,
@@ -132,7 +132,7 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
 mc1.execute_macro()
 rex1=mc1.get_replica_exchange_object()
 print('EVAL 3')
-print(m.evaluate(False))
+print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
 
 
 # 2DEM restraints
@@ -149,7 +149,7 @@ em2d.set_weight(500)
 outputobjects.append(em2d)
 
 print('EVAL 4')
-print(m.evaluate(False))
+print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
 
 nframes=5000
 if '--test' in sys.argv: nframes=10
