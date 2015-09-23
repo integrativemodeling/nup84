@@ -4,7 +4,7 @@ First, [MODELLER](http://salilab.org/modeller) is used to generate
 initial structures for the individual components in the Nup84 complex. Then, IMP
 is used to model these components using DSS/EDC crosslinks and the electron microscopy 2D class average for the entire Nup84 complex.
 
-The modeling protocol will work with a default build of IMP, but for most effective sampling, IMP should be built with [MPI](http://integrativemodeling.org/2.4.0/doc/html/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
+The modeling protocol will work with a default build of IMP, but for most effective sampling, IMP should be built with [MPI](http://integrativemodeling.org/2.5.0/doc/ref/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
 
 ## List of files and directories:
 
