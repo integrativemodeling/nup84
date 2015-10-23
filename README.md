@@ -44,6 +44,9 @@ The modeling protocol will work with a default build of IMP, but for most effect
 with 3 crystal interfaces:
 - `cd scripts`
 - `python nup84.isd.modeling.withXrayInterface.py &> nup84.isd.modeling.withXrayInterface.out` (on a single processor; prepend `mpirun -np 4` or similar if you built IMP with MPI support)
+- You can add the `--test` option to the command line to quickly test the
+  script; this simply runs the sampling for fewer steps (should complete
+  in an hour or two).
 
 with no crystal interfaces:
 - `cd scripts`
@@ -52,6 +55,7 @@ with no crystal interfaces:
 Next, merge and cluster the resulting models (this script can also be used to
 combine results from multiple independent runs):
 - `python nup84.merge.py`
+- (If you used the `--test` option above, use it here too.)
 
 Finally, analyze the resulting clusters:
 - `python precision.py`
