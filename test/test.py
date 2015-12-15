@@ -16,8 +16,8 @@ class Tests(unittest.TestCase):
         # Run script
         p = subprocess.check_call(["python", script_name, "--test"])
         # Make sure PDB was produced with the requested residue range
-        pdb_lines = open('%s.B99990001.pdb' % model_name).readlines()
-        pdb_lines = [x for x in pdb_lines if x.startswith('ATOM')]
+        with open('%s.B99990001.pdb' % model_name) as fh:
+            pdb_lines = [x for x in fh.readlines() if x.startswith('ATOM')]
         rng = (int(pdb_lines[0][22:26]), int(pdb_lines[-1][22:26]))
         self.assertEqual(rng, resrng)
 
