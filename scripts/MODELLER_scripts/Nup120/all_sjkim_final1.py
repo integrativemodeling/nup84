@@ -1,3 +1,4 @@
+from __future__ import print_function
 from modeller import *
 from modeller.automodel import *
 from modeller.scripts import complete_pdb
@@ -238,7 +239,7 @@ a.make()
 
 for files in os.listdir('.'):
     if fnmatch.fnmatch(files, 'ScNup120.B*.pdb'):
-        print files
+        print(files)
         mdl = model(env, file=files)
         mdl.rename_segments('A', 1)
         mdl.write(files)
