@@ -30,6 +30,13 @@ The modeling protocol will work with a default build of IMP, but for most effect
 - `scripts/output.1/pdbs`    The best 500 models from the modeling are accumulated in this directory, and updated as the calculation proceeds.
 - `scripts/output.1/rmfs`    The structures of the lowest temperature replica will be written here as [RMF files](http://integrativemodeling.org/rmf/).
 - `scripts/output.1/stat.n.out`	 Log files. They contain all relevant numbers of the calculation.
+- `outputs` For reference, the models described in the Nup84 publication are
+  deposited in this directory. For each of the two clusters discovered in
+  the study, the cluster representative (the best scoring individual model in
+  the cluster) is available in RMF format, together with the top five best
+  scoring models in PDB format. An accompanying stat file contains useful
+  statistics on the simulation, such as whether each of the crosslinks was
+  satisfied.
 
 ## Running the MODELLER scripts:
 - `cd scripts/MODELLER_scripts`
