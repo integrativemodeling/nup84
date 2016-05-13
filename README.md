@@ -38,7 +38,8 @@ The modeling protocol will work with a default build of IMP, but for most effect
   the cluster) is available in RMF format, together with the top five best
   scoring models in PDB format. An accompanying stat file contains useful
   statistics on the simulation, such as whether each of the crosslinks was
-  satisfied.
+  satisfied. The localization densities, as shown in Figure 6 on the publication
+  are also available, as Chimera session files.
 
 ## Running the MODELLER scripts:
 - `cd scripts/MODELLER_scripts`
