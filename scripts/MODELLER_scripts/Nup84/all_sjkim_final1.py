@@ -85,6 +85,9 @@ aln.check()
 #exit()
 ######################### 4. model-single.py ########################
 class MyModel(automodel):
+    def special_patches(self, aln):
+        self.rename_segments('A', 7)
+
     def special_restraints(self, aln):
         rsr = self.restraints
         at = self.atoms
@@ -109,44 +112,44 @@ class MyModel(automodel):
 
         #DSS Intra-molecular Crosslinks        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:108'],
-                                                         at['CA:101']),
+                               feature=features.distance(at['CA:114:A'],
+                                                         at['CA:107:A']),
                                mean=17.0, stdev=5.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:14'],
-                                                         at['CA:453']),
+                               feature=features.distance(at['CA:20:A'],
+                                                         at['CA:459:A']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:17'],
-                                                         at['CA:8']),
+                               feature=features.distance(at['CA:23:A'],
+                                                         at['CA:14:A']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:17'],
-                                                         at['CA:454']),
+                               feature=features.distance(at['CA:23:A'],
+                                                         at['CA:460:A']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:454'],
-                                                         at['CA:14']),
+                               feature=features.distance(at['CA:460:A'],
+                                                         at['CA:20:A']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:60'],
-                                                         at['CA:376']),
+                               feature=features.distance(at['CA:66:A'],
+                                                         at['CA:382:A']),
                                mean=17.0, stdev=5.0))
 
         #EDC Intra-molecular Crosslinks        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:137'],
-                                                         at['CA:158']),
+                               feature=features.distance(at['CA:143:A'],
+                                                         at['CA:164:A']),
                                mean=15.0, stdev=2.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:137'],
-                                                         at['CA:167']),
+                               feature=features.distance(at['CA:143:A'],
+                                                         at['CA:173:A']),
                                mean=15.0, stdev=2.0))
                               
         #rsr.add(forms.upper_bound(group=physical.xy_distance,
@@ -195,14 +198,6 @@ a.ending_model = 20
 
 a.make()
 """
-
-for files in os.listdir('.'):
-    if fnmatch.fnmatch(files, 'ScNup84N.B*.pdb'):
-        print(files)
-        mdl = model(env, file=files)
-        mdl.rename_segments('A', 7)
-        mdl.write(files)
-
 
 #a.rename_segments('A', 601)
 
