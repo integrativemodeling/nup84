@@ -1,3 +1,8 @@
+EXPDTA    THEORETICAL MODEL, MODELLER SVN 2016/06/17 12:37:08
+REMARK   6 TEMPLATE: 3jroC 33:C - 424:C MODELS 33:A - 424:A AT 100.0%
+REMARK   6 TEMPLATE: 3f3fG 482:G - 551:G MODELS 429:A - 488:A AT 10.0%
+REMARK   6 TEMPLATE: 3ikoC 7:C - 436:C MODELS 7:A - 436:A AT 100.0%
+REMARK   6 TEMPLATE: 3cqcA 667:A - 913:A MODELS 506:A - 726:A AT 17.6%
 HELIX    1   1 GLN A    8  GLU A   25  1                                  18
 HELIX    2   2 PRO A   35  ASN A   55  1                                  21
 HELIX    3   3 GLU A   59  ALA A   87  1                                  29
