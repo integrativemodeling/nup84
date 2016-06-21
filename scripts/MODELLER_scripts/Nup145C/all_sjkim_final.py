@@ -85,6 +85,9 @@ aln.check()
 #exit()
 ######################### 4. model-single.py ########################
 class MyModel(automodel):
+    def special_patches(self, aln):
+        self.rename_segments('E', 126)
+
     def special_restraints(self, aln):
         rsr = self.restraints
         at = self.atoms
@@ -109,80 +112,80 @@ class MyModel(automodel):
 
         #DSS Intra-molecular Crosslinks        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:38'],
-                                                         at['CA:49']),
+                               feature=features.distance(at['CA:163:E'],
+                                                         at['CA:174:E']),
                                mean=17.0, stdev=5.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:58'],
-                                                         at['CA:49']),
+                               feature=features.distance(at['CA:183:E'],
+                                                         at['CA:174:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:58'],
-                                                         at['CA:72']),
+                               feature=features.distance(at['CA:183:E'],
+                                                         at['CA:197:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:79'],
-                                                         at['CA:407']),
+                               feature=features.distance(at['CA:204:E'],
+                                                         at['CA:532:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:102'],
-                                                         at['CA:58']),
+                               feature=features.distance(at['CA:227:E'],
+                                                         at['CA:183:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:111'],
-                                                         at['CA:94']),
+                               feature=features.distance(at['CA:236:E'],
+                                                         at['CA:219:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:159'],
-                                                         at['CA:232']),
+                               feature=features.distance(at['CA:284:E'],
+                                                         at['CA:357:E']),
                                mean=17.0, stdev=5.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:235'],
-                                                         at['CA:228']),
+                               feature=features.distance(at['CA:360:E'],
+                                                         at['CA:353:E']),
                                mean=17.0, stdev=5.0))
                                
 
         #EDC Intra-molecular Crosslinks        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:58'],
-                                                         at['CA:101']),
+                               feature=features.distance(at['CA:183:E'],
+                                                         at['CA:226:E']),
                                mean=15.0, stdev=2.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:58'],
-                                                         at['CA:106']),
+                               feature=features.distance(at['CA:183:E'],
+                                                         at['CA:231:E']),
                                mean=15.0, stdev=2.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:68'],
-                                                         at['CA:95']),
+                               feature=features.distance(at['CA:193:E'],
+                                                         at['CA:220:E']),
                                mean=15.0, stdev=2.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:94'],
-                                                         at['CA:62']),
+                               feature=features.distance(at['CA:219:E'],
+                                                         at['CA:187:E']),
                                mean=15.0, stdev=2.0))
                               
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:94'],
-                                                         at['CA:106']),
+                               feature=features.distance(at['CA:219:E'],
+                                                         at['CA:231:E']),
                                mean=15.0, stdev=2.0))
                                        
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:125'],
-                                                         at['CA:88']),
+                               feature=features.distance(at['CA:250:E'],
+                                                         at['CA:213:E']),
                                mean=15.0, stdev=2.0))
 
         rsr.add(forms.upper_bound(group=physical.xy_distance,
-                               feature=features.distance(at['CA:184'],
-                                                         at['CA:168']),
+                               feature=features.distance(at['CA:309:E'],
+                                                         at['CA:293:E']),
                                mean=15.0, stdev=2.0))
 
         #rsr.add(forms.upper_bound(group=physical.xy_distance,
@@ -231,14 +234,6 @@ a.ending_model = 20
 
 a.make()
 """
-
-for files in os.listdir('.'):
-    if fnmatch.fnmatch(files, 'ScNup145C.B*.pdb'):
-        print(files)
-        mdl = model(env, file=files)
-        mdl.rename_segments('A', 126)
-        mdl.write(files)
-
 
 #a.rename_segments('A', 601)
 
