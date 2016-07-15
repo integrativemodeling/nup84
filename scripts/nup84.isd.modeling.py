@@ -168,12 +168,19 @@ print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
 # 2DEM restraints
 images = ['../data/nup84_kinked_from_class2.pgm']
 
+# Point to the raw micrographs from which the class average was derived
+# for completeness (we don't use these directly in the modeling)
+source = IMP.pmi.metadata.RepositoryFile(doi="10.5281/zenodo.58025",
+                                         path='Nup84complex_particles.spd')
+micrographs = IMP.pmi.restraints.em2d.Micrographs(number=800, metadata=[source])
+
 em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     images,
                                                     resolution=1.0,
                                                     pixel_size = 5.91,
                                                     image_resolution = 30.0,
-                                                    projection_number = 400)
+                                                    projection_number = 400,
+                                                    micrographs=micrographs)
 em2d.add_to_model()
 em2d.set_weight(500)
 outputobjects.append(em2d)
