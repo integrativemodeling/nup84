@@ -35,8 +35,20 @@ m = IMP.Model()
 #simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
-# We used DISOPRED to predict (and remove) disordered regions in the input
-# subunits
+# We used HHpred to detect remote homologs for some input subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='HHpred', classification='protein homology detection',
+          description='Protein homology detection by HMM-HMM comparison',
+          version='2.0.16',
+          url='https://toolkit.tuebingen.mpg.de/hhpred'))
+# We used PSIPRED to predict secondary structure for subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='PSIPRED', classification='secondary structure prediction',
+          description='Protein secondary structure prediction based on '
+                      'position-specific scoring matrices',
+          version='4.0',
+          url='http://bioinf.cs.ucl.ac.uk/psipred/'))
+# We used DISOPRED to predict (and remove) disordered regions in the subunits
 simo.add_metadata(IMP.pmi.metadata.Software(
           name='DISOPRED', classification='disorder prediction',
           description='prediction of protein disorder', version=3,
