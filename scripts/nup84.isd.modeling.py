@@ -5,6 +5,7 @@ import IMP.algebra
 import IMP.atom
 import IMP.container
 
+import IMP.pmi.mmcif
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.em
@@ -13,6 +14,7 @@ import IMP.pmi.restraints.basic
 import IMP.pmi.restraints.proteomics
 import IMP.pmi.representation
 import IMP.pmi.tools
+import IMP.pmi.metadata
 import IMP.pmi.samplers
 import IMP.pmi.output
 import IMP.pmi.macros
@@ -32,6 +34,32 @@ sampleobjects = []
 m = IMP.Model()
 #simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
+
+# We used DISOPRED to predict (and remove) disordered regions in the input
+# subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='DISOPRED', classification='disorder prediction',
+          description='prediction of protein disorder', version=3,
+          url='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1'))
+simo.add_metadata(IMP.pmi.metadata.Citation(
+          pmid='25161197',
+          title="Structural characterization by cross-linking reveals the "
+                "detailed architecture of a coatomer-related heptameric "
+                "module from the nuclear pore complex.",
+          journal="Mol Cell Proteomics", volume=13, page_range=(2927,2943),
+          year=2014,
+          authors=['Shi Y', 'Fernandez-Martinez J', 'Tjioe E', 'Pellarin R',
+                   'Kim SJ', 'Williams R', 'Schneidman-Duhovny D', 'Sali A',
+                   'Rout MP', 'Chait BT']))
+simo.add_metadata(IMP.pmi.metadata.Repository(
+          doi="10.5281/zenodo.46266", root=".."))
+
+if '--mmcif' in sys.argv:
+    # Record the modeling protocol to an mmCIF file
+    po = IMP.pmi.mmcif.ProtocolOutput(open('nup84.cif', 'w'))
+    simo.add_protocol_output(po)
+
+simo.dry_run = '--dry-run' in sys.argv
 
 exec(open("nup84.topology.py").read())
 
@@ -128,8 +156,10 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     global_output_directory="pre-2DEM_output.1",
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
-                                    replica_stat_file_suffix="stat_replica")
+                                    replica_stat_file_suffix="stat_replica",
+                                    test_mode=simo.dry_run)
 mc1.execute_macro()
+
 rex1=mc1.get_replica_exchange_object()
 print('EVAL 3')
 print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
@@ -175,5 +205,12 @@ mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica",
-                                    replica_exchange_object=rex1) 
+                                    replica_exchange_object=rex1,
+                                    test_mode=simo.dry_run)
 mc2.execute_macro()
+
+if '--mmcif' in sys.argv:
+    # Dump coordinates of the current (unoptimized) model
+    # todo: read in the previously-generated clusters instead
+    po.add_model()
+    po.flush()
