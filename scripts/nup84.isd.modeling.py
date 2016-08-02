@@ -62,7 +62,8 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
           year=2014,
           authors=['Shi Y', 'Fernandez-Martinez J', 'Tjioe E', 'Pellarin R',
                    'Kim SJ', 'Williams R', 'Schneidman-Duhovny D', 'Sali A',
-                   'Rout MP', 'Chait BT']))
+                   'Rout MP', 'Chait BT'],
+          doi='10.1074/mcp.M114.041673'))
 simo.add_metadata(IMP.pmi.metadata.Repository(
           doi="10.5281/zenodo.46266", root=".."))
 
