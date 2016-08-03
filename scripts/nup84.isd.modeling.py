@@ -1,4 +1,5 @@
 from __future__ import print_function
+import util
 import IMP
 import IMP.core
 import IMP.algebra
@@ -230,7 +231,11 @@ mc2=IMP.pmi.macros.ReplicaExchange0(m,
 mc2.execute_macro()
 
 if '--mmcif' in sys.argv:
-    # Dump coordinates of the current (unoptimized) model
-    # todo: read in the previously-generated clusters instead
-    po.add_model()
+    # Dump coordinates of previously-generated cluster representatives
+    for cluster, rep in (('1', '31.0.rmf3'), ('2', '16.0.rmf3')):
+        util.read_rmf_file(simo,
+                           '../outputs/3-xray.after_cluster_on_hub.cluster'
+                           '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
+        po.add_model()
+
     po.flush()
