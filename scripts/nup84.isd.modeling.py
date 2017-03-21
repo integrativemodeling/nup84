@@ -190,8 +190,8 @@ em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     projection_number = 400)
 # Point to the raw micrographs from which the class average was derived
 # for completeness (we don't use these directly in the modeling)
-l = IMP.pmi.metadata.RepositoryFileLocation(doi="10.5281/zenodo.58025",
-                                            path='Nup84complex_particles.spd')
+r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.58025")
+l = IMP.pmi.metadata.FileLocation(repo=r, path='Nup84complex_particles.spd')
 micrographs = IMP.pmi.metadata.EMMicrographsDataset(number=800, location=l)
 for d in em2d.datasets:
     d.add_primary(micrographs)
