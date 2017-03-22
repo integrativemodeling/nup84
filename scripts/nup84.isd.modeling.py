@@ -66,7 +66,9 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
                    'Rout MP', 'Chait BT'],
           doi='10.1074/mcp.M114.041673'))
 simo.add_metadata(IMP.pmi.metadata.Repository(
-          doi="10.5281/zenodo.46266", root=".."))
+          doi="10.5281/zenodo.46266", root="..",
+          url='https://zenodo.org/record/46266/files/nup84-v1.0.zip',
+          top_directory='integrativemodeling-nup84-a69f895'))
 
 if '--mmcif' in sys.argv:
     # Record the modeling protocol to an mmCIF file
@@ -190,7 +192,8 @@ em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     projection_number = 400)
 # Point to the raw micrographs from which the class average was derived
 # for completeness (we don't use these directly in the modeling)
-r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.58025")
+r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.58025",
+        url='https://zenodo.org/record/58025/files/Nup84complex_particles.spd')
 l = IMP.pmi.metadata.FileLocation(repo=r, path='Nup84complex_particles.spd')
 micrographs = IMP.pmi.metadata.EMMicrographsDataset(number=800, location=l)
 for d in em2d.datasets:
