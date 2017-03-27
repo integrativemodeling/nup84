@@ -1,6 +1,9 @@
 import os
 import matplotlib
 matplotlib.use('Agg')
+import sys
+sys.path.insert(0, os.path.join(os.path.dirname(sys.argv[0]),
+                                'XL_analysis', 'src'))
 import xltable
 import glob
 
