@@ -241,6 +241,7 @@ if '--mmcif' in sys.argv:
         util.read_rmf_file(simo,
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
-        po.add_model()
+        c = po.add_model_group(IMP.pmi.mmcif._ModelGroup("Cluster " + cluster))
+        po.add_model(c)
 
     po.flush()
