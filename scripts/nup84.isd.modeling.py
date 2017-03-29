@@ -237,11 +237,26 @@ mc2.execute_macro()
 
 if '--mmcif' in sys.argv:
     # Dump coordinates of previously-generated cluster representatives
-    for cluster, rep in (('1', '31.0.rmf3'), ('2', '16.0.rmf3')):
+    # Number of structures and dRMSD are from Table S4 in the Nup84 paper.
+    r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.438727",
+           url='https://zenodo.org/record/438727/files/nup84_localization.zip')
+    pp = po._add_simple_postprocessing(num_models_begin=15000,
+                                       num_models_end=2267)
+    for cluster, num_models, drmsd, rep in (
+                       ('1', 1257, 15.4, '31.0.rmf3'),
+                       ('2', 1010, 12.7, '16.0.rmf3')):
+        den = {}
+        for d in po.all_modeled_components:
+            den[d] = IMP.pmi.metadata.FileLocation(repo=r,
+                                      path='localization/cluster%s/%s.mrc'
+                                           % (cluster, d.lower()))
         util.read_rmf_file(simo,
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
-        c = po.add_model_group(IMP.pmi.mmcif._ModelGroup("Cluster " + cluster))
-        po.add_model(c)
+        c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
+                                    num_models=num_models, drmsd=drmsd,
+                                    num_models_deposited=1,
+                                    localization_densities=den)
+        po.add_model(c.model_group)
 
     po.flush()
