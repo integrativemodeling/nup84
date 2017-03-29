@@ -253,10 +253,14 @@ if '--mmcif' in sys.argv:
         util.read_rmf_file(simo,
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
+        f = IMP.pmi.metadata.FileLocation(
+                path='../outputs/3-xray.after_cluster_on_hub.cluster%s'
+                     '.all.pdbs.tar.gz' % cluster)
         c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
                                     num_models=num_models, drmsd=drmsd,
                                     num_models_deposited=1,
-                                    localization_densities=den)
+                                    localization_densities=den,
+                                    ensemble_file=f)
         m = po.add_model(c.model_group)
         m.name = 'Best scoring model'
 
