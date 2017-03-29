@@ -257,6 +257,7 @@ if '--mmcif' in sys.argv:
                                     num_models=num_models, drmsd=drmsd,
                                     num_models_deposited=1,
                                     localization_densities=den)
-        po.add_model(c.model_group)
+        m = po.add_model(c.model_group)
+        m.name = 'Best scoring model'
 
     po.flush()
