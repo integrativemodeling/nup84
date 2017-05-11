@@ -249,13 +249,15 @@ if '--mmcif' in sys.argv:
         for d in po.all_modeled_components:
             den[d] = IMP.pmi.metadata.FileLocation(repo=r,
                                       path='localization/cluster%s/%s.mrc'
-                                           % (cluster, d.lower()))
+                                           % (cluster, d.lower()),
+                                      details="Localization density for %s" % d)
         util.read_rmf_file(simo,
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
         f = IMP.pmi.metadata.FileLocation(
                 path='../outputs/3-xray.after_cluster_on_hub.cluster%s'
-                     '.all.pdbs.tar.gz' % cluster)
+                     '.all.pdbs.tar.gz' % cluster,
+                details="All ensemble structures for cluster %s" % cluster)
         c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
                                     num_models=num_models, drmsd=drmsd,
                                     num_models_deposited=1,
