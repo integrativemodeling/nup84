@@ -22,6 +22,8 @@ import IMP.pmi.macros
 
 import os
 import sys
+sys.path.append('../util/')
+import make_archive
 
 rbmaxtrans = 2.00
 fbmaxtrans = 2.00
@@ -65,10 +67,17 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
                    'Kim SJ', 'Williams R', 'Schneidman-Duhovny D', 'Sali A',
                    'Rout MP', 'Chait BT'],
           doi='10.1074/mcp.M114.041673'))
+
+for subdir, zipname in make_archive.ARCHIVES.items():
+    simo.add_metadata(IMP.pmi.metadata.Repository(
+          doi="10.5281/zenodo.46266", root="../%s" % subdir,
+          url="https://zenodo.org/record/46266/files/%s" % zipname,
+          top_directory=None if subdir.endswith('.gz')
+                        else os.path.basename(subdir)))
 simo.add_metadata(IMP.pmi.metadata.Repository(
           doi="10.5281/zenodo.46266", root="..",
-          url='https://zenodo.org/record/46266/files/nup84-v1.0.zip',
-          top_directory='integrativemodeling-nup84-a69f895'))
+          url='https://zenodo.org/record/46266/files/nup84-v1.0.1.zip',
+          top_directory='nup84-v1.0.1'))
 
 if '--mmcif' in sys.argv:
     # Record the modeling protocol to an mmCIF file
