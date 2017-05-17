@@ -70,13 +70,13 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
 
 for subdir, zipname in make_archive.ARCHIVES.items():
     simo.add_metadata(IMP.pmi.metadata.Repository(
-          doi="10.5281/zenodo.46266", root="../%s" % subdir,
-          url="https://zenodo.org/record/46266/files/%s" % zipname,
+          doi="10.5281/zenodo.580803", root="../%s" % subdir,
+          url="https://zenodo.org/record/580803/files/%s" % zipname,
           top_directory=None if subdir.endswith('.gz')
                         else os.path.basename(subdir)))
 simo.add_metadata(IMP.pmi.metadata.Repository(
-          doi="10.5281/zenodo.46266", root="..",
-          url='https://zenodo.org/record/46266/files/nup84-v1.0.1.zip',
+          doi="10.5281/zenodo.580803", root="..",
+          url='https://zenodo.org/record/580803/files/nup84-v1.0.1.zip',
           top_directory='nup84-v1.0.1'))
 
 if '--mmcif' in sys.argv:
