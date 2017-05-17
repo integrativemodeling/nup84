@@ -23,6 +23,7 @@ ARCHIVES = {
                              'clus.1.pdb.gz',
   'outputs/3-xray.after_cluster_on_hub.cluster2.all.pdbs/clus.2.pdb.gz':
                              'clus.2.pdb.gz',
+  'scripts/contact_map/XL_analysis': 'XL_analysis.zip'
 }
 
 REPO="nup84"
