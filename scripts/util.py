@@ -8,6 +8,7 @@ import sys
 import tempfile
 import shutil
 import contextlib
+import ast
 
 @contextlib.contextmanager
 def temp_dir():
@@ -38,3 +39,8 @@ def read_rmf_file(simo, fname):
         for c in simo.get_component_names():
             simo.set_coordinates_from_rmf(c, cleaned_rmf, 0,
                                           force_rigid_update=True)
+
+def read_stat_file(fname):
+    # Assume model corresponds to the first line in the stat file
+    with open(fname) as fh:
+        return ast.literal_eval(fh.readline())

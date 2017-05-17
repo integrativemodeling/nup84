@@ -254,6 +254,9 @@ if '--mmcif' in sys.argv:
         util.read_rmf_file(simo,
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
+        s = util.read_stat_file(
+                           '../outputs/3-xray.after_cluster_on_hub.cluster'
+                           '%s.top5.pdb.rmf.score/stat.filtered.out' % cluster)
         f = IMP.pmi.metadata.FileLocation(
                 path='../outputs/3-xray.after_cluster_on_hub.cluster%s'
                      '.all.pdbs.tar.gz' % cluster,
@@ -265,5 +268,6 @@ if '--mmcif' in sys.argv:
                                     ensemble_file=f)
         m = po.add_model(c.model_group)
         m.name = 'Best scoring model'
+        m.stats = s
 
     po.flush()
