@@ -1,12 +1,12 @@
 [![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.580803.svg)](http://dx.doi.org/10.5281/zenodo.580803)
 
-These scripts demonstrate the use of [IMP](http://integrativemodeling.org), [MODELLER](http://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
+These scripts demonstrate the use of [IMP](https://integrativemodeling.org), [MODELLER](https://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
 
-First, [MODELLER](http://salilab.org/modeller) is used to generate
+First, [MODELLER](https://salilab.org/modeller) is used to generate
 initial structures for the individual components in the Nup84 complex. Then, IMP
 is used to model these components using DSS/EDC crosslinks and the electron microscopy 2D class average for the entire Nup84 complex.
 
-The modeling protocol will work with a default build of IMP, but for most effective sampling, IMP should be built with [MPI](http://integrativemodeling.org/2.5.0/doc/ref/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
+The modeling protocol will work with a default build of IMP, but for most effective sampling, IMP should be built with [MPI](https://integrativemodeling.org/2.7.0/doc/ref/namespaceIMP_1_1mpi.html) so that replica exchange can be used.
 
 ## List of files and directories:
 
@@ -30,7 +30,7 @@ The modeling protocol will work with a default build of IMP, but for most effect
   - `MODELLER_scripts/Nup145C` MODELLER scripts to generate comparative models of Nup145C
 
 - `scripts/output.1/pdbs`    The best 500 models from the modeling are accumulated in this directory, and updated as the calculation proceeds.
-- `scripts/output.1/rmfs`    The structures of the lowest temperature replica will be written here as [RMF files](http://integrativemodeling.org/rmf/).
+- `scripts/output.1/rmfs`    The structures of the lowest temperature replica will be written here as [RMF files](https://integrativemodeling.org/rmf/).
 - `scripts/output.1/stat.n.out`	 Log files. They contain all relevant numbers of the calculation.
 - `outputs` For reference, the models described in the Nup84 publication are
   deposited in this directory. For each of the two clusters discovered in
@@ -48,7 +48,7 @@ The modeling protocol will work with a default build of IMP, but for most effect
 - `(cd Nup85 && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup85 44-744
 - `(cd Nup120 && python all_sjkim_final1.py > all_sjkim_final1.log)` : ScNup120 1-1037
 - `(cd Nup145C && python all_sjkim_final.py > all_sjkim_final.log)` : ScNup145C 126-553
-- Note that the Nup133 component is built as part of a [separate study](http://salilab.org/nup133/).
+- Note that the Nup133 component is built as part of a [separate study](https://salilab.org/nup133/).
 
 ## Running the IMP/PMI scripts for the Nup84 complex:
 with 3 crystal interfaces:
@@ -84,7 +84,7 @@ modify it under the terms of the GNU Lesser General Public
 License as published by the Free Software Foundation; either
 version 2 of the License, or (at your option) any later version.
 
-_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/?sysstat=6&branch=master)](http://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/?sysstat=6&branch=develop)](http://integrativemodeling.org/systems/)
+_Last known good IMP version_: [![build info](https://integrativemodeling.org/systems/?sysstat=6&branch=master)](https://integrativemodeling.org/systems/) [![build info](https://integrativemodeling.org/systems/?sysstat=6&branch=develop)](https://integrativemodeling.org/systems/)
 
 _Testable_: Yes.
 
