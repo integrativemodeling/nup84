@@ -19,7 +19,8 @@ sec13_fastafile='../data/protein_fasta.Sec13.txt'
 #sec13_pdbfile  ='../data/ScSec13_2-296.pdb'
 
 # After removal of disordered regions in PDB files.
-n84_pdbfile   ='../data/ScNup84_7-488_506-726_new.pdb'
+n84n_pdbfile   ='../data/ScNup84N_7-488_new.pdb'
+n84c_pdbfile   ='../data/ScNup84C_506-726_new.pdb'
 n85_pdbfile    ='../data/ScNup85_44-744_new.pdb'
 n120_pdbfile   ='../data/ScNup120_1-1037_new.pdb'
 n133n_pdbfile  ='../data/ScNup133N_56-480_new.pdb'
@@ -32,7 +33,8 @@ sec13_pdbfile  ='../data/ScSec13_2-296_new.pdb'
 simo.create_component("Nup84",color=0.0)
 simo.add_component_sequence("Nup84", n84_fastafile)
 
-Nup84=simo.autobuild_model("Nup84", n84_pdbfile,"A", resrange=(1,726), resolutions=[1,10], missingbeadsize=beadsize)
+Nup84_1=simo.autobuild_model("Nup84", n84n_pdbfile,"A", resrange=(1,505), resolutions=[1,10], missingbeadsize=beadsize)
+Nup84_2=simo.autobuild_model("Nup84", n84c_pdbfile,"A", resrange=(506,726), resolutions=[1,10], missingbeadsize=beadsize)
 
 simo.show_component_table("Nup84")
 simo.setup_component_geometry("Nup84")
@@ -100,7 +102,7 @@ simo.setup_component_sequence_connectivity("Nup145c", resolution=1.0, scale=4.0)
 simo.setup_component_sequence_connectivity("Seh1", resolution=1.0, scale=4.0)
 simo.setup_component_sequence_connectivity("Sec13", resolution=1.0, scale=4.0)
 
-Nup84_all   = Nup84
+Nup84_all   = Nup84_1+Nup84_2
 Nup85_all   = Nup85_1+Nup85_2
 Nup120_all  = Nup120_1+Nup120_2
 Nup133_all  = Nup133_1+Nup133_2
@@ -110,7 +112,7 @@ Sec13_all   = Sec13
 
 Nup84_complex=Nup84_all+Nup85_all+Nup120_all+Nup133_all+Nup145c_all+Seh1_all+Sec13_all
 
-simo.set_rigid_body_from_hierarchies(Nup84)
+simo.set_rigid_body_from_hierarchies(Nup84_all)
 simo.set_rigid_body_from_hierarchies(Nup85_1)
 simo.set_rigid_body_from_hierarchies(Nup85_2)
 simo.set_rigid_body_from_hierarchies(Nup120_1)
