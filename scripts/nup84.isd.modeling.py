@@ -259,7 +259,7 @@ if '--mmcif' in sys.argv:
                            '%s.top5.pdb.rmf.score/stat.filtered.out' % cluster)
         f = IMP.pmi.metadata.FileLocation(
                 path='../outputs/3-xray.after_cluster_on_hub.cluster%s'
-                     '.all.pdbs.tar.gz' % cluster,
+                     '.all.pdbs/clus.%s.pdb.gz' % (cluster, cluster),
                 details="All ensemble structures for cluster %s" % cluster)
         c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
                                     num_models=num_models, drmsd=drmsd,
