@@ -276,6 +276,9 @@ if '--mmcif' in sys.argv:
                                     localization_densities=den,
                                     ensemble_file=f)
         m = po.add_model(c.model_group)
+        # Center the mmCIF model so that it's consistent with our
+        # PDB trajectories, which are centered in the same way
+        m.transform = IMP.algebra.Transformation3D(-m.geometric_center)
         m.name = 'Best scoring model'
         m.stats = s
 
