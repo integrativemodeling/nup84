@@ -33,31 +33,21 @@ if len(sys.argv) != 3:
 d = md.DCDWrite(sys.argv[2], ag)
 fh = gzip.open(sys.argv[1])
 num_model = 0
-_chain_atoms = {}
 chain_num = 0
 atom_index = 0
 for line in fh:
     if line.startswith('ATOM'):
         atmnum = int(line[6:11])
-        resnum = int(line[22:26])
-        x = float(line[30:38])
-        y = float(line[38:46])
-        z = float(line[46:54])
         chain_id = line[21]
-        _chain_atoms[resnum] = (x,y,z)
+        assert(chain_id == string.ascii_uppercase[chain_num])
+        a = ag.atoms[atom_index]
+        a.x = float(line[30:38])
+        a.y = float(line[38:46])
+        a.z = float(line[46:54])
         if atmnum == last_atom_of_chain[chain_num]:
-            assert(chain_id == string.ascii_uppercase[chain_num])
-            # Sort atoms by residue number (buggy old IMP::pmi used for Nup84
-            # put all the beads at the start of a chain; we need to put those
-            # back in the right place)
-            for resnum in sorted(_chain_atoms.keys()):
-                a = ag.atoms[atom_index]
-                a.x, a.y, a.z = _chain_atoms[resnum]
-                atom_index += 1
-            _chain_atoms = {}
             chain_num += 1
+        atom_index += 1
     if line == 'ENDMDL\n':
-        assert(_chain_atoms == {})
         assert(atom_index == last_atom_of_chain[-1])
         num_model += 1
         print("Written model %d" % num_model)
