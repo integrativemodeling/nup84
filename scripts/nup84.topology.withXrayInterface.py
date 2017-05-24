@@ -20,7 +20,7 @@ sec13_fastafile='../data/protein_fasta.Sec13.txt'
 
 # After removal of disordered regions in PDB files.
 n84_pdbfile    ='../data/ScNup84_7-488_506-726_new2.pdb'
-n85_pdbfile    ='../data/ScNup85_44-744_new2.pdb'
+n85_pdbfile    ='../data/ScNup85_44-744_new.pdb'
 n120_pdbfile   ='../data/ScNup120_1-1037_new.pdb'
 n133n_pdbfile  ='../data/ScNup133N_56-480_new.pdb'
 n133c_pdbfile  ='../data/ScNup133C_490_1157_new.pdb'
