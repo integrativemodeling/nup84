@@ -1,10 +1,12 @@
 from __future__ import print_function
+import util
 import IMP
 import IMP.core
 import IMP.algebra
 import IMP.atom
 import IMP.container
 
+import IMP.pmi.mmcif
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.restraints.stereochemistry
 import IMP.pmi.restraints.em
@@ -13,12 +15,15 @@ import IMP.pmi.restraints.basic
 import IMP.pmi.restraints.proteomics
 import IMP.pmi.representation
 import IMP.pmi.tools
+import IMP.pmi.metadata
 import IMP.pmi.samplers
 import IMP.pmi.output
 import IMP.pmi.macros
 
 import os
 import sys
+sys.path.append('../util/')
+import make_archive
 
 rbmaxtrans = 2.00
 fbmaxtrans = 2.00
@@ -32,6 +37,54 @@ sampleobjects = []
 m = IMP.Model()
 #simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
+
+# We used HHpred to detect remote homologs for some input subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='HHpred', classification='protein homology detection',
+          description='Protein homology detection by HMM-HMM comparison',
+          version='2.0.16',
+          url='https://toolkit.tuebingen.mpg.de/hhpred'))
+# We used PSIPRED to predict secondary structure for subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='PSIPRED', classification='secondary structure prediction',
+          description='Protein secondary structure prediction based on '
+                      'position-specific scoring matrices',
+          version='4.0',
+          url='http://bioinf.cs.ucl.ac.uk/psipred/'))
+# We used DISOPRED to predict (and remove) disordered regions in the subunits
+simo.add_metadata(IMP.pmi.metadata.Software(
+          name='DISOPRED', classification='disorder prediction',
+          description='prediction of protein disorder', version=3,
+          url='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1'))
+simo.add_metadata(IMP.pmi.metadata.Citation(
+          pmid='25161197',
+          title="Structural characterization by cross-linking reveals the "
+                "detailed architecture of a coatomer-related heptameric "
+                "module from the nuclear pore complex.",
+          journal="Mol Cell Proteomics", volume=13, page_range=(2927,2943),
+          year=2014,
+          authors=['Shi Y', 'Fernandez-Martinez J', 'Tjioe E', 'Pellarin R',
+                   'Kim SJ', 'Williams R', 'Schneidman-Duhovny D', 'Sali A',
+                   'Rout MP', 'Chait BT'],
+          doi='10.1074/mcp.M114.041673'))
+
+for subdir, zipname in make_archive.ARCHIVES.items():
+    simo.add_metadata(IMP.pmi.metadata.Repository(
+          doi="10.5281/zenodo.580803", root="../%s" % subdir,
+          url="https://zenodo.org/record/580803/files/%s" % zipname,
+          top_directory=None if subdir.endswith('.gz')
+                        else os.path.basename(subdir)))
+simo.add_metadata(IMP.pmi.metadata.Repository(
+          doi="10.5281/zenodo.580803", root="..",
+          url='https://zenodo.org/record/580803/files/nup84-v1.0.1.zip',
+          top_directory='nup84-v1.0.1'))
+
+if '--mmcif' in sys.argv:
+    # Record the modeling protocol to an mmCIF file
+    po = IMP.pmi.mmcif.ProtocolOutput(open('nup84.cif', 'w'))
+    simo.add_protocol_output(po)
+
+simo.dry_run = '--dry-run' in sys.argv
 
 exec(open("nup84.topology.withXrayInterface.py").read())
 
@@ -129,8 +182,10 @@ mc1=IMP.pmi.macros.ReplicaExchange0(m,
                                     global_output_directory="pre-2DEM_output.1",
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
-                                    replica_stat_file_suffix="stat_replica")
+                                    replica_stat_file_suffix="stat_replica",
+                                    test_mode=simo.dry_run)
 mc1.execute_macro()
+
 rex1=mc1.get_replica_exchange_object()
 print('EVAL 3')
 print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
@@ -144,6 +199,16 @@ em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     pixel_size = 5.91,
                                                     image_resolution = 30.0,
                                                     projection_number = 400)
+# Point to the raw micrographs from which the class average was derived
+# for completeness (we don't use these directly in the modeling)
+r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.58025",
+        url='https://zenodo.org/record/58025/files/Nup84complex_particles.spd')
+l = IMP.pmi.metadata.FileLocation(repo=r, path='Nup84complex_particles.spd',
+        details="Raw micrographs from which the class average was derived")
+micrographs = IMP.pmi.metadata.EMMicrographsDataset(number=800, location=l)
+for d in em2d.datasets:
+    d.add_primary(micrographs)
+
 em2d.add_to_model()
 em2d.set_weight(500)
 outputobjects.append(em2d)
@@ -175,5 +240,46 @@ mc2=IMP.pmi.macros.ReplicaExchange0(m,
                                     rmf_dir="rmfs/",
                                     best_pdb_dir="pdbs/",
                                     replica_stat_file_suffix="stat_replica",
-                                    replica_exchange_object=rex1) 
+                                    replica_exchange_object=rex1,
+                                    test_mode=simo.dry_run)
 mc2.execute_macro()
+
+if '--mmcif' in sys.argv:
+    # Dump coordinates of previously-generated cluster representatives
+    # Number of structures and dRMSD are from Table S4 in the Nup84 paper.
+    r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.438727",
+           url='https://zenodo.org/record/438727/files/nup84_localization.zip')
+    pp = po._add_simple_postprocessing(num_models_begin=15000,
+                                       num_models_end=2267)
+    for cluster, num_models, drmsd, rep in (
+                       ('1', 1257, 15.4, '31.0.rmf3'),
+                       ('2', 1010, 12.7, '16.0.rmf3')):
+        den = {}
+        for d in po.all_modeled_components:
+            den[d] = IMP.pmi.metadata.FileLocation(repo=r,
+                                      path='localization/cluster%s/%s.mrc'
+                                           % (cluster, d.lower()),
+                                      details="Localization density for %s" % d)
+        util.read_rmf_file(simo,
+                           '../outputs/3-xray.after_cluster_on_hub.cluster'
+                           '%s.top5.pdb.rmf.score/%s' % (cluster, rep))
+        s = util.read_stat_file(
+                           '../outputs/3-xray.after_cluster_on_hub.cluster'
+                           '%s.top5.pdb.rmf.score/stat.filtered.out' % cluster)
+        f = IMP.pmi.metadata.FileLocation(
+                path='../outputs/3-xray.after_cluster_on_hub.cluster%s'
+                     '.all.pdbs/clus.%s.pdb.gz' % (cluster, cluster),
+                details="All ensemble structures for cluster %s" % cluster)
+        c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
+                                    num_models=num_models, drmsd=drmsd,
+                                    num_models_deposited=1,
+                                    localization_densities=den,
+                                    ensemble_file=f)
+        m = po.add_model(c.model_group)
+        # Center the mmCIF model so that it's consistent with our
+        # PDB trajectories, which are centered in the same way
+        m.transform = IMP.algebra.Transformation3D(-m.geometric_center)
+        m.name = 'Best scoring model'
+        m.stats = s
+
+    po.flush()
