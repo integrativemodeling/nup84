@@ -3,7 +3,7 @@
 """This is a simple script to convert the multimodel PDB files into
    binary trajectories. We write the models as DCD (CHARMM/NAMD) trajectories,
    with each bead or residue represented as a single 'atom', in residue
-   number order (the same order as in the mmCIF file.
+   number order (the same order as in the mmCIF file).
 
    We use the updated version of MDTools that's bundled with Chimera, so you
    may need to change sys.path accordingly, below.
