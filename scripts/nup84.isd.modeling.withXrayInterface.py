@@ -70,14 +70,14 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
 
 for subdir, zipname in make_archive.ARCHIVES.items():
     simo.add_metadata(IMP.pmi.metadata.Repository(
-          doi="10.5281/zenodo.580803", root="../%s" % subdir,
-          url="https://zenodo.org/record/580803/files/%s" % zipname,
+          doi="10.5281/zenodo.583173", root="../%s" % subdir,
+          url="https://zenodo.org/record/583173/files/%s" % zipname,
           top_directory=None if subdir.endswith('.gz')
                         else os.path.basename(subdir)))
 simo.add_metadata(IMP.pmi.metadata.Repository(
-          doi="10.5281/zenodo.580803", root="..",
-          url='https://zenodo.org/record/580803/files/nup84-v1.0.1.zip',
-          top_directory='nup84-v1.0.1'))
+          doi="10.5281/zenodo.583173", root="..",
+          url='https://zenodo.org/record/583173/files/nup84-v1.0.2.zip',
+          top_directory='nup84-v1.0.2'))
 
 if '--mmcif' in sys.argv:
     # Record the modeling protocol to an mmCIF file
@@ -266,9 +266,9 @@ if '--mmcif' in sys.argv:
         s = util.read_stat_file(
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/stat.filtered.out' % cluster)
-        r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.580803",
-                     url="https://zenodo.org/record/580803/files/"
-                         "cluster.%s.dcd" % cluster)
+        r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.583173",
+                     url="https://zenodo.org/record/583173/files/"
+                         "clus.%s.dcd" % cluster)
         f = IMP.pmi.metadata.FileLocation(path='.', repo=r,
                 details="All ensemble structures for cluster %s" % cluster)
         c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
