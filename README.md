@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.583173.svg)](http://dx.doi.org/10.5281/zenodo.583173)
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.820724.svg)](http://dx.doi.org/10.5281/zenodo.820724)
 
 These scripts demonstrate the use of [IMP](https://integrativemodeling.org), [MODELLER](https://salilab.org/modeller), and [PMI](https://github.com/salilab/pmi) in the modeling of the Nup84 complex using 286 DSS/EDC chemical cross-links and an electron microscopy (EM) 2D class average.
 
