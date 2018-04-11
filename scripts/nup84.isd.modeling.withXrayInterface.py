@@ -83,6 +83,10 @@ if '--mmcif' in sys.argv:
     # Record the modeling protocol to an mmCIF file
     po = IMP.pmi.mmcif.ProtocolOutput(open('nup84.cif', 'w'))
     simo.add_protocol_output(po)
+    if hasattr(po, 'system'): # po.system needs IMP >= 2.9
+        po.system.title = ('Structural characterization by cross-linking '
+               'reveals the detailed architecture of a coatomer-related '
+               'heptameric module from the nuclear pore complex')
 
 simo.dry_run = '--dry-run' in sys.argv
 
