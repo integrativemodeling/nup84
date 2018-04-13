@@ -66,6 +66,19 @@ class Tests(unittest.TestCase):
         os.chdir(os.path.join(TOPDIR, 'scripts'))
         self.run_imp_script('nup84.isd.modeling.withXrayInterface.py')
 
+    def test_mmcif(self):
+        """Test generation of mmCIF output"""
+        os.chdir(os.path.join(TOPDIR, 'scripts'))
+        if os.path.exists("nup84.cif"):
+            os.unlink("nup84.cif")
+        p = subprocess.check_call(
+                ["python", "nup84.isd.modeling.withXrayInterface.py",
+                 "--mmcif", "--dry-run"])
+        # Check size of output file
+        with open("nup84.cif") as fh:
+            wcl = len(fh.readlines())
+        self.assertEqual(wcl, 55248)
+
     def run_imp_script(self, script_name):
         """Run IMP modeling"""
         p = subprocess.check_call(["python", script_name, "--test"])
