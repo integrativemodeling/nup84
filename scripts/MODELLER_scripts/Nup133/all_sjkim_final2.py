@@ -1,9 +1,7 @@
-from __future__ import print_function
 from modeller import *
 from modeller.automodel import *
 from modeller.scripts import complete_pdb
-import fnmatch
-import os
+import sys
 #import pylab
 
 log.verbose()
@@ -65,128 +63,123 @@ env = environ()
 #aln = alignment(env)
 #mdl = model(env, file='3kfo', model_segment=('FIRST:A','LAST:A'))
 #aln.append_model(mdl, align_codes='3kfoA', atom_files='3kfo.pdb')
-#aln.append(file='all_build_profile_3kfo.ali', align_codes='N133N')
-##aln.append(file='1xksA.ali')
+#aln.append(file='all_build_profile_3kfo.ali', align_codes='N133C')
+##aln.append(file='3i4rA.ali')
 #
 ##aln.align(gap_penalties_1d=(-600, -400))
 #aln.align2d()
-#aln.write(file='all_N133N_3kfoA_align.ali', alignment_format='PIR')
-#aln.write(file='all_N133N_3kfoA_align.pap', alignment_format='PAP')
+#aln.write(file='all_N133C_3kfoA_align.ali', alignment_format='PIR')
+#aln.write(file='all_N133C_3kfoA_align.pap', alignment_format='PAP')
 
-#It begin2s from here
-#aln = alignment(env)
-#aln.append(file='all_align_begin2.ali')
-#aln.write(file='all_align_final2.ali', alignment_format='PIR')
-#aln.write(file='all_align_final2.pap', alignment_format='PAP')
-#aln.id_table(matrix_file='all_align_final2.mat')
-#aln.check()
+#It begins from here
+aln = alignment(env)
+aln.append(file='all_align_begin2.ali')
+aln.write(file='all_align_final2.ali', alignment_format='PIR')
+aln.write(file='all_align_final2.pap', alignment_format='PAP')
+aln.id_table(matrix_file='all_align_final2.mat')
+aln.check()
 
-#exit()
+class MyModel(automodel):
+    def special_patches(self, aln):
+        self.rename_segments('D', 490)
+
+
 ######################### 4. model-single.py ########################
-#a = automodel(env, 
-#              alnfile='all_align_final2.ali',
-#              #knowns=('3t97C', '3ghgA', '3ghgA', '3u0cA'),
-#              knowns=('2eclA'),  
-#              sequence='SEA2',
-#              assess_methods=(assess.DOPE, assess.GA341))
+# Use MyModel rather than automodel to get correct output numbering
+a = MyModel(env, 
+              alnfile='all_align_final2.ali',
+              knowns=('3i4rB', '3kfoA'),
+              sequence='ScNup133C',
+              assess_methods=(assess.DOPE, assess.GA341))
+a.starting_model = 1
+a.ending_model = 30
+if '--test' in sys.argv: a.ending_model = 1
+a.make()
 
-#a.starting_model = 1
-#a.ending_model = 20
+## Good : Number 4!!
 
-#a.make()
-
-
-for files in os.listdir('.'):
-    if fnmatch.fnmatch(files, 'ScNup133C_490_1157.pdb'):
-        print(files)
-        mdl = model(env, file=files)
-        mdl.rename_segments('A', 490)
-        mdl.write(files)
-
-
-#a.rename_segments('A', 601)
-
-######################## 5. evaluate_model.py ########################
+######################### 5. evaluate_model.py ########################
 #env = environ()
 #env.libs.topology.read(file='$(LIB)/top_heav.lib') # read topology
 #env.libs.parameters.read(file='$(LIB)/par.lib') # read parameters
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990001.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990001.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N1.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C1.profile',
+#              normalize_profile=True, smoothing_window=15)
+#mdl.write('N133C_1.pdb', model_format='PDB')
+
+## read model file
+#mdl = complete_pdb(env, 'N133C.B99990002.pdb')
+## Assess with DOPE:
+#s = selection(mdl)   # all atom selection
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C2.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990002.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990003.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N2.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C3.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990003.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990004.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N3.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C4.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990004.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990005.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N4.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C5.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990005.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990006.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N5.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C6.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990006.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990007.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N6.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C7.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990007.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990008.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N7.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C8.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990008.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990009.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N8.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C9.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 ## read model file
-#mdl = complete_pdb(env, 'N133N.B99990009.pdb')
+#mdl = complete_pdb(env, 'N133C.B99990010.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N9.profile',
-#              normalize_profile=True, smoothing_window=15)
-#
-## read model file
-#mdl = complete_pdb(env, 'N133N.B99990010.pdb')
-## Assess with DOPE:
-#s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133N10.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='N133C10.profile',
 #              normalize_profile=True, smoothing_window=15)
 #
 #
 ## read model file
-#mdl = complete_pdb(env, '1xks.pdb')
+#mdl = complete_pdb(env, '3i4r.pdb')
 ## Assess with DOPE:
 #s = selection(mdl)   # all atom selection
-#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='1xksA.profile',
+#s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file='3i4rA.profile',
 #              normalize_profile=True, smoothing_window=15)
               
 
@@ -210,19 +203,19 @@ for files in os.listdir('.'):
 #    return vals
 #
 #e = environ()
-#a = alignment(e, file='all_align_1xks_final2.ali')
+#a = alignment(e, file='all_align_3i4r_final.ali')
 #
-#template = get_profile('1xksA.profile', a['1xksA'])
-#model1 = get_profile('N133N1.profile', a['N133N'])
-#model2 = get_profile('N133N2.profile', a['N133N'])
-#model3 = get_profile('N133N3.profile', a['N133N'])
-#model4 = get_profile('N133N4.profile', a['N133N'])
-#model5 = get_profile('N133N5.profile', a['N133N'])
-#model6 = get_profile('N133N6.profile', a['N133N'])
-#model7 = get_profile('N133N7.profile', a['N133N'])
-#model8 = get_profile('N133N8.profile', a['N133N'])
-#model9 = get_profile('N133N9.profile', a['N133N'])
-#model10 = get_profile('N133N10.profile', a['N133N'])
+#template = get_profile('3i4rA.profile', a['3i4rA'])
+#model1 = get_profile('N133C1.profile', a['N133C'])
+#model2 = get_profile('N133C2.profile', a['N133C'])
+#model3 = get_profile('N133C3.profile', a['N133C'])
+#model4 = get_profile('N133C4.profile', a['N133C'])
+#model5 = get_profile('N133C5.profile', a['N133C'])
+#model6 = get_profile('N133C6.profile', a['N133C'])
+#model7 = get_profile('N133C7.profile', a['N133C'])
+#model8 = get_profile('N133C8.profile', a['N133C'])
+#model9 = get_profile('N133C9.profile', a['N133C'])
+#model10 = get_profile('N133C10.profile', a['N133C'])
 #
 ## Plot the template and model profiles in the same plot for comparison:
 #pylab.figure(1, figsize=(10,6))
@@ -241,4 +234,4 @@ for files in os.listdir('.'):
 #
 #pylab.plot(template, color='green', linewidth=2, label='Template (3kfoA)')
 ##pylab.legend(loc=0)
-#pylab.savefig('all_dope_profile_final2_N133N.png', dpi=150)
+#pylab.savefig('all_dope_profile_final_N133C.png', dpi=150)
