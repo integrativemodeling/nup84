@@ -41,6 +41,11 @@ class Tests(unittest.TestCase):
         self.run_modeller_script('Nup120', 'all_sjkim_final1.py',
                                  'ScNup120', (1, 1037))
 
+    def test_nup133N(self):
+        """Test generation of Nup133N model"""
+        self.run_modeller_script('Nup133', 'all_sjkim_final1.py',
+                                 'ScNup133N', (56, 480))
+
     def test_nup145c(self):
         """Test generation of Nup145C model"""
         self.run_modeller_script('Nup145C', 'all_sjkim_final.py',

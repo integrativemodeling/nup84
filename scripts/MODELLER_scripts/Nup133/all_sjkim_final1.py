@@ -200,8 +200,7 @@ class MyModel(automodel):
 
 a = MyModel(env,
               alnfile='all_align_final1.ali',
-              knowns=('15133B', '15133A'),
-              #knowns=('4j73A'),  
+              knowns=('4q9tB', '4q9tA'),
               sequence='ScNup133N',
               assess_methods=(assess.DOPE, assess.GA341))
             
