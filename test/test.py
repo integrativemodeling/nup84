@@ -77,7 +77,7 @@ class Tests(unittest.TestCase):
         # Check size of output file
         with open("nup84.cif") as fh:
             wcl = len(fh.readlines())
-        self.assertEqual(wcl, 55248)
+        self.assertEqual(wcl, 55265)
 
     def run_imp_script(self, script_name):
         """Run IMP modeling"""
