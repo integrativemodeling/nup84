@@ -6,6 +6,9 @@ import IMP.algebra
 import IMP.atom
 import IMP.container
 
+import ihm
+import ihm.location
+import ihm.dataset
 import IMP.pmi.mmcif
 import IMP.pmi.restraints.crosslinking
 import IMP.pmi.restraints.stereochemistry
@@ -15,7 +18,6 @@ import IMP.pmi.restraints.basic
 import IMP.pmi.restraints.proteomics
 import IMP.pmi.representation
 import IMP.pmi.tools
-import IMP.pmi.metadata
 import IMP.pmi.samplers
 import IMP.pmi.output
 import IMP.pmi.macros
@@ -39,24 +41,24 @@ m = IMP.Model()
 simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
 # We used HHpred to detect remote homologs for some input subunits
-simo.add_metadata(IMP.pmi.metadata.Software(
+simo.add_metadata(ihm.Software(
           name='HHpred', classification='protein homology detection',
           description='Protein homology detection by HMM-HMM comparison',
           version='2.0.16',
-          url='https://toolkit.tuebingen.mpg.de/hhpred'))
+          location='https://toolkit.tuebingen.mpg.de/hhpred'))
 # We used PSIPRED to predict secondary structure for subunits
-simo.add_metadata(IMP.pmi.metadata.Software(
+simo.add_metadata(ihm.Software(
           name='PSIPRED', classification='secondary structure prediction',
           description='Protein secondary structure prediction based on '
                       'position-specific scoring matrices',
           version='4.0',
-          url='http://bioinf.cs.ucl.ac.uk/psipred/'))
+          location='http://bioinf.cs.ucl.ac.uk/psipred/'))
 # We used DISOPRED to predict (and remove) disordered regions in the subunits
-simo.add_metadata(IMP.pmi.metadata.Software(
+simo.add_metadata(ihm.Software(
           name='DISOPRED', classification='disorder prediction',
           description='prediction of protein disorder', version=3,
-          url='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1'))
-simo.add_metadata(IMP.pmi.metadata.Citation(
+          location='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1'))
+simo.add_metadata(ihm.Citation(
           pmid='25161197',
           title="Structural characterization by cross-linking reveals the "
                 "detailed architecture of a coatomer-related heptameric "
@@ -69,12 +71,12 @@ simo.add_metadata(IMP.pmi.metadata.Citation(
           doi='10.1074/mcp.M114.041673'))
 
 for subdir, zipname in make_archive.ARCHIVES.items():
-    simo.add_metadata(IMP.pmi.metadata.Repository(
+    simo.add_metadata(ihm.location.Repository(
           doi="10.5281/zenodo.1218053", root="../%s" % subdir,
           url="https://zenodo.org/record/1218053/files/%s" % zipname,
           top_directory=None if subdir.endswith('.gz')
                         else os.path.basename(subdir)))
-simo.add_metadata(IMP.pmi.metadata.Repository(
+simo.add_metadata(ihm.location.Repository(
           doi="10.5281/zenodo.1218053", root="..",
           url='https://zenodo.org/record/1218053/files/nup84-v1.0.3.zip',
           top_directory='nup84-v1.0.3'))
@@ -202,14 +204,15 @@ em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     resolution=1.0,
                                                     pixel_size = 5.91,
                                                     image_resolution = 30.0,
-                                                    projection_number = 400)
+                                                    projection_number = 400,
+                                                    micrographs_number = 800)
 # Point to the raw micrographs from which the class average was derived
 # for completeness (we don't use these directly in the modeling)
-r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.58025",
+r = ihm.location.Repository(doi="10.5281/zenodo.58025",
         url='https://zenodo.org/record/58025/files/Nup84complex_particles.spd')
-l = IMP.pmi.metadata.FileLocation(repo=r, path='Nup84complex_particles.spd',
+l = ihm.location.InputFileLocation(repo=r, path='Nup84complex_particles.spd',
         details="Raw micrographs from which the class average was derived")
-micrographs = IMP.pmi.metadata.EMMicrographsDataset(number=800, location=l)
+micrographs = ihm.dataset.EMMicrographsDataset(l)
 for d in em2d.datasets:
     d.add_primary(micrographs)
 
@@ -251,7 +254,7 @@ mc2.execute_macro()
 if '--mmcif' in sys.argv:
     # Dump coordinates of previously-generated cluster representatives
     # Number of structures and dRMSD are from Table S4 in the Nup84 paper.
-    r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.438727",
+    r = ihm.location.Repository(doi="10.5281/zenodo.438727",
            url='https://zenodo.org/record/438727/files/nup84_localization.zip')
     pp = po._add_simple_postprocessing(num_models_begin=15000,
                                        num_models_end=2267)
@@ -260,7 +263,7 @@ if '--mmcif' in sys.argv:
                        ('2', 1010, 12.7, '16.0.rmf3')):
         den = {}
         for d in po.all_modeled_components:
-            den[d] = IMP.pmi.metadata.FileLocation(repo=r,
+            den[d] = ihm.location.OutputFileLocation(repo=r,
                                       path='localization/cluster%s/%s.mrc'
                                            % (cluster, d.lower()),
                                       details="Localization density for %s" % d)
@@ -270,10 +273,10 @@ if '--mmcif' in sys.argv:
         s = util.read_stat_file(
                            '../outputs/3-xray.after_cluster_on_hub.cluster'
                            '%s.top5.pdb.rmf.score/stat.filtered.out' % cluster)
-        r = IMP.pmi.metadata.Repository(doi="10.5281/zenodo.1218053",
+        r = ihm.location.Repository(doi="10.5281/zenodo.1218053",
                      url="https://zenodo.org/record/1218053/files/"
                          "clus.%s.aligned.dcd" % cluster)
-        f = IMP.pmi.metadata.FileLocation(path='.', repo=r,
+        f = ihm.location.OutputFileLocation(path='.', repo=r,
                 details="All ensemble structures for cluster %s" % cluster)
         c = po._add_simple_ensemble(pp, name="Cluster " + cluster,
                                     num_models=num_models, drmsd=drmsd,
