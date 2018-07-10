@@ -1,5 +1,6 @@
 EXPDTA    THEORETICAL MODEL, MODELLER 9.12 2014/02/10 22:21:34
 REMARK   6 ALIGNMENT: ../scripts/MODELLER_scripts/Nup84/all_align_final2.ali
+REMARK   6 SCRIPT: ../scripts/MODELLER_scripts/Nup84/all_sjkim_final2.py
 REMARK   6 TEMPLATE: 3cqcA 667:A - 913:A MODELS 506:A - 726:A AT 17.6%
 ATOM   3911  N   ILE A 506     -42.554  16.987   7.286  1.00 78.54           N
 ATOM   3912  CA  ILE A 506     -43.429  17.523   8.351  1.00 78.54           C

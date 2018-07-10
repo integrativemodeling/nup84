@@ -4,6 +4,7 @@ REMARK   6 MODELLER BEST TEMPLATE % SEQ ID:  46.094
 REMARK   6 TEMPLATE: 4q9tB 61:B - 497:B MODELS 56:D - 480:D AT 45.8%
 REMARK   6 TEMPLATE: 4q9tA 63:A - 497:A MODELS 58:D - 480:D AT 46.1%
 REMARK   6 ALIGNMENT: ../scripts/MODELLER_scripts/Nup133/all_align_final1.ali
+REMARK   6 SCRIPT: ../scripts/MODELLER_scripts/Nup133/all_sjkim_final1.py
 ATOM      1  N   ASP D  56     -17.576  27.559  50.693  1.00 68.10           N
 ATOM      2  CA  ASP D  56     -19.012  27.405  51.016  1.00 68.10           C
 ATOM      3  CB  ASP D  56     -19.299  25.956  51.451  1.00 68.10           C
