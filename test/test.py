@@ -5,6 +5,7 @@ import os
 import sys
 import subprocess
 import glob
+import ihm.reader
 
 TOPDIR = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 
@@ -74,10 +75,54 @@ class Tests(unittest.TestCase):
         p = subprocess.check_call(
                 ["python", "nup84.isd.modeling.withXrayInterface.py",
                  "--mmcif", "--dry-run"])
-        # Check size of output file
-        with open("nup84.cif") as fh:
-            wcl = len(fh.readlines())
-        self.assertTrue(wcl >= 55260)
+        # Check output file
+        self._check_mmcif_file('nup84.cif')
+
+    def _check_mmcif_file(self, fname):
+        with open(fname) as fh:
+            s, = ihm.reader.read(fh)
+        self.assertEqual(len(s.citations), 1)
+        self.assertEqual(len(s.software), 6)
+        self.assertEqual(len(s.orphan_starting_models), 9)
+        # Should be a single states, of two models
+        self.assertEqual(len(s.state_groups), 1)
+        self.assertEqual(len(s.state_groups[0]), 1)
+        self.assertEqual(len(s.state_groups[0][0]), 2)
+        # Check # of spheres and atoms in each model
+        models = [g[0] for g in s.state_groups[0][0]]
+        self.assertEqual([len(m._spheres) for m in models], [4282, 4282])
+        self.assertEqual([len(m._atoms) for m in models], [0, 0])
+
+        # Should be 2 ensembles (clusters)
+        self.assertEqual([e.num_models for e in s.ensembles],
+                         [1257, 1010])
+        # Check localization densities
+        self.assertEqual([len(e.densities) for e in s.ensembles], [7, 7])
+        self.assertEqual([len(e.sequence) for e in s.entities],
+                         [726, 744, 1037, 1157, 712, 349, 297])
+        self.assertEqual([a.details for a in s.asym_units],
+                         ['Nup84', 'Nup85', 'Nup120', 'Nup133', 'Nup145c',
+                          'Seh1', 'Sec13'])
+        # 3 restraints - 2 sets of crosslinks, and one EM2D image
+        xl1, xl2, em2d = s.restraints
+        self.assertEqual(xl1.linker_type, 'DSS')
+        self.assertEqual(len(xl1.experimental_cross_links), 164)
+        self.assertEqual(len(xl1.cross_links), 164)
+        self.assertEqual(xl1.dataset.location.path,
+                         'nup84-v1.0.3/data/yeast_Nup84_DSS.new.dat')
+        self.assertEqual(sum(len(x.fits) for x in xl1.cross_links), 328)
+
+        self.assertEqual(xl2.linker_type, 'EDC')
+        self.assertEqual(len(xl2.experimental_cross_links), 127)
+        self.assertEqual(len(xl2.cross_links), 127)
+
+        self.assertAlmostEqual(em2d.image_resolution, 30.0, places=1)
+        self.assertEqual(em2d.number_raw_micrographs, 800)
+        self.assertEqual(len(em2d.fits), 2)
+        self.assertEqual(em2d.dataset.location.path,
+                         'nup84-v1.0.3/data/nup84_kinked_from_class2.pgm')
+        self.assertEqual(em2d.dataset.parents[0].location.path,
+                         'Nup84complex_particles.spd')
 
     def run_imp_script(self, script_name):
         """Run IMP modeling"""
