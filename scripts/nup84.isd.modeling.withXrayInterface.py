@@ -253,7 +253,7 @@ mc2.execute_macro()
 if '--mmcif' in sys.argv:
     # Dump coordinates of previously-generated cluster representatives
     # Number of structures and dRMSD are from Table S4 in the Nup84 paper.
-    r = ihm.location.Repository(doi="10.5281/zenodo.438727",
+    mrc_r = ihm.location.Repository(doi="10.5281/zenodo.438727",
            url='https://zenodo.org/record/438727/files/nup84_localization.zip')
     pp = po._add_simple_postprocessing(num_models_begin=15000,
                                        num_models_end=2267)
@@ -262,7 +262,7 @@ if '--mmcif' in sys.argv:
                        ('2', 1010, 12.7, '16.0.rmf3')):
         den = {}
         for d in po.all_modeled_components:
-            den[d] = ihm.location.OutputFileLocation(repo=r,
+            den[d] = ihm.location.OutputFileLocation(repo=mrc_r,
                                       path='localization/cluster%s/%s.mrc'
                                            % (cluster, d.lower()),
                                       details="Localization density for %s" % d)
