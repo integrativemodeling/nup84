@@ -5,17 +5,17 @@ import IMP.algebra
 import IMP.atom
 import IMP.container
 
-import IMP.pmi.restraints.crosslinking
-import IMP.pmi.restraints.stereochemistry
-import IMP.pmi.restraints.em
-import IMP.pmi.restraints.em2d
-import IMP.pmi.restraints.basic
-import IMP.pmi.restraints.proteomics
-import IMP.pmi.representation
-import IMP.pmi.tools
-import IMP.pmi.samplers
-import IMP.pmi.output
-import IMP.pmi.macros
+import IMP.pmi1.restraints.crosslinking
+import IMP.pmi1.restraints.stereochemistry
+import IMP.pmi1.restraints.em
+import IMP.pmi1.restraints.em2d
+import IMP.pmi1.restraints.basic
+import IMP.pmi1.restraints.proteomics
+import IMP.pmi1.representation
+import IMP.pmi1.tools
+import IMP.pmi1.samplers
+import IMP.pmi1.output
+import IMP.pmi1.macros
 
 import os
 import sys
@@ -30,8 +30,8 @@ outputobjects = []
 sampleobjects = []
 
 m = IMP.Model()
-#simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=True)
-simo = IMP.pmi.representation.Representation(m,upperharmonic=True,disorderedlength=False)
+#simo = IMP.pmi1.representation.Representation(m,upperharmonic=True,disorderedlength=True)
+simo = IMP.pmi1.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
 exec(open("nup84.topology.py").read())
 
@@ -50,11 +50,11 @@ outputobjects.append(simo)
 sampleobjects.append(simo)
 
 
-ev = IMP.pmi.restraints.stereochemistry.ExcludedVolumeSphere(simo,resolution=10)
+ev = IMP.pmi1.restraints.stereochemistry.ExcludedVolumeSphere(simo,resolution=10)
 ev.add_to_model()
 outputobjects.append(ev)
 
-eb = IMP.pmi.restraints.basic.ExternalBarrier(simo,radius=300)
+eb = IMP.pmi1.restraints.basic.ExternalBarrier(simo,radius=300)
 eb.add_to_model()
 outputobjects.append(eb)
 
@@ -66,10 +66,10 @@ columnmap["Residue2"]=3
 columnmap["IDScore"]=4
 columnmap["XLUniqueID"]=5
 
-ids_map=IMP.pmi.tools.map()
+ids_map=IMP.pmi1.tools.map()
 ids_map.set_map_element(1.0,1.0)
 
-xl1 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
+xl1 = IMP.pmi1.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    '../data/yeast_Nup84_DSS.new.dat',
                                    length=21.0,
                                    slope=0.01,
@@ -85,7 +85,7 @@ psi=xl1.get_psi(1.0)[0]
 psi.set_scale(0.05)
 
 
-xl2 = IMP.pmi.restraints.crosslinking.ISDCrossLinkMS(simo,
+xl2 = IMP.pmi1.restraints.crosslinking.ISDCrossLinkMS(simo,
                                    '../data/EDC_XL_122013.new.dat',
                                    length=16.0,
                                    slope=0.01,
@@ -101,14 +101,14 @@ psi=xl2.get_psi(1.0)[0]
 psi.set_scale(0.05)
 
 print('EVAL 1')
-print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
+print(IMP.pmi1.tools.get_restraint_set(m).evaluate(False))
 simo.optimize_floppy_bodies(100)
 print('EVAL 2')
-print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
+print(IMP.pmi1.tools.get_restraint_set(m).evaluate(False))
 
 nframes=500
 if '--test' in sys.argv: nframes=50
-mc1=IMP.pmi.macros.ReplicaExchange0(m,
+mc1=IMP.pmi1.macros.ReplicaExchange0(m,
                                     simo,
                                     monte_carlo_sample_objects=sampleobjects,
                                     output_objects=outputobjects,
@@ -134,13 +134,13 @@ mc1.execute_macro()
 
 rex1=mc1.get_replica_exchange_object()
 print('EVAL 3')
-print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
+print(IMP.pmi1.tools.get_restraint_set(m).evaluate(False))
 
 
 # 2DEM restraints
 images = ['../data/nup84_kinked_from_class2.pgm']
 
-em2d = IMP.pmi.restraints.em2d.ElectronMicroscopy2D(simo,
+em2d = IMP.pmi1.restraints.em2d.ElectronMicroscopy2D(simo,
                                                     images,
                                                     resolution=1.0,
                                                     pixel_size = 5.91,
@@ -151,11 +151,11 @@ em2d.set_weight(500)
 outputobjects.append(em2d)
 
 print('EVAL 4')
-print(IMP.pmi.tools.get_restraint_set(m).evaluate(False))
+print(IMP.pmi1.tools.get_restraint_set(m).evaluate(False))
 
 nframes=5000
 if '--test' in sys.argv: nframes=10
-mc2=IMP.pmi.macros.ReplicaExchange0(m,
+mc2=IMP.pmi1.macros.ReplicaExchange0(m,
                                     simo,
                                     monte_carlo_sample_objects=sampleobjects,
                                     output_objects=outputobjects,

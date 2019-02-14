@@ -1,11 +1,11 @@
 import IMP
-import IMP.pmi
-import IMP.pmi.macros
+import IMP.pmi1
+import IMP.pmi1.macros
 import sys
 
 model=IMP.Model()
 
-mc=IMP.pmi.macros.AnalysisReplicaExchange0(model,
+mc=IMP.pmi1.macros.AnalysisReplicaExchange0(model,
                   stat_file_name_suffix="stat",
                   #merge_directories=["path/to/run1", "path/to/run2"],
                   global_output_directory="./output.1")

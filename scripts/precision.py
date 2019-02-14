@@ -1,7 +1,7 @@
 import IMP
-import IMP.pmi
-import IMP.pmi.analysis
-import IMP.pmi.output
+import IMP.pmi1
+import IMP.pmi1.analysis
+import IMP.pmi1.output
 import IMP.atom
 import glob
 
@@ -12,7 +12,7 @@ frames=[0]*len(rmfs)
 
 model=IMP.Model()
 
-pr=IMP.pmi.analysis.Precision(model,resolution=10,
+pr=IMP.pmi1.analysis.Precision(model,resolution=10,
                              selection_dictionary=selection_dictionary)
 pr.set_threshold(60.0)
 pr.set_precision_style('pairwise_drmsd_Q')
