@@ -6,6 +6,10 @@ import sys
 import subprocess
 import glob
 import ihm.reader
+try:
+    from ihm import cross_linkers
+except ImportError:
+    cross_linkers = None
 
 TOPDIR = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), '..'))
 
@@ -105,14 +109,20 @@ class Tests(unittest.TestCase):
                           'Seh1', 'Sec13'])
         # 3 restraints - 2 sets of crosslinks, and one EM2D image
         xl1, xl2, em2d = s.restraints
-        self.assertEqual(xl1.linker_type, 'DSS')
+        if cross_linkers is None:
+            self.assertEqual(xl1.linker_type, 'DSS')
+        else:
+            self.assertEqual(xl1.linker, cross_linkers.dss)
         self.assertEqual(len(xl1.experimental_cross_links), 164)
         self.assertEqual(len(xl1.cross_links), 164)
         self.assertEqual(xl1.dataset.location.path,
                          'nup84-v1.0.3/data/yeast_Nup84_DSS.new.dat')
         self.assertEqual(sum(len(x.fits) for x in xl1.cross_links), 328)
 
-        self.assertEqual(xl2.linker_type, 'EDC')
+        if cross_linkers is None:
+            self.assertEqual(xl2.linker_type, 'EDC')
+        else:
+            self.assertEqual(xl2.linker, cross_linkers.edc)
         self.assertEqual(len(xl2.experimental_cross_links), 127)
         self.assertEqual(len(xl2.cross_links), 127)
 
