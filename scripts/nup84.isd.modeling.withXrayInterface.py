@@ -9,6 +9,10 @@ import IMP.container
 import ihm
 import ihm.location
 import ihm.dataset
+try:
+    import ihm.reference
+except ImportError:
+    pass
 import IMP.pmi1.mmcif
 import IMP.pmi1.restraints.crosslinking
 import IMP.pmi1.restraints.stereochemistry
@@ -251,6 +255,18 @@ mc2=IMP.pmi1.macros.ReplicaExchange0(m,
 mc2.execute_macro()
 
 if '--mmcif' in sys.argv:
+    # Link entities to UniProt
+    if hasattr(ihm, 'reference'):
+        for subunit, accession, db_align_begin in (
+                ('Nup84', 'P52891', 1), ('Nup85', 'P46673', 1),
+                ('Nup120', 'P35729', 1), ('Nup133', 'P36161', 1),
+                ('Nup145c', 'P49687', 606), ('Seh1', 'P53011', 1),
+                ('Sec13', 'Q04491', 1)):
+            e = po.asym_units[subunit].entity
+            ref = ihm.reference.UniProtSequence.from_accession(accession)
+            ref.alignments.append(ihm.reference.Alignment(
+                db_begin=db_align_begin))
+            e.references.append(ref)
     # Dump coordinates of previously-generated cluster representatives
     # Number of structures and dRMSD are from Table S4 in the Nup84 paper.
     mrc_r = ihm.location.Repository(doi="10.5281/zenodo.438727",
