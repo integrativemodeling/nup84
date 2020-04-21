@@ -76,9 +76,13 @@ class Tests(unittest.TestCase):
         os.chdir(os.path.join(TOPDIR, 'scripts'))
         if os.path.exists("nup84.cif"):
             os.unlink("nup84.cif")
+        # Potentially override methods that need network access
+        env = os.environ.copy()
+        env['PYTHONPATH'] = os.path.join(TOPDIR, 'test', 'mock') \
+                            + ':' + env.get('PYTHONPATH', '')
         p = subprocess.check_call(
                 ["python", "nup84.isd.modeling.withXrayInterface.py",
-                 "--mmcif", "--dry-run"])
+                 "--mmcif", "--dry-run"], env=env)
         # Check output file
         self._check_mmcif_file('nup84.cif')
 
