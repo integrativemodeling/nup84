@@ -1,5 +1,5 @@
 title: Nup84 Complex
-tags: [chemical crosslinks, EM class average, MODELLER, PMI]
+tags: [chemical crosslinks, EM class average, MODELLER, PMI1]
 pmid: 25161197
 accessions: [PDBDEV_00000001]
 prereqs: [modeller, python/scikit, python/matplotlib, python/biopython]
