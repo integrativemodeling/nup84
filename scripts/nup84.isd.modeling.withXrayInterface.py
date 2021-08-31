@@ -13,6 +13,10 @@ try:
     import ihm.reference
 except ImportError:
     pass
+try:
+    import ihm.citations
+except ImportError:
+    pass
 import IMP.pmi1.mmcif
 import IMP.pmi1.restraints.crosslinking
 import IMP.pmi1.restraints.stereochemistry
@@ -45,23 +49,35 @@ m = IMP.Model()
 simo = IMP.pmi1.representation.Representation(m,upperharmonic=True,disorderedlength=False)
 
 # We used HHpred to detect remote homologs for some input subunits
-simo.add_metadata(ihm.Software(
+s = ihm.Software(
           name='HHpred', classification='protein homology detection',
           description='Protein homology detection by HMM-HMM comparison',
           version='2.0.16',
-          location='https://toolkit.tuebingen.mpg.de/hhpred'))
+          location='https://toolkit.tuebingen.mpg.de/hhpred')
+if hasattr(ihm, 'citations'):
+    s.citation = ihm.citations.hhpred
+simo.add_metadata(s)
+
 # We used PSIPRED to predict secondary structure for subunits
-simo.add_metadata(ihm.Software(
+s = ihm.Software(
           name='PSIPRED', classification='secondary structure prediction',
           description='Protein secondary structure prediction based on '
                       'position-specific scoring matrices',
           version='4.0',
-          location='http://bioinf.cs.ucl.ac.uk/psipred/'))
+          location='http://bioinf.cs.ucl.ac.uk/psipred/')
+if hasattr(ihm, 'citations'):
+    s.citation = ihm.citations.psipred
+simo.add_metadata(s)
+
 # We used DISOPRED to predict (and remove) disordered regions in the subunits
-simo.add_metadata(ihm.Software(
+s = ihm.Software(
           name='DISOPRED', classification='disorder prediction',
           description='prediction of protein disorder', version=3,
-          location='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1'))
+          location='http://bioinf.cs.ucl.ac.uk/psipred/?disopred=1')
+if hasattr(ihm, 'citations'):
+    s.citation = ihm.citations.disopred
+simo.add_metadata(s)
+
 simo.add_metadata(ihm.Citation(
           pmid='25161197',
           title="Structural characterization by cross-linking reveals the "
